@@ -12,44 +12,54 @@
 html{scroll-behavior:smooth}
 body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--tx);display:flex;min-height:100vh;overflow-x:hidden}
 
-/* SIDEBAR */
+/* ── LOADING SCREEN ── */
+#loadScreen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .4s}
+#loadScreen.done{opacity:0;pointer-events:none}
+.load-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--tx)}
+.load-sub{font-size:11.5px;color:var(--txm);font-family:'DM Mono',monospace}
+.load-bar{width:200px;height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.load-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:2px;animation:lf 1.4s ease-in-out infinite}
+@keyframes lf{0%{width:0%;margin-left:0}50%{width:60%;margin-left:20%}100%{width:0%;margin-left:100%}}
+.load-err{color:var(--rose);font-size:12px;text-align:center;max-width:340px;line-height:1.6;display:none}
+
+/* ── SIDEBAR ── */
 .sb{width:var(--sw);background:var(--bg2);border-right:1px solid var(--brd);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;display:flex;flex-direction:column}
 .sb::-webkit-scrollbar{width:3px}.sb::-webkit-scrollbar-thumb{background:var(--brd)}
 .sb-logo{padding:22px 20px;border-bottom:1px solid var(--brd)}
 .sb-org{font-family:'Syne',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--txm);margin-bottom:4px}
 .sb-title{font-family:'Syne',sans-serif;font-size:14.5px;font-weight:700;line-height:1.3;color:var(--tx)}
 .sb-badge{display:inline-block;margin-top:8px;background:rgba(31,111,235,.12);border:1px solid rgba(31,111,235,.35);color:var(--blu2);font-size:9.5px;font-weight:600;letter-spacing:.04em;padding:3px 8px;border-radius:4px;font-family:'DM Mono',monospace}
-
 .cdown{margin:14px;background:linear-gradient(135deg,rgba(244,71,71,.09),rgba(227,179,65,.09));border:1px solid rgba(244,71,71,.2);border-radius:8px;padding:14px}
 .cdown-lbl{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--rose);margin-bottom:5px}
 .cdown-days{font-family:'DM Mono',monospace;font-size:30px;font-weight:500;color:var(--tx);line-height:1}
 .cdown-sub{font-size:9.5px;color:var(--txm);margin-top:3px}
-
 .nav-lbl{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--txm);padding:14px 20px 5px}
-.nav-a{display:flex;align-items:center;gap:9px;padding:9px 20px;color:var(--tx2);text-decoration:none;font-size:12.5px;font-weight:500;transition:all .15s;border-left:2px solid transparent;cursor:pointer}
+.nav-a{display:flex;align-items:center;gap:9px;padding:9px 20px;color:var(--tx2);font-size:12.5px;font-weight:500;transition:all .15s;border-left:2px solid transparent;cursor:pointer}
 .nav-a:hover,.nav-a.act{color:var(--tx);background:rgba(255,255,255,.035);border-left-color:var(--blu2)}
-.nav-a span{font-size:15px}
-
 .sb-foot{padding:14px 16px;border-top:1px solid var(--brd);margin-top:auto}
 .sb-foot p{font-size:9.5px;color:var(--txm);font-family:'DM Mono',monospace;line-height:1.7}
+/* data freshness pill */
+.fresh-pill{margin:0 14px 12px;background:rgba(0,194,170,.07);border:1px solid rgba(0,194,170,.2);border-radius:6px;padding:8px 11px}
+.fp-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:3px}
+.fp-ts{font-family:'DM Mono',monospace;font-size:10px;color:var(--tx2);line-height:1.5}
+.fp-src{font-size:9.5px;color:var(--txm);margin-top:2px;word-break:break-all}
 
-/* MAIN */
+/* ── MAIN ── */
 .main{margin-left:var(--sw);flex:1;overflow-y:auto}
 .main::-webkit-scrollbar{width:5px}.main::-webkit-scrollbar-thumb{background:var(--brd);border-radius:3px}
-
 .topbar{position:sticky;top:0;background:rgba(13,17,23,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--brd);padding:11px 32px;z-index:50;display:flex;align-items:center;justify-content:space-between}
 .tb-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--tx2)}
 .tb-meta{display:flex;gap:24px;font-size:10.5px;color:var(--txm);font-family:'DM Mono',monospace}
 .tb-meta b{color:var(--tx2);font-weight:400}
 
-/* SECTIONS */
+/* ── SECTIONS ── */
 .sec{padding:36px 32px;border-bottom:1px solid var(--brd)}
 .sec:last-child{border-bottom:none}
 .sec-tag{font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blu2);margin-bottom:7px}
 .sec-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--tx);line-height:1.2;margin-bottom:5px}
 .sec-sub{font-size:12px;color:var(--tx2);margin-bottom:24px}
 
-/* KPI */
+/* ── KPI GRIDS ── */
 .kpi4{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:11px}
 .kpi3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:11px}
 .kc{background:var(--bg2);border:1px solid var(--brd);border-radius:10px;padding:18px 20px;transition:border-color .2s}
@@ -60,32 +70,30 @@ body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--tx);displ
 .kc-chip{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:4px;margin-top:5px}
 .chip-up{background:rgba(244,71,71,.12);color:var(--rose)}
 .chip-ok{background:rgba(63,185,80,.12);color:var(--grn)}
-.chip-neu{background:rgba(139,148,158,.12);color:var(--tx2)}
 .chip-warn{background:rgba(227,179,65,.12);color:var(--amb)}
-.kc .kc-val.blue{color:var(--blu2)}.kc .kc-val.teal{color:var(--teal)}.kc .kc-val.amber{color:var(--amb)}.kc .kc-val.rose{color:var(--rose)}.kc .kc-val.green{color:var(--grn)}
+.v-blue{color:var(--blu2)}.v-teal{color:var(--teal)}.v-amber{color:var(--amb)}.v-rose{color:var(--rose)}.v-green{color:var(--grn)}.v-purple{color:var(--pur)}
 
-/* ALERTS */
+/* ── ALERTS ── */
 .alert{border-radius:8px;padding:11px 14px;margin-bottom:16px;font-size:11.5px;line-height:1.6;display:flex;align-items:flex-start;gap:9px}
 .alert-warn{background:rgba(227,179,65,.07);border:1px solid rgba(227,179,65,.22);color:#fcd34d}
-.alert-info{background:rgba(31,111,235,.07);border:1px solid rgba(31,111,235,.22);color:#93c5fd}
 .alert-danger{background:rgba(244,71,71,.07);border:1px solid rgba(244,71,71,.22);color:#fca5a5}
+.alert-info{background:rgba(31,111,235,.07);border:1px solid rgba(31,111,235,.22);color:#93c5fd}
 
-/* CHARTS */
+/* ── CHARTS ── */
 .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
-.chart-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:16px}
 .cc{background:var(--bg2);border:1px solid var(--brd);border-radius:10px;padding:18px 20px}
 .cc-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--tx);margin-bottom:2px}
 .cc-sub{font-size:10.5px;color:var(--txm);margin-bottom:14px}
 
-/* ACTIVITY BARS */
+/* ── ACTIVITY BARS ── */
 .act-bars{display:flex;flex-direction:column;gap:10px}
 .act-row{display:flex;align-items:center;gap:12px}
-.act-lbl{font-size:11px;color:var(--tx2);width:100px;flex-shrink:0;font-family:'DM Mono',monospace}
+.act-lbl{font-size:11px;color:var(--tx2);width:110px;flex-shrink:0}
 .act-track{flex:1;background:var(--bg3);border-radius:3px;height:7px;overflow:hidden}
-.act-fill{height:100%;border-radius:3px;transition:width 1s ease}
+.act-fill{height:100%;border-radius:3px}
 .act-cnt{font-size:11px;font-family:'DM Mono',monospace;color:var(--tx2);width:40px;text-align:right;flex-shrink:0}
 
-/* TABLES */
+/* ── TABLE ── */
 .tbl-wrap{background:var(--bg2);border:1px solid var(--brd);border-radius:10px;overflow:hidden}
 .tbl-bar{padding:14px 18px;border-bottom:1px solid var(--brd);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .tbl-search{background:var(--bg3);border:1px solid var(--brd);border-radius:6px;padding:7px 11px;color:var(--tx);font-size:11.5px;font-family:'Manrope',sans-serif;outline:none;width:180px;transition:border-color .15s}
@@ -93,10 +101,9 @@ body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--tx);displ
 .fbtn{padding:5px 11px;border-radius:6px;border:1px solid var(--brd);background:var(--bg3);color:var(--tx2);font-size:10.5px;font-weight:500;cursor:pointer;transition:all .15s;font-family:'Manrope',sans-serif}
 .fbtn:hover{border-color:var(--blu2);color:var(--blu2)}
 .fbtn.fa{background:var(--blue);border-color:var(--blue);color:#fff}
-.fbtn.fr.fa{background:var(--grn);border-color:var(--grn)}
-.fbtn.fv.fa{background:var(--amb);border-color:var(--amb);color:#000}
-.fbtn.ft.fa{background:var(--rose);border-color:var(--rose)}
-.fbtn.ff.fa{background:var(--txm);border-color:var(--txm)}
+.fbtn.fa.fgrn{background:var(--grn);border-color:var(--grn)}
+.fbtn.fa.famb{background:var(--amb);border-color:var(--amb);color:#000}
+.fbtn.fa.frose{background:var(--rose);border-color:var(--rose)}
 .tbl-cnt{font-size:10.5px;color:var(--txm);margin-left:auto;font-family:'DM Mono',monospace}
 .tbl-scroll{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:11.5px}
@@ -106,9 +113,9 @@ tbody tr{border-bottom:1px solid rgba(48,54,61,.45);transition:background .1s}
 tbody tr:hover{background:rgba(255,255,255,.018)}
 tbody tr.hidden{display:none}
 tbody td{padding:9px 13px;color:var(--tx2);font-family:'DM Mono',monospace;font-size:11px;white-space:nowrap}
-tbody td.nm{font-weight:600;color:var(--tx)}
+td.nm{font-weight:600;color:var(--tx);font-family:'Manrope',sans-serif}
 
-/* BADGES */
+/* ── BADGES ── */
 .bdg{display:inline-flex;align-items:center;padding:2px 7px;border-radius:4px;font-size:9.5px;font-weight:600;font-family:'Manrope',sans-serif;white-space:nowrap}
 .b-renew{background:rgba(63,185,80,.12);color:#3fb950;border:1px solid rgba(63,185,80,.25)}
 .b-review{background:rgba(227,179,65,.12);color:#e3b341;border:1px solid rgba(227,179,65,.25)}
@@ -123,7 +130,7 @@ tbody td.nm{font-weight:600;color:var(--tx)}
 .b-limited{background:rgba(244,71,71,.09);color:#f47a7a;border:1px solid rgba(244,71,71,.2)}
 .b-nosurvey{background:rgba(139,148,158,.09);color:#8b949e;border:1px solid rgba(139,148,158,.2)}
 
-/* PRICING */
+/* ── PRICING CARDS ── */
 .pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:20px}
 .pc{background:var(--bg2);border:1px solid var(--brd);border-radius:10px;padding:16px;transition:border-color .2s}
 .pc:hover{border-color:var(--blu2)}
@@ -134,70 +141,69 @@ tbody td.nm{font-weight:600;color:var(--tx)}
 .pc-delta{font-size:11px;font-weight:600;margin-top:4px}
 .pd-hot{color:var(--rose)}.pd-med{color:var(--amb)}.pd-low{color:var(--tx2)}
 
-/* SURVEY */
+/* ── SURVEY BARS ── */
 .survey-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .sq{background:var(--bg2);border:1px solid var(--brd);border-radius:10px;padding:18px 20px}
 .sq-q{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--txm);margin-bottom:4px}
 .sq-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--tx);margin-bottom:14px}
 .survey-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.sb-lbl{font-size:11px;color:var(--tx2);width:150px;flex-shrink:0;line-height:1.3}
+.sb-lbl{font-size:11px;color:var(--tx2);width:160px;flex-shrink:0;line-height:1.3}
 .sb-track{flex:1;background:var(--bg3);border-radius:3px;height:7px;overflow:hidden}
 .sb-fill{height:100%;border-radius:3px}
 .sb-pct{font-size:10.5px;font-family:'DM Mono',monospace;color:var(--tx2);width:34px;text-align:right;flex-shrink:0}
-.sb-cnt{font-size:10px;color:var(--txm);width:36px;flex-shrink:0}
+.sb-cnt{font-size:10px;color:var(--txm);width:28px;flex-shrink:0}
 
-/* RECOMMENDATIONS */
+/* ── REC COLUMNS ── */
 .rec-cols{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .rc{background:var(--bg2);border:1px solid var(--brd);border-radius:10px;overflow:hidden}
 .rc-head{padding:12px 14px;border-bottom:1px solid var(--brd)}
-.rc-head.rn{border-top:3px solid var(--grn)}.rc-head.rv{border-top:3px solid var(--amb)}.rc-head.rt{border-top:3px solid var(--rose)}.rc-head.rf{border-top:3px solid var(--txm)}.rc-head.rx{border-top:3px solid var(--txm)}
+.rn .rc-head{border-top:3px solid var(--grn)}
+.rv .rc-head{border-top:3px solid var(--amb)}
+.rt .rc-head{border-top:3px solid var(--rose)}
+.rf .rc-head,.rx .rc-head{border-top:3px solid var(--txm)}
 .rc-status{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em}
 .rn .rc-status{color:var(--grn)}.rv .rc-status{color:var(--amb)}.rt .rc-status{color:var(--rose)}.rf .rc-status,.rx .rc-status{color:var(--txm)}
 .rc-count{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;margin-top:2px}
-.rc-users{padding:10px 14px;display:flex;flex-direction:column;gap:5px;max-height:380px;overflow-y:auto}
-.rc-users::-webkit-scrollbar{width:3px}.rc-users::-webkit-scrollbar-thumb{background:var(--brd)}
-.rcu{display:flex;flex-direction:column;gap:1px;border-bottom:1px solid rgba(48,54,61,.35);padding-bottom:5px}
+.rc-body{padding:10px 14px;display:flex;flex-direction:column;gap:5px;max-height:400px;overflow-y:auto}
+.rc-body::-webkit-scrollbar{width:3px}.rc-body::-webkit-scrollbar-thumb{background:var(--brd)}
+.rcu{border-bottom:1px solid rgba(48,54,61,.35);padding-bottom:5px}
 .rcu:last-child{border-bottom:none;padding-bottom:0}
 .rcu-id{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--tx)}
 .rcu-type{font-size:9px;color:var(--txm)}
 
-/* NOTE BOX */
+/* ── AG CARDS ── */
+.ag-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.ag-card{background:var(--bg2);border:1px solid var(--brd);border-radius:10px;padding:16px 18px}
+.ag-rows{margin-top:12px;display:flex;flex-direction:column;gap:7px}
+.ag-row{display:flex;justify-content:space-between;font-size:11px;color:var(--tx2)}
+.ag-row span{font-family:'DM Mono',monospace;color:var(--tx)}
+
+/* ── MISC ── */
 .notebox{background:rgba(31,111,235,.05);border:1px solid rgba(31,111,235,.18);border-radius:8px;padding:12px 15px;font-size:11.5px;color:var(--tx2);line-height:1.65;margin-top:14px}
 .notebox strong{color:var(--blu2)}
 .notebox.warn{background:rgba(227,179,65,.05);border-color:rgba(227,179,65,.18)}
 .notebox.warn strong{color:var(--amb)}
 .notebox.danger{background:rgba(244,71,71,.05);border-color:rgba(244,71,71,.18)}
 .notebox.danger strong{color:var(--rose)}
+.dv-t{display:flex;align-items:center;gap:12px;margin:22px 0;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--txm)}
+.dv-t::before,.dv-t::after{content:'';flex:1;height:1px;background:var(--brd)}
+.flex-g{display:flex;gap:11px;flex-wrap:wrap}
+.mt12{margin-top:12px}.mt16{margin-top:16px}
 
-/* PROGRESS */
-.prog-wrap{background:var(--bg3);border-radius:3px;height:7px;overflow:hidden;margin-top:7px}
-.prog-fill{height:100%;border-radius:3px}
-
-/* AGENCY */
-.ag-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.ag-card{background:var(--bg2);border:1px solid var(--brd);border-radius:10px;padding:16px 18px}
-.ag-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px}
-.ag-rows{margin-top:12px;display:flex;flex-direction:column;gap:7px}
-.ag-row{display:flex;justify-content:space-between;font-size:11px;color:var(--tx2)}
-.ag-row span{font-family:'DM Mono',monospace;color:var(--tx)}
-
-/* AI CHAT */
+/* ── AI CHAT ── */
 .ai-fab{position:fixed;bottom:26px;right:26px;z-index:1000;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#1f6feb,#00c2aa);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(31,111,235,.4);transition:transform .2s,box-shadow .2s}
 .ai-fab:hover{transform:scale(1.06);box-shadow:0 6px 28px rgba(31,111,235,.5)}
 .ai-fab svg{width:23px;height:23px;fill:white}
-.ai-fab .ai-notif{position:absolute;top:-2px;right:-2px;width:12px;height:12px;background:var(--rose);border-radius:50%;border:2px solid var(--bg);animation:pulse 2s infinite}
-
+.ai-notif{position:absolute;top:-2px;right:-2px;width:12px;height:12px;background:var(--rose);border-radius:50%;border:2px solid var(--bg);animation:pulse 2s infinite}
 .ai-panel{position:fixed;bottom:90px;right:26px;z-index:999;width:390px;height:530px;background:var(--bg2);border:1px solid var(--brd);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5);display:flex;flex-direction:column;overflow:hidden;transform:scale(.93) translateY(12px);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.34,1.56,.64,1)}
 .ai-panel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
 .ai-head{background:linear-gradient(135deg,rgba(31,111,235,.18),rgba(0,194,170,.18));border-bottom:1px solid var(--brd);padding:13px 16px;display:flex;align-items:center;gap:10px}
-.ai-ava{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#1f6feb,#00c2aa);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ai-ava svg{width:16px;height:16px;fill:white}
+.ai-ava{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#1f6feb,#00c2aa);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
 .ai-name{font-family:'Syne',sans-serif;font-size:13.5px;font-weight:700;line-height:1.1}
 .ai-stat{font-size:9.5px;color:var(--teal);display:flex;align-items:center;gap:4px}
 .sdot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
 .ai-close{margin-left:auto;background:none;border:none;cursor:pointer;color:var(--txm);font-size:17px;line-height:1;padding:2px 5px;border-radius:4px;transition:color .15s}
 .ai-close:hover{color:var(--tx2)}
-
 .ai-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:11px}
 .ai-msgs::-webkit-scrollbar{width:3px}.ai-msgs::-webkit-scrollbar-thumb{background:var(--brd);border-radius:2px}
 .msg{display:flex;flex-direction:column;gap:3px}
@@ -207,616 +213,242 @@ tbody td.nm{font-weight:600;color:var(--tx)}
 .msg.bot .bubble{background:var(--bg3);color:var(--tx2);border-bottom-left-radius:4px}
 .msg.bot .bubble a{color:var(--blu2);text-decoration:underline;cursor:pointer}
 .msg-time{font-size:9px;color:var(--txm)}
-
-.typing{display:flex;gap:4px;padding:10px 13px;background:var(--bg3);border-radius:12px;border-bottom-left-radius:4px;width:fit-content}
-.tdot{width:6px;height:6px;border-radius:50%;background:var(--txm);animation:tdot 1.4s infinite ease-in-out}
+.typing{display:flex;gap:4px;padding:10px 13px;background:var(--bg3);border-radius:12px;border-bottom-left-radius:4px}
+.tdot{width:6px;height:6px;border-radius:50%;background:var(--txm);animation:tdot 1.4s infinite}
 .tdot:nth-child(2){animation-delay:.2s}.tdot:nth-child(3){animation-delay:.4s}
 @keyframes tdot{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-4px);opacity:1}}
-
 .chips{display:flex;flex-wrap:wrap;gap:5px;padding:0 14px 10px}
 .chip{background:var(--bg3);border:1px solid var(--brd);border-radius:20px;padding:4px 10px;font-size:10.5px;color:var(--tx2);cursor:pointer;transition:all .15s;font-family:'Manrope',sans-serif}
 .chip:hover{border-color:var(--blue);color:var(--blu2)}
-
 .ai-inp-area{border-top:1px solid var(--brd);padding:11px;display:flex;gap:7px;align-items:flex-end}
 .ai-inp{flex:1;background:var(--bg3);border:1px solid var(--brd);border-radius:8px;padding:8px 11px;color:var(--tx);font-size:12px;font-family:'Manrope',sans-serif;outline:none;resize:none;min-height:36px;max-height:80px;transition:border-color .15s;line-height:1.5}
 .ai-inp:focus{border-color:var(--blue)}
-.ai-send{width:34px;height:34px;border-radius:8px;background:var(--blue);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0}
+.ai-send{width:34px;height:34px;border-radius:8px;background:var(--blue);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ai-send:hover{background:var(--blu2)}
 .ai-send:disabled{background:var(--bg3);cursor:not-allowed}
 .ai-send svg{width:15px;height:15px;fill:white}
+/* data freshness badge in chat */
+.data-stamp{font-size:9px;color:var(--txm);text-align:center;padding:4px 10px;font-family:'DM Mono',monospace}
 
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
-
-/* divider */
-.dv{height:1px;background:var(--brd);margin:22px 0}
-.dv-t{display:flex;align-items:center;gap:12px;margin:22px 0;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--txm)}
-.dv-t::before,.dv-t::after{content:'';flex:1;height:1px;background:var(--brd)}
-
-/* misc */
-.mt16{margin-top:16px}.mt12{margin-top:12px}.mt8{margin-top:8px}
-.flex-g{display:flex;gap:11px}
-.tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;font-family:'DM Mono',monospace}
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
-<nav class="sb">
-  <div class="sb-logo">
-    <div class="sb-org">GovTech · SNG</div>
-    <div class="sb-title">Gartner Renewal<br>Intelligence Portal</div>
-    <span class="sb-badge">AUG 2023 – OCT 2025</span>
-  </div>
+<!-- LOADING -->
+<div id="loadScreen">
+  <div class="load-title">Gartner Renewal Portal</div>
+  <div class="load-bar"><div class="load-fill"></div></div>
+  <div class="load-sub" id="loadMsg">Loading contract data…</div>
+  <div class="load-err" id="loadErr"></div>
+</div>
 
+<!-- SIDEBAR -->
+<nav class="sb" id="sidebar" style="display:none">
+  <div class="sb-logo">
+    <div class="sb-org" id="sbOrg">GovTech · SNG</div>
+    <div class="sb-title">Gartner Renewal<br>Intelligence Portal</div>
+    <span class="sb-badge" id="sbPeriod">Loading…</span>
+  </div>
   <div class="cdown">
     <div class="cdown-lbl">⏱ Days to Contract Expiry</div>
     <div class="cdown-days" id="cdDays">—</div>
-    <div class="cdown-sub">Contract expires: July 31, 2026</div>
+    <div class="cdown-sub" id="cdSub">Contract expires: loading…</div>
   </div>
-
   <div class="nav-lbl">Navigation</div>
-  <a class="nav-a act" onclick="scrollTo('s-exec')"><span>📊</span> Executive Summary</a>
-  <a class="nav-a" onclick="scrollTo('s-usage')"><span>📈</span> Usage Analysis</a>
-  <a class="nav-a" onclick="scrollTo('s-users')"><span>👥</span> User Matrix</a>
-  <a class="nav-a" onclick="scrollTo('s-budget')"><span>💰</span> Budget & Pricing</a>
-  <a class="nav-a" onclick="scrollTo('s-survey')"><span>📝</span> Survey Intelligence</a>
-  <a class="nav-a" onclick="scrollTo('s-recs')"><span>🎯</span> Recommendations</a>
-
+  <div class="nav-a act" onclick="navTo('s-exec',this)"><span>📊</span> Executive Summary</div>
+  <div class="nav-a" onclick="navTo('s-usage',this)"><span>📈</span> Usage Analysis</div>
+  <div class="nav-a" onclick="navTo('s-users',this)"><span>👥</span> User Matrix</div>
+  <div class="nav-a" onclick="navTo('s-budget',this)"><span>💰</span> Budget &amp; Pricing</div>
+  <div class="nav-a" onclick="navTo('s-survey',this)"><span>📝</span> Survey Intelligence</div>
+  <div class="nav-a" onclick="navTo('s-recs',this)"><span>🎯</span> Recommendations</div>
+  <div class="fresh-pill">
+    <div class="fp-lbl">📡 Data Source</div>
+    <div class="fp-ts" id="freshTs">—</div>
+    <div class="fp-src" id="freshSrc">—</div>
+  </div>
   <div class="sb-foot">
-    <p>Analysis: Aug 2023 – Oct 2025<br>Survey: 17 active respondents<br>Total users: 39 licensed seats<br>Budget: $3.81M / $3.92M approved</p>
+    <p id="sbFoot">Loading…</p>
   </div>
 </nav>
 
 <!-- MAIN -->
-<main class="main" id="mainScroll">
-
-  <!-- TOPBAR -->
+<main class="main" id="mainContent" style="display:none">
   <div class="topbar">
     <div class="tb-title">Gartner Contract Renewal Analysis</div>
-    <div class="tb-meta">
-      <span><b>Period</b> Aug 2023 – Oct 2025</span>
-      <span><b>Expiry</b> Jul 2026</span>
-      <span><b>Users</b> 39</span>
-      <span><b>Budget</b> $3.81M</span>
-    </div>
+    <div class="tb-meta" id="topMeta"></div>
   </div>
 
-  <!-- ═══ SECTION 1: EXECUTIVE SUMMARY ═══ -->
+  <!-- ═══ EXEC SUMMARY ═══ -->
   <section class="sec" id="s-exec">
     <div class="sec-tag">Section 01</div>
     <div class="sec-title">Executive Summary</div>
-    <div class="sec-sub">26-month contract overview · Aug 2023 – Oct 2025 · Renewal due July 2026</div>
-
-    <div class="alert alert-danger">
-      ⚠️ <span><strong>Renewal Alert:</strong> Contract expires July 2026. New pricing represents a <strong>+26.1% average increase</strong> ($1.34M → $1.68M/yr). EPL-Advisor accounts face the steepest rise at +53.0%. Immediate action required on 20 non-respondent users before renewal decision.</span>
-    </div>
-
-    <!-- Row 1: Contract KPIs -->
-    <div class="kpi4">
-      <div class="kc">
-        <div class="kc-lbl">Licensed Users</div>
-        <div class="kc-val blue">39</div>
-        <div class="kc-sub">17 responded · 20 non-resp · 2 excluded</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Projected Final Spend</div>
-        <div class="kc-val teal">$3.81M</div>
-        <div class="kc-sub">of $3.92M approved budget</div>
-        <div class="kc-chip chip-ok">96.7% utilised</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">New Contract Price Rise</div>
-        <div class="kc-val rose">+26.1%</div>
-        <div class="kc-sub">Avg. across 8 account types</div>
-        <div class="kc-chip chip-up">$1.34M → $1.68M/yr</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Contract Expiry</div>
-        <div class="kc-val amber">Jul 2026</div>
-        <div class="kc-sub">Renewal preparation underway</div>
-        <div class="kc-chip chip-warn" id="cdChip">Loading…</div>
-      </div>
-    </div>
-
-    <!-- Row 2: Usage KPIs -->
-    <div class="kpi4">
-      <div class="kc">
-        <div class="kc-lbl">Total Interactions</div>
-        <div class="kc-val">8,022</div>
-        <div class="kc-sub">26-month cumulative</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Report Downloads</div>
-        <div class="kc-val blue">7,569</div>
-        <div class="kc-sub">94.4% of all interactions</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Analyst Calls</div>
-        <div class="kc-val teal">396</div>
-        <div class="kc-sub">4.9% · avg 15/month</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Cost per Interaction</div>
-        <div class="kc-val amber">$475</div>
-        <div class="kc-sub">Based on $3.81M total spend</div>
-      </div>
-    </div>
-
-    <!-- Row 3: Survey KPIs -->
-    <div class="kpi4">
-      <div class="kc">
-        <div class="kc-lbl">High Usefulness (Q3)</div>
-        <div class="kc-val green">47%</div>
-        <div class="kc-sub">Essential or frequently valuable — 8 of 17</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Substantial Value (VEV)</div>
-        <div class="kc-val teal">53%</div>
-        <div class="kc-sub">9 of 17 active respondents</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Value Exceeds Cost (Q14)</div>
-        <div class="kc-val blue">59%</div>
-        <div class="kc-sub">Self-assessed — 10 of 17</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Exit Intention (Q15)</div>
-        <div class="kc-val rose">18%</div>
-        <div class="kc-sub">Do not need Gartner — 3 of 17</div>
-        <div class="kc-chip chip-up">Terminate recommended</div>
-      </div>
-    </div>
-
-    <!-- Key Findings -->
+    <div class="sec-sub" id="execSub">Loading…</div>
+    <div class="alert alert-danger" id="execAlert"></div>
+    <div class="kpi4" id="kpi1"></div>
+    <div class="kpi4" id="kpi2"></div>
+    <div class="kpi4" id="kpi3"></div>
     <div class="dv-t">Key Findings at a Glance</div>
-    <div class="kpi4">
-      <div class="kc">
-        <div class="kc-lbl">Extreme Outlier (&gt;1,000 acts)</div>
-        <div class="kc-val" style="color:var(--pur);font-size:24px">1 user</div>
-        <div class="kc-sub">User9 (CISO) — 2,050 activities, 78.8/month</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">High Activity (600–999)</div>
-        <div class="kc-val blue" style="font-size:24px">3 users</div>
-        <div class="kc-sub">User5 (697) · User11 (648) · User12 (762)</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Low Activity (&lt;100 acts)</div>
-        <div class="kc-val amber" style="font-size:24px">25 users</div>
-        <div class="kc-sub">64% of all licensed users</div>
-        <div class="kc-chip chip-warn">Renewal risk</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Continue Gartner (Q15)</div>
-        <div class="kc-val green" style="font-size:24px">59%</div>
-        <div class="kc-sub">10 of 17 prefer to maintain service</div>
-      </div>
-    </div>
-
-    <div class="notebox warn">
-      <strong>⚠ Licensing Rule Reminder:</strong> EPL-Leader seats require 3 extended member slots (EPL-Advisor or CIO). Currently only 4 of 6 slots are filled. GTP-SMB is sold in lots of 25 — seat reductions are only cost-effective if headcount drops below 25. Any EPL-Leader termination must account for all 3 attached seats.
-    </div>
+    <div class="kpi4" id="kpi4"></div>
+    <div class="notebox warn" id="licenseNote"></div>
   </section>
 
-  <!-- ═══ SECTION 2: USAGE ANALYSIS ═══ -->
+  <!-- ═══ USAGE ═══ -->
   <section class="sec" id="s-usage">
     <div class="sec-tag">Section 02</div>
     <div class="sec-title">Usage Analysis</div>
-    <div class="sec-sub">Activity patterns across all 39 users · Aug 2023 – Oct 2025 (26 months)</div>
-
+    <div class="sec-sub" id="usageSub">Loading…</div>
     <div class="chart-grid">
-      <!-- Activity level breakdown -->
-      <div class="cc">
-        <div class="cc-title">User Activity Distribution</div>
-        <div class="cc-sub">Classification by total interactions over 26 months</div>
-        <canvas id="chartActivity" height="220"></canvas>
-      </div>
-      <!-- Interaction types -->
-      <div class="cc">
-        <div class="cc-title">Interactions by Type</div>
-        <div class="cc-sub">Total across all 39 users, 26-month period</div>
-        <canvas id="chartInteractions" height="220"></canvas>
-      </div>
+      <div class="cc"><div class="cc-title">User Activity Distribution</div><div class="cc-sub">Classification by total interactions over the analysis period</div><canvas id="chartActivity" height="220"></canvas></div>
+      <div class="cc"><div class="cc-title">Interactions by Type</div><div class="cc-sub">Downloads vs analyst calls vs conferences</div><canvas id="chartInteractions" height="220"></canvas></div>
     </div>
-
     <div class="chart-grid mt16">
-      <!-- Top users -->
+      <div class="cc"><div class="cc-title">Top 10 Users by Total Activity</div><div class="cc-sub">Stacked: downloads + analyst calls + conferences</div><canvas id="chartTopUsers" height="240"></canvas></div>
       <div class="cc">
-        <div class="cc-title">Top 10 Users by Total Activity</div>
-        <div class="cc-sub">Document downloads + analyst calls + conferences</div>
-        <canvas id="chartTopUsers" height="240"></canvas>
-      </div>
-      <!-- Agency breakdown -->
-      <div class="cc">
-        <div class="cc-title">Activity by Agency & Account Type</div>
-        <div class="cc-sub">GT (37 users) vs SNG (2 users)</div>
-        <div class="ag-grid" style="margin-bottom:12px">
-          <div class="ag-card">
-            <div class="ag-title" style="color:var(--blu2)">GT</div>
-            <div style="font-size:10px;color:var(--txm)">37 users · GovTech</div>
-            <div class="ag-rows">
-              <div class="ag-row">Downloads <span>7,078</span></div>
-              <div class="ag-row">Analyst Calls <span>371</span></div>
-              <div class="ag-row">Conferences <span>61</span></div>
-              <div class="ag-row">Total Activities <span>7,510</span></div>
-              <div class="ag-row">Activity Share <span>93.5%</span></div>
-              <div class="ag-row">Monthly Avg <span>288.8</span></div>
-            </div>
-          </div>
-          <div class="ag-card">
-            <div class="ag-title" style="color:var(--teal)">SNG</div>
-            <div style="font-size:10px;color:var(--txm)">2 users · Singapore</div>
-            <div class="ag-rows">
-              <div class="ag-row">Downloads <span>491</span></div>
-              <div class="ag-row">Analyst Calls <span>25</span></div>
-              <div class="ag-row">Conferences <span>2</span></div>
-              <div class="ag-row">Total Activities <span>518</span></div>
-              <div class="ag-row">Activity Share <span>6.5%</span></div>
-              <div class="ag-row">Monthly Avg <span>19.9</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="cc-title" style="margin-top:8px">Activity Level Breakdown</div>
-        <div class="act-bars mt8">
-          <div class="act-row"><div class="act-lbl">Extreme Outlier</div><div class="act-track"><div class="act-fill" style="width:2.6%;background:var(--pur)"></div></div><div class="act-cnt">1</div></div>
-          <div class="act-row"><div class="act-lbl">High</div><div class="act-track"><div class="act-fill" style="width:7.7%;background:var(--blu2)"></div></div><div class="act-cnt">3</div></div>
-          <div class="act-row"><div class="act-lbl">Active</div><div class="act-track"><div class="act-fill" style="width:25.6%;background:var(--teal)"></div></div><div class="act-cnt">10</div></div>
-          <div class="act-row"><div class="act-lbl">Low</div><div class="act-track"><div class="act-fill" style="width:64.1%;background:var(--amb)"></div></div><div class="act-cnt">25</div></div>
-        </div>
+        <div class="cc-title">Activity by Agency</div>
+        <div class="cc-sub">Breakdown by organisation</div>
+        <div class="ag-grid" id="agencyCards"></div>
+        <div class="cc-title mt12">Activity Level Breakdown</div>
+        <div class="act-bars mt12" id="actLevelBars"></div>
       </div>
     </div>
-
-    <div class="notebox mt16">
-      <strong>Activity Level Definitions:</strong> Extreme Outlier &gt;1,000 acts (38+/month) · High 600–999 (23–38/month) · Active 100–599 (4–23/month) · Low &lt;100 (&lt;4/month — sporadic engagement, renewal risk). Monthly average across all users: <strong>309 interactions</strong>.
-    </div>
+    <div class="notebox mt16" id="usageNote"></div>
   </section>
 
-  <!-- ═══ SECTION 3: USER MATRIX ═══ -->
+  <!-- ═══ USER MATRIX ═══ -->
   <section class="sec" id="s-users">
     <div class="sec-tag">Section 03</div>
     <div class="sec-title">Individual User Analysis</div>
-    <div class="sec-sub">Full recommendation matrix — 39 licensed users across 8 account types</div>
-
+    <div class="sec-sub">Full recommendation matrix — all licensed users</div>
     <div class="tbl-wrap">
       <div class="tbl-bar">
-        <input class="tbl-search" id="userSearch" placeholder="🔍 Search user, type…" oninput="filterTable()">
-        <button class="fbtn" onclick="filterAll()">All</button>
-        <button class="fbtn fr" onclick="filterStatus('renew')">✓ Renew</button>
-        <button class="fbtn fv" onclick="filterStatus('review')">~ Review</button>
-        <button class="fbtn ft" onclick="filterStatus('terminate')">✗ Terminate</button>
-        <button class="fbtn ff" onclick="filterStatus('followup')">? Follow-up</button>
-        <button class="fbtn" onclick="filterStatus('excluded')">— Excluded</button>
-        <span class="tbl-cnt" id="rowCount">39 users</span>
+        <input class="tbl-search" id="userSearch" placeholder="🔍 Search user, account type…" oninput="filterTable()">
+        <button class="fbtn" onclick="filterAll(this)">All</button>
+        <button class="fbtn" onclick="filterStatus('renew',this)">✓ Renew</button>
+        <button class="fbtn" onclick="filterStatus('review',this)">~ Review</button>
+        <button class="fbtn" onclick="filterStatus('terminate',this)">✗ Terminate</button>
+        <button class="fbtn" onclick="filterStatus('followup',this)">? Follow-up</button>
+        <button class="fbtn" onclick="filterStatus('excluded',this)">— Excluded</button>
+        <span class="tbl-cnt" id="rowCount">0 users</span>
       </div>
       <div class="tbl-scroll">
         <table id="userTable">
-          <thead>
-            <tr>
-              <th onclick="sortTable(0)">User ID ↕</th>
-              <th onclick="sortTable(1)">Agency</th>
-              <th onclick="sortTable(2)">Account Type ↕</th>
-              <th onclick="sortTable(3)">Downloads ↕</th>
-              <th>Calls</th>
-              <th onclick="sortTable(5)">Total ↕</th>
-              <th>Avg/Mo</th>
-              <th onclick="sortTable(7)">Activity ↕</th>
-              <th>Survey</th>
-              <th>Value</th>
-              <th onclick="sortTable(10)">Status ↕</th>
-              <th style="min-width:180px">Recommendation</th>
-              <th>Curr Cost/Yr</th>
-              <th>New Cost/Yr</th>
-            </tr>
-          </thead>
+          <thead><tr>
+            <th onclick="sortTable(0)">User ID ↕</th>
+            <th onclick="sortTable(1)">Agency</th>
+            <th onclick="sortTable(2)">Account Type ↕</th>
+            <th onclick="sortTable(3)">Downloads ↕</th>
+            <th>Calls</th>
+            <th onclick="sortTable(5)">Total ↕</th>
+            <th>Avg/Mo</th>
+            <th onclick="sortTable(7)">Activity ↕</th>
+            <th>Survey</th>
+            <th>Value</th>
+            <th onclick="sortTable(10)">Status ↕</th>
+            <th style="min-width:180px">Recommendation</th>
+            <th>Curr/Yr</th>
+            <th>New/Yr</th>
+          </tr></thead>
           <tbody id="userTbody"></tbody>
         </table>
       </div>
     </div>
   </section>
 
-  <!-- ═══ SECTION 4: BUDGET & PRICING ═══ -->
+  <!-- ═══ BUDGET ═══ -->
   <section class="sec" id="s-budget">
     <div class="sec-tag">Section 04</div>
     <div class="sec-title">Budget &amp; Pricing Impact</div>
-    <div class="sec-sub">Current vs new contract pricing · Renewal scenarios · Licensing rules</div>
-
-    <div class="alert alert-danger">
-      ⚠️ <span><strong>Total annual cost increase: +$348,041/yr (+26.1%)</strong> across all 39 users. EPL-Advisor accounts see the largest relative increase (+53.0%). Full new contract value: <strong>$1,689,816/yr</strong> vs current $1,340,753/yr.</span>
-    </div>
-
-    <div class="pricing-grid">
-      <div class="pc"><div class="pc-type">EPL-Leader</div><div class="pc-users">2 users</div><div class="pc-old">$175,933/user/yr</div><div class="pc-new">$229,133</div><div class="pc-delta pd-hot">+30.2% · +$53,200/user</div></div>
-      <div class="pc"><div class="pc-type">EPL-Advisor</div><div class="pc-users">3 users</div><div class="pc-old">$68,700/user/yr</div><div class="pc-new">$105,100</div><div class="pc-delta pd-hot">+53.0% · +$36,400/user ← Highest</div></div>
-      <div class="pc"><div class="pc-type">CIO Self-directed</div><div class="pc-users">1 user</div><div class="pc-old">$128,750/user/yr</div><div class="pc-new">$149,133</div><div class="pc-delta pd-med">+15.8% · +$20,383/user</div></div>
-      <div class="pc"><div class="pc-type">CDAO</div><div class="pc-users">2 users</div><div class="pc-old">$100,500/user/yr</div><div class="pc-new">$117,000</div><div class="pc-delta pd-med">+16.4% · +$16,500/user</div></div>
-      <div class="pc"><div class="pc-type">CISO</div><div class="pc-users">1 user</div><div class="pc-old">$100,500/user/yr</div><div class="pc-new">$117,000</div><div class="pc-delta pd-med">+16.4% · +$16,500/user</div></div>
-      <div class="pc"><div class="pc-type">GITL-Advisor</div><div class="pc-users">3 users</div><div class="pc-old">$61,733/user/yr</div><div class="pc-new">$72,033</div><div class="pc-delta pd-med">+16.7% · +$10,300/user</div></div>
-      <div class="pc"><div class="pc-type">GITL-Reference</div><div class="pc-users">1 user</div><div class="pc-old">$34,667/user/yr</div><div class="pc-new">$41,000</div><div class="pc-delta pd-low">+18.3% · +$6,333/user</div></div>
-      <div class="pc"><div class="pc-type">GTP-SMB</div><div class="pc-users">25 users · lot of 25</div><div class="pc-old">$5,103/user/yr</div><div class="pc-new">$6,116</div><div class="pc-delta pd-low">+19.9% · +$1,013/user</div></div>
-    </div>
-
+    <div class="sec-sub" id="budgetSub">Loading…</div>
+    <div class="alert alert-danger" id="budgetAlert"></div>
+    <div class="pricing-grid" id="pricingCards"></div>
     <div class="chart-grid">
+      <div class="cc"><div class="cc-title">Price Increase by Account Type (%)</div><div class="cc-sub">Sorted highest to lowest</div><canvas id="chartPricing" height="220"></canvas></div>
       <div class="cc">
-        <div class="cc-title">Price Increase by Account Type (%)</div>
-        <div class="cc-sub">Percentage increase from current to new contract</div>
-        <canvas id="chartPricing" height="220"></canvas>
-      </div>
-      <div class="cc">
-        <div class="cc-title">Renewal Status & Budget Impact</div>
-        <div class="cc-sub">Confirmed decisions vs TBD follow-ups</div>
-        <canvas id="chartRenewal" height="220"></canvas>
-        <div class="ag-rows mt12">
-          <div class="ag-row" style="font-size:11px"><span style="color:var(--grn)">■</span> Renew confirmed (10 users) <span style="font-family:'DM Mono',monospace">$624,028 committed</span></div>
-          <div class="ag-row" style="font-size:11px"><span style="color:var(--amb)">■</span> Review / right-size (2 users) <span style="font-family:'DM Mono',monospace">TBD</span></div>
-          <div class="ag-row" style="font-size:11px"><span style="color:var(--rose)">■</span> Terminate (5 users) <span style="font-family:'DM Mono',monospace">$300,713 savings</span></div>
-          <div class="ag-row" style="font-size:11px"><span style="color:var(--txm)">■</span> Follow-up required (20 users) <span style="font-family:'DM Mono',monospace">TBD</span></div>
-          <div class="ag-row" style="font-size:11px"><span style="color:var(--txm)">■</span> Excluded (2 users) <span style="font-family:'DM Mono',monospace">$235,249 remove</span></div>
-        </div>
+        <div class="cc-title">Renewal Status Distribution</div>
+        <div class="cc-sub">Decision breakdown across all users</div>
+        <canvas id="chartRenewal" height="180"></canvas>
+        <div class="ag-rows mt12" id="renewalLegend"></div>
       </div>
     </div>
-
-    <div class="dv-t">New Account Types Available</div>
-    <div class="kpi3">
-      <div class="kc">
-        <div class="kc-lbl">CISO – Member (NEW)</div>
-        <div class="kc-val teal" style="font-size:22px">$77,233<span style="font-size:13px">/yr</span></div>
-        <div class="kc-sub">Mid-tier between GTP-SMB and full CISO. Suitable for GTP-SMB users needing MQ access (e.g. User27, User30, User32)</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Infrastructure &amp; Operations (I&amp;Op) NEW</div>
-        <div class="kc-val blue" style="font-size:22px">$117,000<span style="font-size:13px">/yr</span></div>
-        <div class="kc-sub">New specialised tier for Infrastructure &amp; Operations professionals. Evaluate for users with I&amp;O-focused work scope</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">GTP-SMB Lot Rule</div>
-        <div class="kc-val amber" style="font-size:22px">25 seats</div>
-        <div class="kc-sub">Minimum purchase unit = 1 lot. Reductions only cost-effective if headcount drops below 25. Currently at exactly 25 seats (1 lot) ✓</div>
-      </div>
-    </div>
-
-    <div class="notebox danger">
-      <strong>⚠ Critical Negotiation Point:</strong> EPL-Advisor price increase of +53.0% is the most significant. The 2 unused extended member slots (4 of 6 filled) represent a structural gap — this should be raised as a negotiation lever. If User2 (EPL-Leader) is removed, all 3 attached extended member seats must also be addressed.
-    </div>
+    <div class="dv-t">New Account Types Available in New Contract</div>
+    <div class="kpi3" id="newTiersGrid"></div>
+    <div class="notebox danger" id="budgetNote"></div>
   </section>
 
-  <!-- ═══ SECTION 5: SURVEY INTELLIGENCE ═══ -->
+  <!-- ═══ SURVEY ═══ -->
   <section class="sec" id="s-survey">
     <div class="sec-tag">Section 05</div>
     <div class="sec-title">Survey Intelligence</div>
-    <div class="sec-sub">Cross-validation framework results · 17 active respondents of 39 total users</div>
-
-    <div class="alert alert-info">
-      ℹ️ <span>Survey population: <strong>17 active respondents</strong> (surveyed + excluded 2). 20 users did not respond and are assessed on activity data only. Survey uses a cross-validation framework: Q3 Usefulness + Q4/Q5 Impact Areas + Q6–Q12 Value + Q14 Value vs Cost + Q15 Future Plans.</span>
-    </div>
-
+    <div class="sec-sub" id="surveySub">Loading…</div>
+    <div class="alert alert-info" id="surveyAlert"></div>
     <div class="survey-grid">
-      <!-- Q3 Usefulness -->
       <div class="sq">
         <div class="sq-q">Q3 — Usefulness Assessment</div>
         <div class="sq-title">How useful is Gartner to your work?</div>
-        <div class="survey-bar"><div class="sb-lbl">Essential (75–100%)</div><div class="sb-track"><div class="sb-fill" style="width:12%;background:var(--grn)"></div></div><div class="sb-pct">12%</div><div class="sb-cnt">2</div></div>
-        <div class="survey-bar"><div class="sb-lbl">Frequently valuable (51–75%)</div><div class="sb-track"><div class="sb-fill" style="width:35%;background:var(--teal)"></div></div><div class="sb-pct">35%</div><div class="sb-cnt">6</div></div>
-        <div class="survey-bar"><div class="sb-lbl">Occasionally helpful (26–50%)</div><div class="sb-track"><div class="sb-fill" style="width:24%;background:var(--amb)"></div></div><div class="sb-pct">24%</div><div class="sb-cnt">4</div></div>
-        <div class="survey-bar"><div class="sb-lbl">Rarely valuable (1–25%)</div><div class="sb-track"><div class="sb-fill" style="width:24%;background:var(--rose)"></div></div><div class="sb-pct">24%</div><div class="sb-cnt">4</div></div>
-        <div class="survey-bar"><div class="sb-lbl">No impact (0%)</div><div class="sb-track"><div class="sb-fill" style="width:6%;background:var(--txm)"></div></div><div class="sb-pct">6%</div><div class="sb-cnt">1</div></div>
-        <div class="notebox mt12"><strong>High Usefulness (Essential + Frequently):</strong> 8 of 17 = 47%</div>
+        <div id="q3Bars"></div>
+        <div class="notebox mt12" id="q3Note"></div>
       </div>
-
-      <!-- Q4 Impact Areas -->
       <div class="sq">
         <div class="sq-q">Q4+Q5 — Business Impact Areas</div>
         <div class="sq-title">Which areas does Gartner directly impact?</div>
-        <div class="survey-bar"><div class="sb-lbl">Strategic planning</div><div class="sb-track"><div class="sb-fill" style="width:71%;background:var(--blu2)"></div></div><div class="sb-pct">71%</div><div class="sb-cnt">12</div></div>
-        <div class="survey-bar"><div class="sb-lbl">Risk mitigation</div><div class="sb-track"><div class="sb-fill" style="width:71%;background:var(--blu2)"></div></div><div class="sb-pct">71%</div><div class="sb-cnt">12</div></div>
-        <div class="survey-bar"><div class="sb-lbl">Innovation roadmap</div><div class="sb-track"><div class="sb-fill" style="width:41%;background:var(--teal)"></div></div><div class="sb-pct">41%</div><div class="sb-cnt">7</div></div>
-        <div class="survey-bar"><div class="sb-lbl">Others (specified Q5)</div><div class="sb-track"><div class="sb-fill" style="width:29%;background:var(--amb)"></div></div><div class="sb-pct">29%</div><div class="sb-cnt">5</div></div>
-        <div class="survey-bar"><div class="sb-lbl">Vendor selection</div><div class="sb-track"><div class="sb-fill" style="width:29%;background:var(--amb)"></div></div><div class="sb-pct">29%</div><div class="sb-cnt">5</div></div>
-        <div class="survey-bar"><div class="sb-lbl">Competitive intelligence</div><div class="sb-track"><div class="sb-fill" style="width:24%;background:var(--txm)"></div></div><div class="sb-pct">24%</div><div class="sb-cnt">4</div></div>
-        <div class="survey-bar"><div class="sb-lbl">Budget decisions</div><div class="sb-track"><div class="sb-fill" style="width:18%;background:var(--txm)"></div></div><div class="sb-pct">18%</div><div class="sb-cnt">3</div></div>
-        <div class="survey-bar"><div class="sb-lbl">Compliance / regulatory</div><div class="sb-track"><div class="sb-fill" style="width:12%;background:var(--txm)"></div></div><div class="sb-pct">12%</div><div class="sb-cnt">2</div></div>
-        <div class="notebox mt12"><strong>Broad Applications (2+ areas):</strong> 12 of 17 = 71% — strong indicator of diverse utility</div>
+        <div id="q4Bars"></div>
+        <div class="notebox mt12" id="q4Note"></div>
       </div>
-
-      <!-- Q14 Value vs Cost -->
       <div class="sq">
-        <div class="sq-q">Q14 — Self-Assessed Value vs Cost</div>
+        <div class="sq-q">Q14 — Value vs Cost</div>
         <div class="sq-title">Does Gartner's value exceed its cost?</div>
         <canvas id="chartQ14" height="180"></canvas>
-        <div class="flex-g mt12">
-          <div><div class="bdg b-substantial">Value Exceeds Cost</div><div style="font-size:11px;color:var(--tx2);margin-top:4px">10 of 17 (59%)</div></div>
-          <div><div class="bdg b-limited">Value Less Than Cost</div><div style="font-size:11px;color:var(--tx2);margin-top:4px">7 of 17 (41%)</div></div>
-        </div>
+        <div class="flex-g mt12" id="q14Legend"></div>
       </div>
-
-      <!-- Q15 Future Plans -->
       <div class="sq">
         <div class="sq-q">Q15 — Future Plans</div>
         <div class="sq-title">What should happen with your Gartner account?</div>
         <canvas id="chartQ15" height="180"></canvas>
-        <div class="flex-g mt12" style="flex-wrap:wrap">
-          <div><div class="bdg b-renew">Continue (59%)</div><div style="font-size:11px;color:var(--tx2);margin-top:4px">10 of 17</div></div>
-          <div><div class="bdg b-review">Change Tier (24%)</div><div style="font-size:11px;color:var(--tx2);margin-top:4px">4 of 17</div></div>
-          <div><div class="bdg b-terminate">Do Not Need (18%)</div><div style="font-size:11px;color:var(--tx2);margin-top:4px">3 of 17</div></div>
-        </div>
+        <div class="flex-g mt12" id="q15Legend"></div>
       </div>
     </div>
-
-    <!-- VEV Framework -->
     <div class="dv-t">Value Extraction Validation (VEV) Framework</div>
-    <div class="kpi4">
-      <div class="kc">
-        <div class="kc-lbl">Substantial Value (VEV)</div>
-        <div class="kc-val green">53%</div>
-        <div class="kc-sub">9 of 17 respondents — ALL 3 criteria met: Q6 decisions + Q8/10/12 impact + Q14 exceeds</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Limited Value</div>
-        <div class="kc-val rose">47%</div>
-        <div class="kc-sub">8 of 17 — one or more VEV criteria failed</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Decision Impact (Q6)</div>
-        <div class="kc-val blue">Diverse</div>
-        <div class="kc-sub">WOG · Agency · Division · Project level decisions influenced</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">Most Valued Products</div>
-        <div class="kc-val teal" style="font-size:16px">Research &amp; MQ</div>
-        <div class="kc-sub">Research reports &amp; Magic Quadrant most cited. Analyst sessions also highly valued</div>
-      </div>
-    </div>
-
-    <div class="notebox">
-      <strong>Key Survey Insight from Q16 / Q17:</strong> Multiple users flag the <strong>single-user download restriction</strong> as a barrier. User10 notes AI tools (ChatGPT, Claude, Gemini) as Gartner's biggest competitor. User27/User32 cannot access Magic Quadrant in their current tier — a key friction point. User33 requests multi-user licensing and publication dates in filenames. User5 notes difficulty justifying $149k cost given availability constraints.
-    </div>
+    <div class="kpi4" id="vevKpis"></div>
+    <div class="notebox" id="surveyNote"></div>
   </section>
 
-  <!-- ═══ SECTION 6: RECOMMENDATIONS ═══ -->
+  <!-- ═══ RECOMMENDATIONS ═══ -->
   <section class="sec" id="s-recs">
     <div class="sec-tag">Section 06</div>
     <div class="sec-title">Recommendations Matrix</div>
-    <div class="sec-sub">Action summary across all 39 users — status as of analysis date</div>
-
-    <div class="rec-cols">
-      <!-- RENEW -->
-      <div class="rc">
-        <div class="rc-head rn">
-          <div class="rc-status">✓ Renew</div>
-          <div class="rc-count" style="color:var(--grn)">10</div>
-        </div>
-        <div class="rc-users">
-          <div class="rcu"><div class="rcu-id">User4</div><div class="rcu-type">EPL-Advisor · Engagement coaching</div></div>
-          <div class="rcu"><div class="rcu-id">User5</div><div class="rcu-type">CIO · Usage optimisation training</div></div>
-          <div class="rcu"><div class="rcu-id">User9</div><div class="rcu-type">CISO · Maintain current tier ⭐</div></div>
-          <div class="rcu"><div class="rcu-id">User11</div><div class="rcu-type">GITL-Advisor · Maintain tier</div></div>
-          <div class="rcu"><div class="rcu-id">User12</div><div class="rcu-type">GITL-Advisor · Maintain tier</div></div>
-          <div class="rcu"><div class="rcu-id">User14</div><div class="rcu-type">GTP-SMB · Engagement coaching</div></div>
-          <div class="rcu"><div class="rcu-id">User18</div><div class="rcu-type">GTP-SMB · Investigate barriers</div></div>
-          <div class="rcu"><div class="rcu-id">User26</div><div class="rcu-type">GTP-SMB · Investigate barriers</div></div>
-          <div class="rcu"><div class="rcu-id">User29</div><div class="rcu-type">GTP-SMB · Engagement coaching</div></div>
-          <div class="rcu"><div class="rcu-id">User33</div><div class="rcu-type">GTP-SMB · Engagement coaching</div></div>
-        </div>
-      </div>
-      <!-- REVIEW -->
-      <div class="rc">
-        <div class="rc-head rv">
-          <div class="rc-status">~ Review</div>
-          <div class="rc-count" style="color:var(--amb)">2</div>
-        </div>
-        <div class="rc-users">
-          <div class="rcu"><div class="rcu-id">User10</div><div class="rcu-type">GITL-Advisor · Right-size tier</div></div>
-          <div class="rcu"><div class="rcu-id">User32</div><div class="rcu-type">GTP-SMB · Right-size tier (needs MQ)</div></div>
-        </div>
-        <div style="padding:10px 14px">
-          <div class="notebox warn" style="font-size:10.5px"><strong>Note:</strong> Both users have substantial value but need tier adjustment. User10 wants data-specific tier; User32 needs MQ access unavailable in GTP-SMB.</div>
-        </div>
-      </div>
-      <!-- TERMINATE -->
-      <div class="rc">
-        <div class="rc-head rt">
-          <div class="rc-status">✗ Terminate</div>
-          <div class="rc-count" style="color:var(--rose)">5</div>
-        </div>
-        <div class="rc-users">
-          <div class="rcu"><div class="rcu-id">User13</div><div class="rcu-type">GITL-Reference · Do not need Gartner</div></div>
-          <div class="rcu"><div class="rcu-id">User19</div><div class="rcu-type">GTP-SMB · No impact / technical role</div></div>
-          <div class="rcu"><div class="rcu-id">User27</div><div class="rcu-type">GTP-SMB · Significant downgrade</div></div>
-          <div class="rcu"><div class="rcu-id">User30</div><div class="rcu-type">GTP-SMB · Significant downgrade</div></div>
-          <div class="rcu"><div class="rcu-id">User31</div><div class="rcu-type">GTP-SMB · Do not need Gartner</div></div>
-        </div>
-        <div style="padding:10px 14px">
-          <div class="notebox danger" style="font-size:10.5px"><strong>Est. savings:</strong> $300,713/yr at new pricing if all 5 terminated. GTP-SMB lot must stay ≥25 seats to avoid lot removal.</div>
-        </div>
-      </div>
-      <!-- FOLLOW-UP -->
-      <div class="rc">
-        <div class="rc-head rf">
-          <div class="rc-status">? Follow-up</div>
-          <div class="rc-count" style="color:var(--tx2)">20</div>
-        </div>
-        <div class="rc-users">
-          <div class="rcu"><div class="rcu-id">User1</div><div class="rcu-type">EPL-Leader · Active (114) — priority</div></div>
-          <div class="rcu"><div class="rcu-id">User3</div><div class="rcu-type">EPL-Advisor · Low (89)</div></div>
-          <div class="rcu"><div class="rcu-id">User6</div><div class="rcu-type">EPL-Advisor · Active (262)</div></div>
-          <div class="rcu"><div class="rcu-id">User7</div><div class="rcu-type">CDAO · Active (413)</div></div>
-          <div class="rcu"><div class="rcu-id">User8</div><div class="rcu-type">CDAO · Active (256)</div></div>
-          <div class="rcu"><div class="rcu-id">User15–17</div><div class="rcu-type">GTP-SMB · Low usage</div></div>
-          <div class="rcu"><div class="rcu-id">User20–22</div><div class="rcu-type">GTP-SMB · Mixed</div></div>
-          <div class="rcu"><div class="rcu-id">User24–25</div><div class="rcu-type">GTP-SMB · Low</div></div>
-          <div class="rcu"><div class="rcu-id">User28</div><div class="rcu-type">GTP-SMB · Low</div></div>
-          <div class="rcu"><div class="rcu-id">User34</div><div class="rcu-type">GTP-SMB · Active (290) — priority</div></div>
-          <div class="rcu"><div class="rcu-id">User35–39</div><div class="rcu-type">GTP-SMB · Low usage</div></div>
-        </div>
-      </div>
-      <!-- EXCLUDED -->
-      <div class="rc">
-        <div class="rc-head rx">
-          <div class="rc-status">— Excluded</div>
-          <div class="rc-count" style="color:var(--txm)">2</div>
-        </div>
-        <div class="rc-users">
-          <div class="rcu"><div class="rcu-id">User2</div><div class="rcu-type">EPL-Leader · Left organisation</div></div>
-          <div class="rcu"><div class="rcu-id">User23</div><div class="rcu-type">GTP-SMB · Not using Gartner</div></div>
-        </div>
-        <div style="padding:10px 14px">
-          <div class="notebox" style="font-size:10.5px"><strong>Note:</strong> Removing User2 (EPL-Leader) requires addressing all 3 attached extended member seats. Combined removal = $235,249/yr savings.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Priority Actions -->
-    <div class="dv-t">Priority Action Items Before July 2026</div>
-    <div class="kpi3">
-      <div class="kc">
-        <div class="kc-lbl">🔴 Immediate — High-Value Non-Respondents</div>
-        <div class="kc-val blue" style="font-size:20px">User1, User7, User34</div>
-        <div class="kc-sub">EPL-Leader + 2 CDAO-level accounts with active usage. Priority interviews required before renewal decision. High cost exposure if wrong call.</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">🟡 Short-term — Mini-Survey Required</div>
-        <div class="kc-val amber" style="font-size:20px">14 GTP-SMB</div>
-        <div class="kc-sub">14 GTP-SMB low-usage non-respondents should receive a targeted mini-survey. Default recommendation: termination unless usage justified. GTP-SMB lot threshold critical.</div>
-      </div>
-      <div class="kc">
-        <div class="kc-lbl">🟢 Negotiation Lever</div>
-        <div class="kc-val green" style="font-size:20px">EPL-Advisor</div>
-        <div class="kc-sub">+53% price increase is hardest to justify. Challenge Gartner on this. The 2 unused extended member slots are a contractual gap — use as leverage to negotiate tier-level pricing or restructure.</div>
-      </div>
-    </div>
+    <div class="sec-sub" id="recsSub">Action summary across all users — status as of analysis date</div>
+    <div class="rec-cols" id="recCols"></div>
+    <div class="dv-t">Priority Action Items Before Renewal</div>
+    <div class="kpi3" id="priorityKpis"></div>
   </section>
-
 </main>
 
-<!-- AI CHAT BUTTON -->
-<button class="ai-fab" onclick="toggleChat()" id="aiFab">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z"/></svg>
+<!-- AI FAB -->
+<button class="ai-fab" onclick="toggleChat()" id="aiFab" style="display:none">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
   <div class="ai-notif"></div>
 </button>
 
-<!-- AI CHAT PANEL -->
+<!-- AI PANEL -->
 <div class="ai-panel" id="aiPanel">
   <div class="ai-head">
-    <div class="ai-ava">
-      <svg viewBox="0 0 24 24"><path d="M21 10.12h-6.78l2.74-2.82c-2.73-2.7-7.15-2.8-9.88-.1-2.73 2.71-2.73 7.08 0 9.79s7.15 2.71 9.88 0C18.32 15.65 19 14.08 19 12.1h2c0 1.98-.88 4.55-2.64 6.29-3.51 3.48-9.21 3.48-12.72 0-3.5-3.47-3.53-9.11-.02-12.58 3.51-3.47 9.14-3.47 12.65 0L21 3v7.12zM12.5 8v4.25l3.5 2.08-.72 1.21L11 13V8h1.5z"/></svg>
-    </div>
+    <div class="ai-ava">🤖</div>
     <div>
       <div class="ai-name">Renewal Insight Bot</div>
-      <div class="ai-stat"><span class="sdot"></span>Active · Gartner data loaded</div>
+      <div class="ai-stat"><span class="sdot"></span><span id="aiDataStamp">Loading data…</span></div>
     </div>
     <button class="ai-close" onclick="toggleChat()">✕</button>
   </div>
-
   <div class="ai-msgs" id="aiMsgs"></div>
-
   <div class="chips" id="aiChips">
     <span class="chip" onclick="sendChip(this)">What's the total price increase?</span>
     <span class="chip" onclick="sendChip(this)">Who should be terminated?</span>
     <span class="chip" onclick="sendChip(this)">Which accounts need follow-up?</span>
-    <span class="chip" onclick="sendChip(this)">What is the EPL-Advisor increase?</span>
-    <span class="chip" onclick="sendChip(this)">Summarise survey results</span>
     <span class="chip" onclick="sendChip(this)">Top 3 negotiation points</span>
+    <span class="chip" onclick="sendChip(this)">Summarise survey findings</span>
+    <span class="chip" onclick="sendChip(this)">Who are the heaviest users?</span>
   </div>
-
   <div class="ai-inp-area">
     <textarea class="ai-inp" id="aiInput" placeholder="Ask about users, budget, survey insights…" rows="1" onkeydown="handleKey(event)"></textarea>
     <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">
@@ -826,385 +458,661 @@ tbody td.nm{font-weight:600;color:var(--tx)}
 </div>
 
 <script>
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// DATA
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const USERS=[
-{id:'User1',ag:'GT',type:'EPL-Leader',docs:92,calls:16,conf:6,total:114,avg:4.4,lvl:'Active',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Active Usage: Follow-up Required',sc:'followup',cur:175933,nw:229133},
-{id:'User2',ag:'GT',type:'EPL-Leader',docs:60,calls:39,conf:2,total:101,avg:3.9,lvl:'Active',survey:'Excluded',val:'Excluded',rec:'Excluded',sc:'excluded',cur:175933,nw:229133},
-{id:'User3',ag:'GT',type:'EPL-Advisor',docs:65,calls:24,conf:0,total:89,avg:3.4,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:68700,nw:105100},
-{id:'User4',ag:'GT',type:'EPL-Advisor',docs:125,calls:16,conf:2,total:143,avg:5.5,lvl:'Active',survey:'Responded',val:'Substantial',rec:'Maintain with engagement coaching',sc:'renew',cur:68700,nw:105100},
-{id:'User5',ag:'GT',type:'CIO',docs:655,calls:40,conf:2,total:697,avg:26.8,lvl:'High',survey:'Responded',val:'Limited',rec:'Usage optimisation training',sc:'renew',cur:128750,nw:149133},
-{id:'User6',ag:'SNG',type:'EPL-Advisor',docs:245,calls:17,conf:0,total:262,avg:10.1,lvl:'Active',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Active Usage: Follow-up Required',sc:'followup',cur:68700,nw:105100},
-{id:'User7',ag:'GT',type:'CDAO',docs:379,calls:27,conf:7,total:413,avg:15.9,lvl:'Active',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Active Usage: Follow-up Required',sc:'followup',cur:100500,nw:117000},
-{id:'User8',ag:'SNG',type:'CDAO',docs:246,calls:8,conf:2,total:256,avg:9.8,lvl:'Active',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Active Usage: Follow-up Required',sc:'followup',cur:100500,nw:117000},
-{id:'User9',ag:'GT',type:'CISO',docs:1984,calls:52,conf:14,total:2050,avg:78.8,lvl:'Extreme Outlier',survey:'Responded',val:'Substantial',rec:'Maintain current tier',sc:'renew',cur:100500,nw:117000},
-{id:'User10',ag:'GT',type:'GITL-Advisor',docs:84,calls:52,conf:0,total:136,avg:5.2,lvl:'Active',survey:'Responded',val:'Substantial',rec:'Right-size tier',sc:'review',cur:61733,nw:72033},
-{id:'User11',ag:'GT',type:'GITL-Advisor',docs:636,calls:11,conf:1,total:648,avg:24.9,lvl:'High',survey:'Responded',val:'Substantial',rec:'Maintain current tier',sc:'renew',cur:61733,nw:72033},
-{id:'User12',ag:'GT',type:'GITL-Advisor',docs:741,calls:19,conf:2,total:762,avg:29.3,lvl:'High',survey:'Responded',val:'Substantial',rec:'Maintain current tier',sc:'renew',cur:61733,nw:72033},
-{id:'User13',ag:'GT',type:'GITL-Reference',docs:193,calls:0,conf:0,total:193,avg:7.4,lvl:'Active',survey:'Responded',val:'Limited',rec:'Contract termination',sc:'terminate',cur:34667,nw:41000},
-{id:'User14',ag:'GT',type:'GTP-SMB',docs:127,calls:11,conf:1,total:139,avg:5.3,lvl:'Active',survey:'Responded',val:'Substantial',rec:'Maintain with engagement coaching',sc:'renew',cur:5103,nw:6116},
-{id:'User15',ag:'GT',type:'GTP-SMB',docs:50,calls:0,conf:0,total:50,avg:1.9,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:5103,nw:6116},
-{id:'User16',ag:'GT',type:'GTP-SMB',docs:4,calls:3,conf:1,total:8,avg:0.3,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:5103,nw:6116},
-{id:'User17',ag:'GT',type:'GTP-SMB',docs:22,calls:6,conf:0,total:28,avg:1.1,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:5103,nw:6116},
-{id:'User18',ag:'GT',type:'GTP-SMB',docs:55,calls:4,conf:0,total:59,avg:2.3,lvl:'Low',survey:'Responded',val:'Limited',rec:'Investigate barriers',sc:'renew',cur:5103,nw:6116},
-{id:'User19',ag:'GT',type:'GTP-SMB',docs:36,calls:0,conf:0,total:36,avg:1.4,lvl:'Low',survey:'Responded',val:'Limited',rec:'Contract termination',sc:'terminate',cur:5103,nw:6116},
-{id:'User20',ag:'GT',type:'GTP-SMB',docs:17,calls:3,conf:0,total:20,avg:0.8,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:5103,nw:6116},
-{id:'User21',ag:'GT',type:'GTP-SMB',docs:65,calls:4,conf:3,total:72,avg:2.8,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:5103,nw:6116},
-{id:'User22',ag:'GT',type:'GTP-SMB',docs:118,calls:0,conf:0,total:118,avg:4.5,lvl:'Active',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Active Usage: Follow-up Required',sc:'followup',cur:5103,nw:6116},
-{id:'User23',ag:'GT',type:'GTP-SMB',docs:52,calls:0,conf:0,total:52,avg:2.0,lvl:'Low',survey:'Excluded',val:'Excluded',rec:'Excluded',sc:'excluded',cur:5103,nw:6116},
-{id:'User24',ag:'GT',type:'GTP-SMB',docs:33,calls:0,conf:0,total:33,avg:1.3,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:5103,nw:6116},
-{id:'User25',ag:'GT',type:'GTP-SMB',docs:45,calls:0,conf:0,total:45,avg:1.7,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:5103,nw:6116},
-{id:'User26',ag:'GT',type:'GTP-SMB',docs:174,calls:2,conf:2,total:174,avg:6.7,lvl:'Active',survey:'Responded',val:'Limited',rec:'Investigate barriers',sc:'renew',cur:5103,nw:6116},
-{id:'User27',ag:'GT',type:'GTP-SMB',docs:77,calls:1,conf:3,total:81,avg:3.1,lvl:'Low',survey:'Responded',val:'Limited',rec:'Significant downgrade',sc:'terminate',cur:5103,nw:6116},
-{id:'User28',ag:'GT',type:'GTP-SMB',docs:28,calls:6,conf:0,total:34,avg:1.3,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:5103,nw:6116},
-{id:'User29',ag:'GT',type:'GTP-SMB',docs:64,calls:1,conf:0,total:65,avg:2.5,lvl:'Low',survey:'Responded',val:'Substantial',rec:'Maintain with engagement coaching',sc:'renew',cur:5103,nw:6116},
-{id:'User30',ag:'GT',type:'GTP-SMB',docs:185,calls:8,conf:1,total:194,avg:7.5,lvl:'Active',survey:'Responded',val:'Limited',rec:'Significant downgrade',sc:'terminate',cur:5103,nw:6116},
-{id:'User31',ag:'GT',type:'GTP-SMB',docs:212,calls:0,conf:2,total:214,avg:8.2,lvl:'Active',survey:'Responded',val:'Limited',rec:'Contract termination',sc:'terminate',cur:5103,nw:6116},
-{id:'User32',ag:'GT',type:'GTP-SMB',docs:45,calls:13,conf:0,total:58,avg:2.2,lvl:'Low',survey:'Responded',val:'Substantial',rec:'Right-size tier',sc:'review',cur:5103,nw:6116},
-{id:'User33',ag:'GT',type:'GTP-SMB',docs:196,calls:6,conf:7,total:209,avg:8.0,lvl:'Active',survey:'Responded',val:'Substantial',rec:'Maintain with engagement coaching',sc:'renew',cur:5103,nw:6116},
-{id:'User34',ag:'GT',type:'GTP-SMB',docs:289,calls:0,conf:1,total:290,avg:11.2,lvl:'Active',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Active Usage: Follow-up Required',sc:'followup',cur:5103,nw:6116},
-{id:'User35',ag:'GT',type:'GTP-SMB',docs:83,calls:7,conf:2,total:92,avg:3.5,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:5103,nw:6116},
-{id:'User36',ag:'GT',type:'GTP-SMB',docs:45,calls:0,conf:0,total:45,avg:1.7,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:5103,nw:6116},
-{id:'User37',ag:'GT',type:'GTP-SMB',docs:7,calls:0,conf:0,total:7,avg:0.3,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:5103,nw:6116},
-{id:'User38',ag:'GT',type:'GTP-SMB',docs:16,calls:0,conf:1,total:17,avg:0.7,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:5103,nw:6116},
-{id:'User39',ag:'GT',type:'GTP-SMB',docs:19,calls:0,conf:1,total:20,avg:0.8,lvl:'Low',survey:'Non-Respondent',val:'No Survey',rec:'No Survey – Low Usage: Consider Termination',sc:'followup',cur:5103,nw:6116},
-];
+// ══════════════════════════════════════════════════════════
+// GLOBALS
+// ══════════════════════════════════════════════════════════
+let D = null; // the full data object from gartner_data.json
+let activeFilter = 'all';
+let sortDir = {};
+let chartInstances = {};
+let chatOpen = false;
+let chatHistory = [];
+let isLoading = false;
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// COUNTDOWN
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function updateCountdown(){
-  const exp=new Date('2026-07-31');
-  const now=new Date();
-  const days=Math.ceil((exp-now)/(1000*60*60*24));
-  document.getElementById('cdDays').textContent=days;
-  document.getElementById('cdChip').textContent=days+' days remaining';
-}
-updateCountdown();
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// SIDEBAR NAV
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function scrollTo(id){
-  document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
-  document.querySelectorAll('.nav-a').forEach(a=>a.classList.remove('act'));
-  event.currentTarget.classList.add('act');
+// ══════════════════════════════════════════════════════════
+// BOOT — fetch JSON, then render everything
+// ══════════════════════════════════════════════════════════
+async function boot() {
+  setLoadMsg('Fetching contract data…');
+  try {
+    // Cache-bust so we always get the freshest version
+    const res = await fetch('/data/gartner_data.json?v=' + Date.now());
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    D = await res.json();
+    setLoadMsg('Rendering portal…');
+    await new Promise(r => setTimeout(r, 200)); // let browser breathe
+    renderAll();
+    document.getElementById('loadScreen').classList.add('done');
+    document.getElementById('sidebar').style.display = 'flex';
+    document.getElementById('mainContent').style.display = 'block';
+    document.getElementById('aiFab').style.display = 'flex';
+  } catch (e) {
+    showLoadErr(e.message);
+  }
 }
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// USER TABLE
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function lvlBadge(l){
-  const m={Extreme:['b-extreme','Extreme Outlier'],'Extreme Outlier':['b-extreme','Extreme Outlier'],High:['b-high','High'],Active:['b-active','Active'],Low:['b-low','Low']};
-  const k=Object.keys(m).find(k=>l&&l.includes(k))||'Low';
-  return`<span class="bdg ${m[k][0]}">${m[k][1]}</span>`;
+function setLoadMsg(m) { document.getElementById('loadMsg').textContent = m; }
+function showLoadErr(msg) {
+  const el = document.getElementById('loadErr');
+  el.style.display = 'block';
+  el.innerHTML = `<strong>Failed to load data</strong><br>${msg}<br><br>
+    Make sure <code>data/gartner_data.json</code> exists.<br>
+    Run: <code>python scripts/excel_to_json.py</code>`;
+  document.getElementById('loadMsg').style.display = 'none';
+  document.querySelector('.load-bar').style.display = 'none';
 }
-function valBadge(v){
-  if(v==='Substantial')return`<span class="bdg b-substantial">Substantial</span>`;
-  if(v==='Limited')return`<span class="bdg b-limited">Limited</span>`;
-  return`<span class="bdg b-nosurvey">No Survey</span>`;
+
+// ══════════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════════
+const fmt  = n => '$' + Math.round(n).toLocaleString();
+const fmtN = n => Math.round(n).toLocaleString();
+const pct  = n => (Math.round(n * 10) / 10) + '%';
+
+function kc(label, value, sub, chipText, chipClass, valClass) {
+  return `<div class="kc">
+    <div class="kc-lbl">${label}</div>
+    <div class="kc-val ${valClass||''}">${value}</div>
+    ${sub ? `<div class="kc-sub">${sub}</div>` : ''}
+    ${chipText ? `<div class="kc-chip ${chipClass||''}">${chipText}</div>` : ''}
+  </div>`;
 }
-function scBadge(s,r){
-  if(s==='renew')return`<span class="bdg b-renew">✓ Renew</span>`;
-  if(s==='review')return`<span class="bdg b-review">~ Review</span>`;
-  if(s==='terminate')return`<span class="bdg b-terminate">✗ Terminate</span>`;
-  if(s==='excluded')return`<span class="bdg b-excluded">— Excluded</span>`;
-  return`<span class="bdg b-followup">? Follow-up</span>`;
+
+function actBadge(lvl) {
+  const m = {
+    'Extreme Outlier': 'b-extreme', 'High': 'b-high',
+    'Active': 'b-active', 'Low': 'b-low'
+  };
+  return `<span class="bdg ${m[lvl]||'b-low'}">${lvl}</span>`;
 }
-function fmt(n){return'$'+n.toLocaleString();}
-function buildTable(){
-  const tb=document.getElementById('userTbody');
-  tb.innerHTML=USERS.map(u=>`<tr data-sc="${u.sc}" data-type="${u.type}" data-id="${u.id}">
-    <td class="nm">${u.id}</td>
-    <td>${u.ag}</td>
-    <td>${u.type}</td>
-    <td>${u.docs.toLocaleString()}</td>
-    <td>${u.calls}</td>
-    <td style="color:var(--tx);font-weight:600">${u.total.toLocaleString()}</td>
-    <td>${u.avg}</td>
-    <td>${lvlBadge(u.lvl)}</td>
-    <td>${u.survey==='Responded'?'<span style="color:var(--grn)">✓</span>':u.survey==='Excluded'?'<span style="color:var(--txm)">—</span>':'<span style="color:var(--rose)">✗</span>'} ${u.survey}</td>
-    <td>${valBadge(u.val)}</td>
-    <td>${scBadge(u.sc)}</td>
-    <td style="font-size:10.5px;color:var(--tx2);white-space:normal;max-width:200px">${u.rec}</td>
-    <td>${fmt(u.cur)}</td>
-    <td style="color:var(--amb)">${fmt(u.nw)}</td>
-  </tr>`).join('');
-  updateCount();
+function valBadge(v) {
+  if (v === 'Substantial') return `<span class="bdg b-substantial">Substantial</span>`;
+  if (v === 'Limited')     return `<span class="bdg b-limited">Limited</span>`;
+  return `<span class="bdg b-nosurvey">No Survey</span>`;
 }
-let activeFilter='all';
-function filterStatus(sc){
-  activeFilter=sc;
-  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('fa'));
-  event.currentTarget.classList.add('fa');
+function statusBadge(s) {
+  const m = {renew:'b-renew ✓ Renew', review:'b-review ~ Review',
+    terminate:'b-terminate ✗ Terminate', followup:'b-followup ? Follow-up',
+    excluded:'b-excluded — Excluded'};
+  const [cls,...lbl] = m[s]?.split(' ') || ['b-followup','?','Unknown'];
+  return `<span class="bdg ${cls}">${lbl.join(' ')}</span>`;
+}
+
+function surveyBar(label, count, total, color) {
+  const p = Math.round(count / total * 100);
+  return `<div class="survey-bar">
+    <div class="sb-lbl">${label}</div>
+    <div class="sb-track"><div class="sb-fill" style="width:${p}%;background:${color}"></div></div>
+    <div class="sb-pct">${p}%</div>
+    <div class="sb-cnt">${count}</div>
+  </div>`;
+}
+
+function destroyChart(id) {
+  if (chartInstances[id]) { chartInstances[id].destroy(); delete chartInstances[id]; }
+}
+
+// ══════════════════════════════════════════════════════════
+// RENDER ALL
+// ══════════════════════════════════════════════════════════
+function renderAll() {
+  const { _meta, contract, usage, survey, pricing, statusCounts, agencies, users } = D;
+
+  renderMeta(_meta, contract);
+  renderExecSummary(contract, usage, survey);
+  renderUsage(usage, agencies, users);
+  renderUserTable(users);
+  renderBudget(contract, pricing, statusCounts, users);
+  renderSurvey(survey, contract);
+  renderRecommendations(users, statusCounts, contract);
+  updateCountdown(_meta.contractExpiry);
+}
+
+// ── META / SIDEBAR ────────────────────────────────────────
+function renderMeta(meta, contract) {
+  document.getElementById('sbOrg').textContent = meta.organization;
+  document.getElementById('sbPeriod').textContent = meta.analysisPeriod;
+  document.getElementById('sbFoot').innerHTML =
+    `Analysis: ${meta.analysisPeriod}<br>Survey: ${contract.responded} active respondents<br>` +
+    `Total users: ${contract.totalLicensedUsers} licensed seats<br>` +
+    `Budget: ${fmt(contract.projectedFinalSpend)} / ${fmt(contract.totalBudgetApproved)} approved`;
+
+  const ts = new Date(meta.generatedAt);
+  document.getElementById('freshTs').textContent = 'Updated: ' + ts.toLocaleString();
+  document.getElementById('freshSrc').textContent = '📂 ' + meta.generatedFrom;
+  document.getElementById('aiDataStamp').textContent =
+    'Data: ' + ts.toLocaleDateString() + ' · ' + meta.analysisPeriod;
+
+  document.getElementById('topMeta').innerHTML =
+    `<span><b>Period</b> ${meta.analysisPeriod}</span>
+     <span><b>Expiry</b> ${meta.contractExpiry.slice(0,7)}</span>
+     <span><b>Users</b> ${contract.totalLicensedUsers}</span>
+     <span><b>Budget</b> ${fmt(contract.projectedFinalSpend)}</span>`;
+
+  document.getElementById('execSub').textContent =
+    `${meta.analysisPeriodMonths}-month contract overview · ${meta.analysisPeriod} · Renewal due ${meta.contractExpiry}`;
+}
+
+function updateCountdown(expiry) {
+  const days = Math.ceil((new Date(expiry) - new Date()) / 86400000);
+  document.getElementById('cdDays').textContent = days;
+  document.getElementById('cdSub').textContent = 'Contract expires: ' + expiry;
+}
+
+// ── EXEC SUMMARY ──────────────────────────────────────────
+function renderExecSummary(c, u, sv) {
+  document.getElementById('execAlert').innerHTML =
+    `⚠️ <span><strong>Renewal Alert:</strong> Contract expires ${c.totalBudgetApproved ? '' : ''}July 2026. ` +
+    `New pricing represents a <strong>+${c.avgPriceIncreasePct}% average increase</strong> ` +
+    `(${fmt(c.currentAnnualCost)} → ${fmt(c.newAnnualCost)}/yr). ` +
+    `Immediate action required on ${c.nonRespondents} non-respondent users before renewal decision.</span>`;
+
+  document.getElementById('kpi1').innerHTML =
+    kc('Licensed Users', c.totalLicensedUsers, `${c.responded} responded · ${c.nonRespondents} non-resp · ${c.excluded} excluded`, null, null, 'v-blue') +
+    kc('Projected Final Spend', fmt(c.projectedFinalSpend), `of ${fmt(c.totalBudgetApproved)} approved budget`, `${c.budgetUtilisationPct}% utilised`, 'chip-ok', 'v-teal') +
+    kc('New Contract Price Rise', '+' + c.avgPriceIncreasePct + '%', 'Avg. across all account types', `${fmt(c.currentAnnualCost)} → ${fmt(c.newAnnualCost)}/yr`, 'chip-up', 'v-rose') +
+    kc('Contract Expiry', 'Jul 2026', 'Renewal preparation underway', `${Math.ceil((new Date('2026-07-31')-new Date())/86400000)} days remaining`, 'chip-warn', 'v-amber');
+
+  document.getElementById('kpi2').innerHTML =
+    kc('Total Interactions', fmtN(u.totalInteractions), `${u.monthlyAvgAllUsers}-month cumulative`) +
+    kc('Report Downloads', fmtN(u.totalDownloads), `${u.downloadsPct}% of all interactions`, null, null, 'v-blue') +
+    kc('Analyst Calls', fmtN(u.totalAnalystCalls), `${u.callsPct}% · avg ${Math.round(u.totalAnalystCalls/26)}/month`, null, null, 'v-teal') +
+    kc('Cost per Interaction', fmt(u.costPerInteraction), `Based on ${fmt(c.projectedFinalSpend)} total spend`, null, null, 'v-amber');
+
+  document.getElementById('kpi3').innerHTML =
+    kc('High Usefulness (Q3)', sv.highUsefulnessPct + '%', `Essential or frequently valuable — ${Math.round(sv.highUsefulnessPct/100*sv.totalRespondents)} of ${sv.totalRespondents}`, null, null, 'v-green') +
+    kc('Substantial Value (VEV)', sv.substantialValuePct + '%', `${sv.substantialValueCount} of ${sv.totalRespondents} active respondents`, null, null, 'v-teal') +
+    kc('Value Exceeds Cost (Q14)', sv.valueExceedsCostPct + '%', `Self-assessed — ${sv.valueExceedsCostCount} of ${sv.totalRespondents}`, null, null, 'v-blue') +
+    kc('Exit Intention (Q15)', sv.exitIntentionPct + '%', `Do not need Gartner — ${sv.exitIntentionCount} of ${sv.totalRespondents}`, 'Terminate recommended', 'chip-up', 'v-rose');
+
+  const lc = u.activityLevelCounts;
+  const topUser = [...D.users].sort((a,b)=>b.totalActivities-a.totalActivities)[0];
+  document.getElementById('kpi4').innerHTML =
+    kc('Extreme Outlier (&gt;1,000)', `${lc.extremeOutlier} user${lc.extremeOutlier!==1?'s':''}`,
+      topUser ? `${topUser.id} (${topUser.accountType}) — ${fmtN(topUser.totalActivities)} acts, ${topUser.monthlyAvg}/month` : '', null, null, 'v-purple') +
+    kc(`High Activity (600–999)`, `${lc.high} user${lc.high!==1?'s':''}`,
+      D.users.filter(u=>u.activityLevel==='High').map(u=>`${u.id} (${u.totalActivities})`).join(' · '), null, null, 'v-blue') +
+    kc('Low Activity (&lt;100 acts)', `${lc.low} users`,
+      `${Math.round(lc.low/D.contract.totalLicensedUsers*100)}% of all licensed users`, 'Renewal risk', 'chip-warn', 'v-amber') +
+    kc('Continue Gartner (Q15)', sv.continueGartnerPct + '%',
+      `${sv.continueGartnerCount} of ${sv.totalRespondents} prefer to maintain service`, null, null, 'v-green');
+
+  document.getElementById('licenseNote').innerHTML =
+    `<strong>⚠ Licensing Rule Reminder:</strong> EPL-Leader seats require 3 extended member slots (EPL-Advisor or CIO). ` +
+    `Currently only 4 of 6 slots are filled. GTP-SMB is sold in lots of 25 — seat reductions are only cost-effective ` +
+    `if headcount drops below 25. Any EPL-Leader termination must account for all 3 attached seats.`;
+}
+
+// ── USAGE ─────────────────────────────────────────────────
+function renderUsage(u, agencies, users) {
+  document.getElementById('usageSub').textContent =
+    `Activity patterns across all ${D.contract.totalLicensedUsers} users · ${D._meta.analysisPeriod} (${D._meta.analysisPeriodMonths} months)`;
+
+  Chart.defaults.color = '#8b949e';
+  Chart.defaults.borderColor = 'rgba(48,54,61,0.6)';
+  Chart.defaults.font.family = "'Manrope', sans-serif";
+
+  // Activity doughnut
+  destroyChart('chartActivity');
+  const lc = u.activityLevelCounts;
+  chartInstances.chartActivity = new Chart(document.getElementById('chartActivity'), {
+    type: 'doughnut',
+    data: {
+      labels: [`Extreme Outlier (${lc.extremeOutlier})`, `High (${lc.high})`, `Active (${lc.active})`, `Low (${lc.low})`],
+      datasets: [{ data: [lc.extremeOutlier, lc.high, lc.active, lc.low],
+        backgroundColor: ['rgba(188,140,255,.8)','rgba(56,139,253,.8)','rgba(0,194,170,.8)','rgba(227,179,65,.8)'],
+        borderWidth: 0, hoverOffset: 6 }]
+    },
+    options: { animation:{duration:900}, cutout:'65%',
+      plugins: { legend:{labels:{color:'#8b949e',font:{size:11}}},
+        title:{display:true,text:`${D.contract.totalLicensedUsers} Total Licensed Users`,color:'#8b949e',font:{size:11}} }}
+  });
+
+  // Interactions bar
+  destroyChart('chartInteractions');
+  chartInstances.chartInteractions = new Chart(document.getElementById('chartInteractions'), {
+    type: 'bar',
+    data: {
+      labels: ['Downloads','Analyst Calls','Conferences'],
+      datasets: [{ label: 'Interactions',
+        data: [u.totalDownloads, u.totalAnalystCalls, u.totalConferences],
+        backgroundColor: ['rgba(56,139,253,.75)','rgba(0,194,170,.75)','rgba(227,179,65,.75)'],
+        borderRadius: 5, borderSkipped: false }]
+    },
+    options: { animation:{duration:900},
+      scales:{y:{grid:{color:'rgba(48,54,61,.4)'},ticks:{color:'#8b949e'}},x:{grid:{display:false},ticks:{color:'#8b949e'}}},
+      plugins:{legend:{display:false}} }
+  });
+
+  // Top 10 users
+  const top10 = [...users].filter(u=>u.id!=='User2').sort((a,b)=>b.totalActivities-a.totalActivities).slice(0,10);
+  destroyChart('chartTopUsers');
+  chartInstances.chartTopUsers = new Chart(document.getElementById('chartTopUsers'), {
+    type: 'bar',
+    data: {
+      labels: top10.map(u=>u.id),
+      datasets: [
+        { label:'Downloads', data:top10.map(u=>u.downloads), backgroundColor:'rgba(56,139,253,.75)', borderRadius:3, stack:'s' },
+        { label:'Calls',     data:top10.map(u=>u.analystCalls), backgroundColor:'rgba(0,194,170,.75)', borderRadius:3, stack:'s' },
+        { label:'Conf',      data:top10.map(u=>u.conferences), backgroundColor:'rgba(227,179,65,.75)', borderRadius:3, stack:'s' }
+      ]
+    },
+    options: { indexAxis:'y', animation:{duration:900},
+      scales:{x:{stacked:true,grid:{color:'rgba(48,54,61,.4)'},ticks:{color:'#8b949e'}},
+              y:{stacked:true,grid:{display:false},ticks:{color:'#e6edf3',font:{size:11}}}},
+      plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},color:'#8b949e'}}} }
+  });
+
+  // Agency cards
+  document.getElementById('agencyCards').innerHTML = agencies.map(ag =>
+    `<div class="ag-card">
+      <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--${ag.agency==='GT'?'blu2':'teal'})">${ag.agency}</div>
+      <div style="font-size:10px;color:var(--txm)">${ag.users} users · ${ag.agency==='GT'?'GovTech':'Singapore'}</div>
+      <div class="ag-rows">
+        <div class="ag-row">Downloads <span>${fmtN(ag.downloads)}</span></div>
+        <div class="ag-row">Analyst Calls <span>${fmtN(ag.analystCalls)}</span></div>
+        <div class="ag-row">Conferences <span>${fmtN(ag.conferences)}</span></div>
+        <div class="ag-row">Total Activities <span>${fmtN(ag.total)}</span></div>
+        <div class="ag-row">Activity Share <span>${ag.activitySharePct}%</span></div>
+        <div class="ag-row">Monthly Avg <span>${ag.monthlyAvg}</span></div>
+      </div>
+    </div>`
+  ).join('');
+
+  // Activity level bars
+  const max = lc.low; // largest bar
+  const bars = [
+    {lbl:'Extreme Outlier', n:lc.extremeOutlier, col:'var(--pur)'},
+    {lbl:'High',            n:lc.high,           col:'var(--blu2)'},
+    {lbl:'Active',          n:lc.active,         col:'var(--teal)'},
+    {lbl:'Low',             n:lc.low,            col:'var(--amb)'},
+  ];
+  document.getElementById('actLevelBars').innerHTML = bars.map(b =>
+    `<div class="act-row">
+      <div class="act-lbl">${b.lbl}</div>
+      <div class="act-track"><div class="act-fill" style="width:${Math.round(b.n/D.contract.totalLicensedUsers*100)}%;background:${b.col}"></div></div>
+      <div class="act-cnt">${b.n}</div>
+    </div>`
+  ).join('');
+
+  document.getElementById('usageNote').innerHTML =
+    `<strong>Activity Level Definitions:</strong> Extreme Outlier &gt;1,000 acts (38+/month) · ` +
+    `High 600–999 (23–38/month) · Active 100–599 (4–23/month) · Low &lt;100 (&lt;4/month — sporadic engagement, renewal risk). ` +
+    `Monthly average across all users: <strong>${fmtN(u.monthlyAvgAllUsers)} interactions</strong>. ` +
+    `Cost per interaction: <strong>${fmt(u.costPerInteraction)}</strong>.`;
+}
+
+// ── USER TABLE ────────────────────────────────────────────
+function renderUserTable(users) {
+  const tbody = document.getElementById('userTbody');
+  tbody.innerHTML = users.map(u => `
+    <tr data-sc="${u.status}" data-type="${u.accountType}" data-id="${u.id}">
+      <td class="nm">${u.id}</td>
+      <td>${u.agency}</td>
+      <td>${u.accountType}</td>
+      <td>${fmtN(u.downloads)}</td>
+      <td>${u.analystCalls}</td>
+      <td style="color:var(--tx);font-weight:600">${fmtN(u.totalActivities)}</td>
+      <td>${u.monthlyAvg}</td>
+      <td>${actBadge(u.activityLevel)}</td>
+      <td><span style="color:${u.surveyStatus==='Responded'?'var(--grn)':u.surveyStatus==='Excluded'?'var(--txm)':'var(--rose)'}">${u.surveyStatus==='Responded'?'✓':u.surveyStatus==='Excluded'?'—':'✗'}</span> ${u.surveyStatus}</td>
+      <td>${valBadge(u.valueAssessment)}</td>
+      <td>${statusBadge(u.status)}</td>
+      <td style="font-size:10.5px;color:var(--tx2);white-space:normal;max-width:200px">${u.recommendation}</td>
+      <td>${fmt(u.currentCostYr)}</td>
+      <td style="color:var(--amb)">${fmt(u.newCostYr)}</td>
+    </tr>`).join('');
+  document.getElementById('rowCount').textContent = users.length + ' users';
+}
+
+let activeFilterBtn = null;
+function filterAll(btn) {
+  activeFilter = 'all';
+  if (activeFilterBtn) activeFilterBtn.classList.remove('fa','fgrn','famb','frose');
+  activeFilterBtn = null;
   filterTable();
 }
-function filterAll(){
-  activeFilter='all';
-  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('fa'));
+function filterStatus(sc, btn) {
+  activeFilter = sc;
+  if (activeFilterBtn) activeFilterBtn.classList.remove('fa','fgrn','famb','frose');
+  activeFilterBtn = btn;
+  const cls = {renew:'fa fgrn',review:'fa famb',terminate:'fa frose',followup:'fa',excluded:'fa'}[sc] || 'fa';
+  cls.split(' ').forEach(c=>btn.classList.add(c));
   filterTable();
 }
-function filterTable(){
-  const q=document.getElementById('userSearch').value.toLowerCase();
-  let vis=0;
-  document.querySelectorAll('#userTbody tr').forEach(r=>{
-    const sc=r.dataset.sc,id=r.dataset.id,type=r.dataset.type;
-    const matchFilter=activeFilter==='all'||sc===activeFilter;
-    const matchSearch=!q||id.toLowerCase().includes(q)||type.toLowerCase().includes(q)||r.textContent.toLowerCase().includes(q);
-    r.classList.toggle('hidden',!(matchFilter&&matchSearch));
-    if(matchFilter&&matchSearch)vis++;
+function filterTable() {
+  const q = document.getElementById('userSearch').value.toLowerCase();
+  let vis = 0;
+  document.querySelectorAll('#userTbody tr').forEach(r => {
+    const ok = (activeFilter==='all' || r.dataset.sc===activeFilter) &&
+               (!q || r.textContent.toLowerCase().includes(q));
+    r.classList.toggle('hidden', !ok);
+    if (ok) vis++;
   });
-  document.getElementById('rowCount').textContent=vis+' users';
+  document.getElementById('rowCount').textContent = vis + ' users';
 }
-function updateCount(){document.getElementById('rowCount').textContent=USERS.length+' users';}
-let sortDir={};
-function sortTable(col){
-  const tb=document.getElementById('userTbody');
-  const rows=[...tb.querySelectorAll('tr')];
-  sortDir[col]=!sortDir[col];
-  rows.sort((a,b)=>{
-    const av=a.cells[col]?.textContent.trim()||'';
-    const bv=b.cells[col]?.textContent.trim()||'';
-    const an=parseFloat(av.replace(/[^0-9.-]/g,''));
-    const bn=parseFloat(bv.replace(/[^0-9.-]/g,''));
-    if(!isNaN(an)&&!isNaN(bn))return sortDir[col]?(an-bn):(bn-an);
-    return sortDir[col]?av.localeCompare(bv):bv.localeCompare(av);
+let sortDirs = {};
+function sortTable(col) {
+  sortDirs[col] = !sortDirs[col];
+  const rows = [...document.querySelectorAll('#userTbody tr')];
+  rows.sort((a,b) => {
+    const av = a.cells[col]?.textContent.trim()||'';
+    const bv = b.cells[col]?.textContent.trim()||'';
+    const an = parseFloat(av.replace(/[^0-9.-]/g,''));
+    const bn = parseFloat(bv.replace(/[^0-9.-]/g,''));
+    if (!isNaN(an)&&!isNaN(bn)) return sortDirs[col]?(an-bn):(bn-an);
+    return sortDirs[col]?av.localeCompare(bv):bv.localeCompare(av);
   });
+  const tb = document.getElementById('userTbody');
   rows.forEach(r=>tb.appendChild(r));
 }
-buildTable();
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// CHARTS
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Chart.defaults.color='#8b949e';
-Chart.defaults.borderColor='rgba(48,54,61,0.6)';
-Chart.defaults.font.family="'Manrope', sans-serif";
+// ── BUDGET ────────────────────────────────────────────────
+function renderBudget(c, pricing, statusCounts, users) {
+  document.getElementById('budgetSub').textContent =
+    `Current vs new contract pricing · Renewal scenarios · Licensing rules`;
 
-const cOpts={animation:{duration:900},plugins:{legend:{labels:{color:'#8b949e',font:{size:11}}}}};
+  const epl = pricing.find(p=>p.accountType==='EPL-Advisor');
+  document.getElementById('budgetAlert').innerHTML =
+    `⚠️ <span><strong>Total annual cost increase: +${fmt(c.totalIncreaseAmt)}/yr (+${c.avgPriceIncreasePct}%)</strong> across all ${c.totalLicensedUsers} users. ` +
+    `${epl?`EPL-Advisor accounts see the largest relative increase (+${epl.increasePct}%). `:''}` +
+    `Full new contract value: <strong>${fmt(c.newAnnualCost)}/yr</strong> vs current ${fmt(c.currentAnnualCost)}/yr.</span>`;
 
-// Activity distribution doughnut
-new Chart(document.getElementById('chartActivity'),{
-  type:'doughnut',
-  data:{
-    labels:['Extreme Outlier (1)','High (3)','Active (10)','Low (25)'],
-    datasets:[{data:[1,3,10,25],backgroundColor:['rgba(188,140,255,0.8)','rgba(56,139,253,0.8)','rgba(0,194,170,0.8)','rgba(227,179,65,0.8)'],borderWidth:0,hoverOffset:6}]
-  },
-  options:{...cOpts,cutout:'65%',plugins:{...cOpts.plugins,title:{display:true,text:'39 Total Licensed Users',color:'#8b949e',font:{size:11}}}}
-});
+  // Pricing cards
+  const sortedP = [...pricing].sort((a,b)=>b.increasePct-a.increasePct);
+  document.getElementById('pricingCards').innerHTML = sortedP.map(p => {
+    const cls = p.increasePct > 35 ? 'pd-hot' : p.increasePct > 20 ? 'pd-med' : 'pd-low';
+    return `<div class="pc">
+      <div class="pc-type">${p.accountType}</div>
+      <div class="pc-users">${p.userCount} user${p.userCount!==1?'s':''} · ${p.newContractName}</div>
+      <div class="pc-old">${fmt(p.currentCostPerUser)}/user/yr</div>
+      <div class="pc-new">${fmt(p.newCostPerUser)}</div>
+      <div class="pc-delta ${cls}">+${p.increasePct}% · +${fmt(p.increaseAmt)}/user</div>
+    </div>`;
+  }).join('');
 
-// Interactions by type
-new Chart(document.getElementById('chartInteractions'),{
-  type:'bar',
-  data:{
-    labels:['Downloads','Analyst Calls','Conferences'],
-    datasets:[{label:'Total Interactions',data:[7569,396,63],backgroundColor:['rgba(56,139,253,0.75)','rgba(0,194,170,0.75)','rgba(227,179,65,0.75)'],borderRadius:5,borderSkipped:false}]
-  },
-  options:{...cOpts,scales:{y:{grid:{color:'rgba(48,54,61,0.4)'},ticks:{color:'#8b949e'}},x:{grid:{display:false},ticks:{color:'#8b949e'}}},plugins:{...cOpts.plugins,legend:{display:false}}}
-});
-
-// Top 10 users
-const top10=USERS.filter(u=>u.id!=='User2').sort((a,b)=>b.total-a.total).slice(0,10);
-new Chart(document.getElementById('chartTopUsers'),{
-  type:'bar',
-  data:{
-    labels:top10.map(u=>u.id),
-    datasets:[
-      {label:'Downloads',data:top10.map(u=>u.docs),backgroundColor:'rgba(56,139,253,0.75)',borderRadius:3},
-      {label:'Analyst Calls',data:top10.map(u=>u.calls),backgroundColor:'rgba(0,194,170,0.75)',borderRadius:3},
-      {label:'Conferences',data:top10.map(u=>u.conf),backgroundColor:'rgba(227,179,65,0.75)',borderRadius:3}
-    ]
-  },
-  options:{...cOpts,indexAxis:'y',scales:{x:{stacked:true,grid:{color:'rgba(48,54,61,0.4)'},ticks:{color:'#8b949e'}},y:{stacked:true,grid:{display:false},ticks:{color:'#e6edf3',font:{size:11}}}},plugins:{...cOpts.plugins,legend:{display:true,position:'bottom',labels:{font:{size:10}}}}}
-});
-
-// Pricing increase chart
-new Chart(document.getElementById('chartPricing'),{
-  type:'bar',
-  data:{
-    labels:['EPL-Advisor','EPL-Leader','GTP-SMB','GITL-Reference','GITL-Advisor','I&Op (new)','CDAO','CISO','CIO'],
-    datasets:[{label:'Price Increase %',data:[53.0,30.2,19.9,18.3,16.7,16.4,16.4,16.4,15.8],backgroundColor:d=>d.raw>35?'rgba(244,71,71,0.75)':d.raw>20?'rgba(227,179,65,0.75)':'rgba(56,139,253,0.75)',borderRadius:4}]
-  },
-  options:{...cOpts,indexAxis:'y',scales:{x:{grid:{color:'rgba(48,54,61,0.4)'},ticks:{color:'#8b949e',callback:v=>v+'%'},max:60},y:{grid:{display:false},ticks:{color:'#e6edf3',font:{size:11}}}},plugins:{...cOpts.plugins,legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'% increase'}}}}
-});
-
-// Renewal status doughnut
-new Chart(document.getElementById('chartRenewal'),{
-  type:'doughnut',
-  data:{
-    labels:['Renew (10)','Review (2)','Terminate (5)','Follow-up (20)','Excluded (2)'],
-    datasets:[{data:[10,2,5,20,2],backgroundColor:['rgba(63,185,80,0.8)','rgba(227,179,65,0.8)','rgba(244,71,71,0.8)','rgba(139,148,158,0.5)','rgba(101,109,118,0.4)'],borderWidth:0,hoverOffset:5}]
-  },
-  options:{...cOpts,cutout:'60%'}
-});
-
-// Q14 doughnut
-new Chart(document.getElementById('chartQ14'),{
-  type:'doughnut',
-  data:{
-    labels:['Value Exceeds Cost (10)','Value Less Than Cost (7)'],
-    datasets:[{data:[10,7],backgroundColor:['rgba(63,185,80,0.8)','rgba(244,71,71,0.8)'],borderWidth:0,hoverOffset:5}]
-  },
-  options:{...cOpts,cutout:'65%',plugins:{...cOpts.plugins,legend:{position:'bottom',labels:{font:{size:10}}}}}
-});
-
-// Q15 doughnut
-new Chart(document.getElementById('chartQ15'),{
-  type:'doughnut',
-  data:{
-    labels:['Continue (10)','Change Tier (4)','Do Not Need (3)'],
-    datasets:[{data:[10,4,3],backgroundColor:['rgba(63,185,80,0.8)','rgba(227,179,65,0.8)','rgba(244,71,71,0.8)'],borderWidth:0,hoverOffset:5}]
-  },
-  options:{...cOpts,cutout:'65%',plugins:{...cOpts.plugins,legend:{position:'bottom',labels:{font:{size:10}}}}}
-});
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// AI CHAT BOT
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-let chatOpen=false;
-let chatHistory=[];
-let isLoading=false;
-
-const SYSTEM=`You are an intelligent AI assistant embedded in the Gartner Contract Renewal Intelligence Portal for GovTech/SNG. You help renewal decision-makers understand usage data, survey insights, and budget impacts to prepare for contract negotiations.
-
-CONTRACT OVERVIEW:
-- Analysis Period: Aug 2023 – Oct 2025 (26 months) | Expiry: July 2026
-- Licensed Users: 39 (17 responded, 20 non-respondents, 2 excluded)
-- Projected Spend: $3.81M of $3.92M approved (96.7% utilised)
-- New Contract Price Increase: +26.1% average ($1.34M → $1.68M/yr annual)
-- Total new annual cost: $1,689,816/yr vs $1,340,753/yr current
-
-USAGE STATISTICS:
-- Total Interactions: 8,022 (26-month cumulative)
-- Downloads: 7,569 (94.4%) | Analyst Calls: 396 (4.9%, 15/month avg) | Conferences: 63 (0.8%)
-- Monthly average all users: 309 | Cost per interaction: ~$475
-- GT agency: 37 users, 7,510 activities (93.5%) | SNG: 2 users, 518 activities (6.5%)
-
-USER ACTIVITY:
-- Extreme Outlier (>1,000): User9/CISO — 2,050 acts, 78.8/month
-- High (600-999): User5/CIO-697, User11/GITL-762, User12/GITL-762
-- Active (100-599): 10 users | Low (<100): 25 users (64% of all!)
-
-ACCOUNT PRICING (Current → New per user/yr):
-- EPL-Leader: $175,933 → $229,133 (+30.2%) — 2 users
-- EPL-Advisor: $68,700 → $105,100 (+53.0%) — 3 users [HIGHEST INCREASE]
-- CIO: $128,750 → $149,133 (+15.8%) — 1 user
-- CDAO: $100,500 → $117,000 (+16.4%) — 2 users
-- CISO: $100,500 → $117,000 (+16.4%) — 1 user
-- GITL-Advisor: $61,733 → $72,033 (+16.7%) — 3 users
-- GITL-Reference: $34,667 → $41,000 (+18.3%) — 1 user
-- GTP-SMB: $5,103 → $6,116 (+19.9%) — 25 users [must buy in lots of 25]
-
-RECOMMENDATIONS:
-- Renew (10): User4,User5,User9,User11,User12,User14,User18,User26,User29,User33
-- Review/Right-size (2): User10 (wants data tier), User32 (needs MQ access)
-- Terminate (5): User13,User19,User27,User30,User31 — saves ~$300,713/yr
-- Follow-up Required (20): All non-respondents — decision TBD before Jul 2026
-- Excluded (2): User2 (left org), User23 (not using) — saves $235,249/yr
-
-SURVEY RESULTS (17 active respondents):
-- High Usefulness (Q3): 47% (8/17) — Essential or Frequently valuable
-- Substantial Value (VEV): 53% (9/17)
-- Value Exceeds Cost (Q14): 59% (10/17)
-- Continue Gartner (Q15): 59% (10/17)
-- Exit Intention (Q15): 18% (3/17)
-- Top impact areas: Strategic planning (71%), Risk mitigation (71%), Innovation roadmap (41%)
-- Most valued products: Research reports, Magic Quadrant, Analyst sessions
-
-LICENSING RULES:
-- EPL-Leader requires 3 extended member seats (EPL-Advisor or CIO)
-- Currently 4 of 6 extended slots filled — 2 unused slots
-- CIO & EPL-Advisor cannot be bought standalone
-- GTP-SMB: minimum lot of 25. Reductions only save money if headcount goes below 25
-
-KEY NEGOTIATION POINTS:
-1. EPL-Advisor +53% is highest — challenge this aggressively
-2. 64% of users have low activity — leverage for seat reduction discussion
-3. 20 non-respondents need follow-up before any final decision
-4. 2 unused EPL extended slots = structural gap, use as lever
-5. Magic Quadrant access friction is pushing users to terminate (User27, User30, User32)
-6. Single-user download restriction is a barrier (User18, User33)
-
-Portal sections: Executive Summary | Usage Analysis | User Matrix | Budget & Pricing | Survey Intelligence | Recommendations
-
-When users ask about navigating, mention the section name in brackets like [Budget & Pricing] or [User Matrix]. Be concise, insightful, and focus on actionable advice for contract renewal negotiations. Format responses with line breaks for readability.`;
-
-function toggleChat(){
-  chatOpen=!chatOpen;
-  document.getElementById('aiPanel').classList.toggle('open',chatOpen);
-  if(chatOpen&&chatHistory.length===0){
-    setTimeout(()=>addMsg('bot',"👋 Hello! I'm your Gartner Renewal assistant. I have full access to all contract data, usage statistics, survey results, and budget analysis.\n\nHow can I help you prepare for the renewal negotiation? Try asking about specific users, pricing impacts, or negotiation strategy."),300);
-  }
-}
-
-function addMsg(role,text){
-  const msgs=document.getElementById('aiMsgs');
-  const div=document.createElement('div');
-  div.className=`msg ${role}`;
-  const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  // Convert section mentions to clickable links
-  const linkedText=text.replace(/\[([^\]]+)\]/g,(match,sec)=>{
-    const map={'Executive Summary':'s-exec','Usage Analysis':'s-usage','User Matrix':'s-users','Budget & Pricing':'s-budget','Survey Intelligence':'s-survey','Recommendations':'s-recs'};
-    const id=Object.keys(map).find(k=>sec.toLowerCase().includes(k.toLowerCase()));
-    if(id)return`<a onclick="document.getElementById('${map[id]}').scrollIntoView({behavior:'smooth'});toggleChat()">📍 ${sec}</a>`;
-    return match;
+  // Pricing bar chart
+  destroyChart('chartPricing');
+  chartInstances.chartPricing = new Chart(document.getElementById('chartPricing'), {
+    type: 'bar',
+    data: {
+      labels: sortedP.map(p=>p.accountType),
+      datasets: [{ label:'% Increase', data: sortedP.map(p=>p.increasePct),
+        backgroundColor: sortedP.map(p=>p.increasePct>35?'rgba(244,71,71,.75)':p.increasePct>20?'rgba(227,179,65,.75)':'rgba(56,139,253,.75)'),
+        borderRadius:4 }]
+    },
+    options: { indexAxis:'y', animation:{duration:900},
+      scales:{x:{max:60,grid:{color:'rgba(48,54,61,.4)'},ticks:{color:'#8b949e',callback:v=>v+'%'}},
+              y:{grid:{display:false},ticks:{color:'#e6edf3',font:{size:11}}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'% increase'}}} }
   });
-  div.innerHTML=`<div class="bubble">${linkedText.replace(/\n/g,'<br>')}</div><div class="msg-time">${now}</div>`;
-  msgs.appendChild(div);
-  msgs.scrollTop=msgs.scrollHeight;
+
+  // Renewal doughnut
+  destroyChart('chartRenewal');
+  const sc = statusCounts;
+  const statusData = [
+    {label:`Renew (${sc.renew||0})`,       val:sc.renew||0,   col:'rgba(63,185,80,.8)'},
+    {label:`Review (${sc.review||0})`,     val:sc.review||0,  col:'rgba(227,179,65,.8)'},
+    {label:`Terminate (${sc.terminate||0})`,val:sc.terminate||0,col:'rgba(244,71,71,.8)'},
+    {label:`Follow-up (${sc.followup||0})`,val:sc.followup||0,col:'rgba(139,148,158,.5)'},
+    {label:`Excluded (${sc.excluded||0})`, val:sc.excluded||0,col:'rgba(101,109,118,.4)'},
+  ];
+  chartInstances.chartRenewal = new Chart(document.getElementById('chartRenewal'), {
+    type:'doughnut',
+    data:{ labels:statusData.map(s=>s.label), datasets:[{data:statusData.map(s=>s.val),
+      backgroundColor:statusData.map(s=>s.col),borderWidth:0,hoverOffset:5}] },
+    options:{ cutout:'60%', animation:{duration:900}, plugins:{legend:{labels:{color:'#8b949e',font:{size:10}}}} }
+  });
+
+  const terminateUsers = users.filter(u=>u.status==='terminate');
+  const excludedUsers  = users.filter(u=>u.status==='excluded');
+  const savingsTerminate = terminateUsers.reduce((s,u)=>s+u.newCostYr,0);
+  const savingsExcluded  = excludedUsers.reduce((s,u)=>s+u.newCostYr,0);
+  const renewCost        = users.filter(u=>u.status==='renew').reduce((s,u)=>s+u.newCostYr,0);
+
+  document.getElementById('renewalLegend').innerHTML =
+    `<div class="ag-row" style="font-size:11px"><span style="color:var(--grn)">■</span> Renew confirmed (${sc.renew||0} users) <span>${fmt(renewCost)} committed</span></div>` +
+    `<div class="ag-row" style="font-size:11px"><span style="color:var(--amb)">■</span> Review / right-size (${sc.review||0} users) <span>TBD</span></div>` +
+    `<div class="ag-row" style="font-size:11px"><span style="color:var(--rose)">■</span> Terminate (${sc.terminate||0} users) <span>${fmt(savingsTerminate)} savings</span></div>` +
+    `<div class="ag-row" style="font-size:11px"><span style="color:var(--txm)">■</span> Follow-up required (${sc.followup||0} users) <span>TBD</span></div>` +
+    `<div class="ag-row" style="font-size:11px"><span style="color:var(--txm)">■</span> Excluded (${sc.excluded||0} users) <span>${fmt(savingsExcluded)} remove</span></div>`;
+
+  document.getElementById('newTiersGrid').innerHTML =
+    kc('CISO – Member (NEW)', '$77,233<span style="font-size:13px">/yr</span>',
+      'Mid-tier between GTP-SMB and full CISO. Suitable for GTP-SMB users needing MQ access', null, null, 'v-teal') +
+    kc('Infrastructure &amp; Ops (I&amp;Op) NEW', '$117,000<span style="font-size:13px">/yr</span>',
+      'New specialised tier for I&O professionals. Evaluate for users with I&O-focused work scope', null, null, 'v-blue') +
+    kc('GTP-SMB Lot Rule', '25 seats min',
+      'Minimum purchase = 1 lot of 25. Currently at exactly 25 (1 lot) ✓. Cost savings only if headcount drops below 25.', null, null, 'v-amber');
+
+  const eplAdv = pricing.find(p=>p.accountType==='EPL-Advisor');
+  document.getElementById('budgetNote').innerHTML =
+    `<strong>⚠ Critical Negotiation Point:</strong> EPL-Advisor price increase of ` +
+    `+${eplAdv?.increasePct||53}% is the most significant. The 2 unused extended member slots (4 of 6 filled) ` +
+    `represent a structural gap — this should be raised as a negotiation lever. If an EPL-Leader is removed, ` +
+    `all 3 attached extended member seats must also be addressed.`;
 }
 
-function showTyping(){
-  const msgs=document.getElementById('aiMsgs');
-  const div=document.createElement('div');
-  div.className='msg bot';div.id='typingMsg';
-  div.innerHTML='<div class="typing"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
-  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
-}
-function removeTyping(){const t=document.getElementById('typingMsg');if(t)t.remove();}
+// ── SURVEY ────────────────────────────────────────────────
+function renderSurvey(sv, c) {
+  document.getElementById('surveySub').textContent =
+    `Cross-validation framework results · ${sv.totalRespondents} active respondents of ${c.totalLicensedUsers} total users`;
 
-async function sendMessage(){
-  if(isLoading)return;
-  const inp=document.getElementById('aiInput');
-  const text=inp.value.trim();
-  if(!text)return;
-  inp.value='';inp.style.height='36px';
-  document.getElementById('aiChips').style.display='none';
-  addMsg('user',text);
-  chatHistory.push({role:'user',content:text});
-  isLoading=true;
-  document.getElementById('aiSendBtn').disabled=true;
-  showTyping();
-  try{
-    const res=await fetch('/api/chat',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({messages:chatHistory})
-    });
-    if(!res.ok){const e=await res.json();throw new Error(e.error||'API error '+res.status);}
-    const data=await res.json();
-    removeTyping();
-    const reply=data.reply||'Sorry, I encountered an error. Please try again.';
-    chatHistory.push({role:'assistant',content:reply});
-    addMsg('bot',reply);
-  }catch(e){
-    removeTyping();
-    addMsg('bot','Connection error. Please check your network and try again.');
+  document.getElementById('surveyAlert').innerHTML =
+    `ℹ️ <span>Survey population: <strong>${sv.totalRespondents} active respondents</strong>. ` +
+    `${c.nonRespondents} users did not respond and are assessed on activity data only. ` +
+    `Survey uses a cross-validation framework: Q3 Usefulness + Q4/Q5 Impact Areas + Q6–Q12 Value + Q14 Value vs Cost + Q15 Future Plans.</span>`;
+
+  // Q3 bars
+  const q3Colors = ['var(--grn)','var(--teal)','var(--amb)','var(--rose)','var(--txm)'];
+  document.getElementById('q3Bars').innerHTML = sv.q3Usefulness.map((q,i) =>
+    surveyBar(q.label, q.count, sv.totalRespondents, q3Colors[i])
+  ).join('');
+  document.getElementById('q3Note').innerHTML =
+    `<strong>High Usefulness (Essential + Frequently):</strong> ` +
+    `${sv.q3Usefulness.slice(0,2).reduce((s,q)=>s+q.count,0)} of ${sv.totalRespondents} = ${sv.highUsefulnessPct}%`;
+
+  // Q4 bars
+  const q4sorted = [...sv.q4ImpactAreas].sort((a,b)=>b.count-a.count);
+  document.getElementById('q4Bars').innerHTML = q4sorted.map(q =>
+    surveyBar(q.label, q.count, sv.totalRespondents, 'var(--blu2)')
+  ).join('');
+  const broadApps = sv.q4ImpactAreas.length;
+  document.getElementById('q4Note').innerHTML =
+    `<strong>Broad Applications (2+ areas):</strong> ` +
+    `${D.users.filter(u=>u.surveyStatus==='Responded').length} of ${sv.totalRespondents} respondents — strong indicator of diverse utility`;
+
+  // Q14 doughnut
+  destroyChart('chartQ14');
+  chartInstances.chartQ14 = new Chart(document.getElementById('chartQ14'), {
+    type:'doughnut',
+    data:{ labels:sv.q14ValueVsCost.map(q=>`${q.label} (${q.count})`),
+      datasets:[{data:sv.q14ValueVsCost.map(q=>q.count),
+        backgroundColor:['rgba(63,185,80,.8)','rgba(244,71,71,.8)'],borderWidth:0,hoverOffset:5}] },
+    options:{ cutout:'65%', animation:{duration:900},
+      plugins:{legend:{position:'bottom',labels:{font:{size:10},color:'#8b949e'}}} }
+  });
+  document.getElementById('q14Legend').innerHTML = sv.q14ValueVsCost.map((q,i) =>
+    `<div><span class="bdg ${i===0?'b-substantial':'b-limited'}">${q.label}</span>` +
+    `<div style="font-size:11px;color:var(--tx2);margin-top:4px">${q.count} of ${sv.totalRespondents} (${q.pct}%)</div></div>`
+  ).join('');
+
+  // Q15 doughnut
+  destroyChart('chartQ15');
+  chartInstances.chartQ15 = new Chart(document.getElementById('chartQ15'), {
+    type:'doughnut',
+    data:{ labels:sv.q15FuturePlans.map(q=>`${q.label.split(' ').slice(0,3).join(' ')} (${q.count})`),
+      datasets:[{data:sv.q15FuturePlans.map(q=>q.count),
+        backgroundColor:['rgba(63,185,80,.8)','rgba(227,179,65,.8)','rgba(244,71,71,.8)'],borderWidth:0,hoverOffset:5}] },
+    options:{ cutout:'65%', animation:{duration:900},
+      plugins:{legend:{position:'bottom',labels:{font:{size:10},color:'#8b949e'}}} }
+  });
+  document.getElementById('q15Legend').innerHTML = sv.q15FuturePlans.map((q,i) => {
+    const cls = ['b-renew','b-review','b-terminate'][i];
+    return `<div><span class="bdg ${cls}">${q.label.split(' with')[0].split(' to ')[0]}</span>` +
+      `<div style="font-size:11px;color:var(--tx2);margin-top:4px">${q.count} of ${sv.totalRespondents} (${q.pct}%)</div></div>`;
+  }).join('');
+
+  // VEV KPIs
+  document.getElementById('vevKpis').innerHTML =
+    kc('Substantial Value (VEV)', sv.substantialValuePct+'%',
+      `${sv.substantialValueCount} of ${sv.totalRespondents} — ALL 3 criteria met: Q6 decisions + Q8/10/12 impact + Q14 exceeds`, null, null, 'v-green') +
+    kc('Limited Value', (100-sv.substantialValuePct)+'%',
+      `${sv.totalRespondents-sv.substantialValueCount} of ${sv.totalRespondents} — one or more VEV criteria failed`, null, null, 'v-rose') +
+    kc('Substantial Impact (Q8–12)', sv.valueExceedsCostPct+'%',
+      `Any dimension scoring 4+ (Moderately improved) = Substantial. ${sv.valueExceedsCostCount} of ${sv.totalRespondents} meet this threshold`, null, null, 'v-blue') +
+    kc('Most Valued Products', 'Research &amp; MQ',
+      'Research reports and Magic Quadrant most cited across respondents. Analyst sessions also highly valued.', null, null, 'v-teal');
+
+  document.getElementById('surveyNote').innerHTML =
+    `<strong>Key Survey Insights from Q16/Q17:</strong> Multiple users flag the <strong>single-user download restriction</strong> as a barrier. ` +
+    `Users with GTP-SMB accounts cannot access Magic Quadrant — a key friction point driving exit intent. ` +
+    `One respondent notes AI tools (ChatGPT, Claude, Gemini) as Gartner's biggest competitor; human analysts still valued for unique/specific problems.`;
+}
+
+// ── RECOMMENDATIONS ───────────────────────────────────────
+function renderRecommendations(users, sc, c) {
+  const groups = [
+    {key:'renew',    label:'✓ Renew',    cls:'rn', valColor:'var(--grn)'},
+    {key:'review',   label:'~ Review',   cls:'rv', valColor:'var(--amb)'},
+    {key:'terminate',label:'✗ Terminate',cls:'rt', valColor:'var(--rose)'},
+    {key:'followup', label:'? Follow-up',cls:'rf', valColor:'var(--tx2)'},
+    {key:'excluded', label:'— Excluded', cls:'rx', valColor:'var(--txm)'},
+  ];
+
+  document.getElementById('recCols').innerHTML = groups.map(g => {
+    const grpUsers = users.filter(u=>u.status===g.key);
+    return `<div class="rc ${g.cls}">
+      <div class="rc-head">
+        <div class="rc-status">${g.label}</div>
+        <div class="rc-count" style="color:${g.valColor}">${grpUsers.length}</div>
+      </div>
+      <div class="rc-body">
+        ${grpUsers.map(u=>`<div class="rcu">
+          <div class="rcu-id">${u.id}</div>
+          <div class="rcu-type">${u.accountType} · ${u.recommendation.substring(0,45)}${u.recommendation.length>45?'…':''}</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+
+  // Priority KPIs
+  const highPrioFollowups = users.filter(u=>u.status==='followup' &&
+    (u.activityLevel==='Active'||u.activityLevel==='High'||u.activityLevel==='Extreme Outlier'));
+  const lowFollowups = users.filter(u=>u.status==='followup' && u.activityLevel==='Low');
+  const eplAdv = D.pricing.find(p=>p.accountType==='EPL-Advisor');
+
+  document.getElementById('priorityKpis').innerHTML =
+    kc('🔴 Immediate — High-Value Non-Respondents',
+      highPrioFollowups.map(u=>u.id).join(', ') || 'None',
+      `${highPrioFollowups.length} active/high-usage accounts with no survey data. Priority interviews required before renewal decision. High cost exposure if wrong call.`) +
+    kc('🟡 Short-term — Follow-up Required',
+      `${lowFollowups.length} Low-usage`, `GTP-SMB low-usage non-respondents need targeted mini-survey. Default recommendation: termination unless usage justified. GTP-SMB lot threshold critical.`) +
+    kc('🟢 Negotiation Lever — EPL-Advisor',
+      `+${eplAdv?.increasePct||53}% increase`,
+      `Highest increase of all account types. Challenge Gartner on this. The 2 unused extended member slots are a contractual gap — use as leverage to negotiate tier-level pricing or restructure.`);
+}
+
+// ══════════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════════
+function navTo(id, el) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.nav-a').forEach(a=>a.classList.remove('act'));
+  el.classList.add('act');
+}
+
+// ══════════════════════════════════════════════════════════
+// AI CHAT
+// ══════════════════════════════════════════════════════════
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('aiPanel').classList.toggle('open', chatOpen);
+  if (chatOpen && chatHistory.length === 0) {
+    setTimeout(() => addMsg('bot',
+      `👋 Hello! I'm your Gartner Renewal assistant — loaded with the latest contract data from **${D?._meta?.generatedFrom||'gartner_data.json'}** (updated ${D?._meta?.generatedAt?.slice(0,10)||'recently'}).\n\nI can answer questions about any user, pricing, survey findings, or negotiation strategy. What would you like to know?`
+    ), 300);
   }
-  isLoading=false;
-  document.getElementById('aiSendBtn').disabled=false;
 }
 
-function sendChip(el){
-  document.getElementById('aiInput').value=el.textContent;
+function addMsg(role, text) {
+  const msgs = document.getElementById('aiMsgs');
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  const now = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  const linked = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[([^\]]+)\]/g, (match, sec) => {
+      const map = {'Executive Summary':'s-exec','Usage Analysis':'s-usage','User Matrix':'s-users',
+        'Budget & Pricing':'s-budget','Survey Intelligence':'s-survey','Recommendations':'s-recs'};
+      const id = Object.keys(map).find(k=>sec.toLowerCase().includes(k.toLowerCase()));
+      return id
+        ? `<a onclick="document.getElementById('${map[id]}').scrollIntoView({behavior:'smooth'});toggleChat()">📍 ${sec}</a>`
+        : match;
+    })
+    .replace(/\n/g, '<br>');
+  div.innerHTML = `<div class="bubble">${linked}</div><div class="msg-time">${now}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('aiMsgs');
+  const div = document.createElement('div');
+  div.className = 'msg bot'; div.id = 'typingMsg';
+  div.innerHTML = '<div class="typing"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+function removeTyping() { document.getElementById('typingMsg')?.remove(); }
+
+async function sendMessage() {
+  if (isLoading) return;
+  const inp = document.getElementById('aiInput');
+  const text = inp.value.trim();
+  if (!text) return;
+  inp.value = ''; inp.style.height = '36px';
+  document.getElementById('aiChips').style.display = 'none';
+  addMsg('user', text);
+  chatHistory.push({role:'user', content:text});
+  isLoading = true;
+  document.getElementById('aiSendBtn').disabled = true;
+  showTyping();
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({messages: chatHistory})
+    });
+    if (!res.ok) { const e = await res.json(); throw new Error(e.error||'API error '+res.status); }
+    const data = await res.json();
+    removeTyping();
+    const reply = data.reply || 'Sorry, no response received.';
+    chatHistory.push({role:'assistant', content:reply});
+    addMsg('bot', reply);
+  } catch(e) {
+    removeTyping();
+    addMsg('bot', `Connection error: ${e.message}. Check Vercel function logs.`);
+  }
+  isLoading = false;
+  document.getElementById('aiSendBtn').disabled = false;
+}
+
+function sendChip(el) {
+  document.getElementById('aiInput').value = el.textContent;
   sendMessage();
 }
-
-function handleKey(e){
-  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}
-  const inp=e.target;inp.style.height='36px';inp.style.height=Math.min(inp.scrollHeight,80)+'px';
+function handleKey(e) {
+  if (e.key==='Enter'&&!e.shiftKey) { e.preventDefault(); sendMessage(); }
+  const inp = e.target;
+  inp.style.height = '36px';
+  inp.style.height = Math.min(inp.scrollHeight, 80) + 'px';
 }
+
+// ══════════════════════════════════════════════════════════
+// BOOT
+// ══════════════════════════════════════════════════════════
+boot();
 </script>
 </body>
 </html>

@@ -1,14 +1,13 @@
 {
   "name": "gartner-renewal-portal",
-  "version": "1.0.0",
-  "description": "Gartner Contract Renewal Intelligence Portal with AI Assistant",
+  "version": "2.0.0",
+  "description": "Gartner Contract Renewal Intelligence Portal — Data-Driven Edition",
   "private": true,
+  "type": "module",
+  "engines": { "node": ">=18.x" },
   "scripts": {
+    "convert": "python scripts/excel_to_json.py",
     "dev": "vercel dev",
     "deploy": "vercel --prod"
-  },
-  "engines": {
-    "node": ">=18.x"
-  },
-  "type": "module"
+  }
 }

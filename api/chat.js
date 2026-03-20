@@ -1,119 +1,189 @@
 /**
- * Gartner Renewal Portal — AI Chat API Route
- * Vercel Serverless Function
+ * api/chat.js — Gartner Renewal Portal AI Chat
  *
- * Supports: Anthropic (Claude) and OpenAI (GPT-4o)
- * Provider is selected via AI_PROVIDER env var: "anthropic" | "openai"
+ * Reads data/gartner_data.json at request time and builds the
+ * AI system prompt dynamically — so every AI response automatically
+ * reflects the latest data without any code changes.
+ *
+ * Provider: "anthropic" or "openai" via AI_PROVIDER env var
  */
 
-const SYSTEM_PROMPT = `You are an intelligent AI assistant embedded in the Gartner Contract Renewal Intelligence Portal for GovTech/SNG. You help renewal decision-makers understand usage data, survey insights, and budget impacts to prepare for contract negotiations.
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-CONTRACT OVERVIEW:
-- Analysis Period: Aug 2023 – Oct 2025 (26 months) | Expiry: July 2026
-- Licensed Users: 39 (17 responded, 20 non-respondents, 2 excluded)
-- Projected Spend: $3.81M of $3.92M approved (96.7% utilised)
-- New Contract Price Increase: +26.1% average ($1.34M → $1.68M/yr annual)
-- Total new annual cost: $1,689,816/yr vs $1,340,753/yr current
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-USAGE STATISTICS:
-- Total Interactions: 8,022 (26-month cumulative)
-- Downloads: 7,569 (94.4%) | Analyst Calls: 396 (4.9%, 15/month avg) | Conferences: 63 (0.8%)
-- Monthly average all users: 309 | Cost per interaction: ~$475
-- GT agency: 37 users, 7,510 activities (93.5%) | SNG: 2 users, 518 activities (6.5%)
+// ── Load data ─────────────────────────────────────────────────────────────────
+function loadData() {
+  const dataPath = path.join(__dirname, "..", "data", "gartner_data.json");
+  try {
+    const raw = fs.readFileSync(dataPath, "utf-8");
+    return JSON.parse(raw);
+  } catch (err) {
+    console.error("[chat.js] Failed to load gartner_data.json:", err.message);
+    return null;
+  }
+}
 
-USER ACTIVITY LEVELS:
-- Extreme Outlier (>1,000 acts): User9/CISO — 2,050 acts, 78.8/month
-- High (600-999): User5/CIO-697, User11/GITL-Advisor-648, User12/GITL-Advisor-762
-- Active (100-599): 10 users | Low (<100 acts): 25 users (64% of all licensed seats)
+// ── Build system prompt dynamically from data ─────────────────────────────────
+function buildSystemPrompt(d) {
+  if (!d) {
+    return `You are an AI assistant for the Gartner Contract Renewal Portal.
+Data is currently unavailable. Advise the user to run the excel_to_json.py 
+converter and redeploy.`;
+  }
 
-ACCOUNT TYPE PRICING (Current → New per user/yr):
-- EPL-Leader: $175,933 → $229,133 (+30.2%) — 2 users
-- EPL-Advisor: $68,700 → $105,100 (+53.0%) — 3 users [HIGHEST INCREASE — key negotiation lever]
-- CIO Self-directed: $128,750 → $149,133 (+15.8%) — 1 user (User5)
-- CDAO: $100,500 → $117,000 (+16.4%) — 2 users
-- CISO: $100,500 → $117,000 (+16.4%) — 1 user (User9, extreme outlier)
-- GITL-Advisor: $61,733 → $72,033 (+16.7%) — 3 users
-- GITL-Reference: $34,667 → $41,000 (+18.3%) — 1 user
-- GTP-SMB: $5,103 → $6,116 (+19.9%) — 25 users [sold in lots of 25, min = 1 lot]
-- NEW: CISO-Member: $77,233/yr (mid-tier between GTP-SMB and full CISO)
-- NEW: Infrastructure & Operations (I&Op): $117,000/yr
+  const { _meta, contract, usage, survey, pricing, statusCounts, agencies, users } = d;
 
-INDIVIDUAL USER RECOMMENDATIONS:
-Renew (10 users): User4 EPL-Advisor/engagement coaching, User5 CIO/usage optimisation, User9 CISO/maintain tier (extreme outlier — most critical), User11 GITL-Advisor/maintain, User12 GITL-Advisor/maintain, User14 GTP-SMB/engagement, User18 GTP-SMB/investigate barriers, User26 GTP-SMB/investigate barriers, User29 GTP-SMB/engagement, User33 GTP-SMB/engagement
-Review/Right-size (2 users): User10 GITL-Advisor/wants data-specific tier, User32 GTP-SMB/needs MQ access unavailable in current tier
-Terminate (5 users): User13 GITL-Reference (do not need), User19 GTP-SMB (no impact/technical role), User27 GTP-SMB (significant downgrade — no MQ), User30 GTP-SMB (significant downgrade), User31 GTP-SMB (do not need) — estimated savings ~$300,713/yr at new pricing
-Follow-up Required (20 users): All non-respondents — priority: User1 EPL-Leader (active 114), User7 CDAO (active 413), User34 GTP-SMB (active 290)
-Excluded (2 users): User2 EPL-Leader (left org), User23 GTP-SMB (not using) — saves ~$235,249/yr
+  // Compute derived facts on the fly
+  const totalInteractions = usage.totalInteractions;
+  const renewUsers   = users.filter(u => u.status === "renew");
+  const terminateUsers = users.filter(u => u.status === "terminate");
+  const reviewUsers  = users.filter(u => u.status === "review");
+  const followupUsers = users.filter(u => u.status === "followup");
+  const excludedUsers = users.filter(u => u.status === "excluded");
 
-SURVEY RESULTS (17 active respondents):
-- Q3 Usefulness: Essential 12% (2), Frequently valuable 35% (6), Occasionally helpful 24% (4), Rarely valuable 24% (4), No impact 6% (1)
-- High Usefulness total: 47% (8/17)
-- Q4 Top impact areas: Strategic planning 71%, Risk mitigation 71%, Innovation roadmap 41%, Vendor selection 29%, Competitive intelligence 24%
-- Broad applications (2+ areas selected): 71% (12/17)
-- Q14 Value vs Cost: Exceeds 59% (10/17), Less than cost 41% (7/17)
-- Q15 Future: Continue 59% (10/17), Change tier 24% (4/17), Do not need 18% (3/17)
-- VEV Substantial Value: 53% (9/17)
+  const topUsers = [...users]
+    .filter(u => u.status !== "excluded")
+    .sort((a, b) => b.totalActivities - a.totalActivities)
+    .slice(0, 5)
+    .map(u => `${u.id} (${u.accountType}): ${u.totalActivities} acts, ${u.monthlyAvg}/mo — ${u.status}`)
+    .join("\n    ");
 
-KEY USER FEEDBACK:
-- User10: AI tools (ChatGPT, Claude, Gemini) are Gartner's biggest competitor; human analyst still better for unique problems
-- User27, User30, User32: Magic Quadrant not available in their tier — significant friction driving exit intent
-- User18, User33: Single-user download restriction is a barrier; request multi-user licensing
-- User5: Difficult to justify $149k/yr given personal availability constraints
-- User9 (CISO): Exceptional engagement — M365, security tooling, LLM playbook, quantum safe programme
-- User33: Requests publication dates in filenames for better document management
+  const pricingLines = pricing
+    .map(p => `  ${p.accountType}: $${p.currentCostPerUser.toLocaleString()} → $${p.newCostPerUser.toLocaleString()} (+${p.increasePct}%) — ${p.userCount} users`)
+    .join("\n");
 
-LICENSING RULES:
-- EPL-Leader requires 3 extended member seats (EPL-Advisor or CIO attached)
-- Currently 4 of 6 extended slots filled — 2 UNUSED SLOTS (structural gap)
-- CIO Self-directed and EPL-Advisor cannot be procured standalone
-- GTP-SMB: minimum purchase = 1 lot of 25 seats; currently exactly 25 (1 lot)
-- Removing GTP-SMB seats only saves money if headcount drops below 25
-- Terminating an EPL-Leader must account for all 3 attached extended member seats
+  const agencyLines = agencies
+    .map(ag => `  ${ag.agency}: ${ag.users} users, ${ag.total} activities (${ag.activitySharePct}% share), ${ag.monthlyAvg}/mo avg`)
+    .join("\n");
 
-TOP NEGOTIATION POINTS:
-1. Challenge EPL-Advisor +53% increase — highest of all account types, hardest to justify
-2. 64% of users have low activity — use this to negotiate volume/seat reduction at EPL tiers
-3. 2 unused EPL extended member slots = structural gap Gartner hasn't addressed — use as leverage
-4. Magic Quadrant access friction is actively driving exit intent — request MQ inclusion in GTP-SMB or CISO-Member upgrade
-5. Single-user download restriction impacts multiple users — request multi-user/team licensing
-6. 20 non-respondents (51% of seats) have no survey data — negotiate provisional renewal with exit clause
+  const renewList     = renewUsers.map(u => `${u.id} ${u.accountType}`).join(", ");
+  const terminateList = terminateUsers.map(u => `${u.id} ${u.accountType} — ${u.recommendation}`).join("\n    ");
+  const reviewList    = reviewUsers.map(u => `${u.id} ${u.accountType} — ${u.recommendation}`).join(", ");
+  const followupHighPriority = followupUsers
+    .filter(u => u.activityLevel === "Active" || u.activityLevel === "High" || u.activityLevel === "Extreme Outlier")
+    .map(u => `${u.id} (${u.accountType}, ${u.totalActivities} acts)`)
+    .join(", ");
 
-Portal sections the user can navigate to: [Executive Summary], [Usage Analysis], [User Matrix], [Budget & Pricing], [Survey Intelligence], [Recommendations]
+  const actLevels = usage.activityLevelCounts;
 
-When users reference navigation, mention the section name in square brackets like [Budget & Pricing] or [User Matrix]. Keep responses concise, analytical, and actionable for contract renewal preparation.`;
+  return `You are an intelligent AI assistant embedded in the Gartner Contract Renewal Intelligence Portal for ${_meta.organization}.
+You help renewal decision-makers understand usage data, survey insights, and budget impacts to negotiate the upcoming contract renewal.
 
+DATA FRESHNESS: This data was generated from "${_meta.generatedFrom}" at ${_meta.generatedAt}.
+Analysis period: ${_meta.analysisPeriod} (${_meta.analysisPeriodMonths} months) | Contract expires: ${_meta.contractExpiry}
+
+━━━ CONTRACT OVERVIEW ━━━
+Total licensed users:     ${contract.totalLicensedUsers}
+  Responded to survey:    ${contract.responded}
+  Non-respondents:        ${contract.nonRespondents}
+  Excluded from analysis: ${contract.excluded}
+Budget approved:          $${contract.totalBudgetApproved.toLocaleString()}
+Projected final spend:    $${contract.projectedFinalSpend.toLocaleString()} (${contract.budgetUtilisationPct}% utilisation)
+Current annual cost:      $${contract.currentAnnualCost.toLocaleString()}/yr
+NEW annual cost:          $${contract.newAnnualCost.toLocaleString()}/yr
+Average price increase:   +${contract.avgPriceIncreasePct}%
+Total increase amount:    $${contract.totalIncreaseAmt.toLocaleString()}/yr
+
+━━━ USAGE STATISTICS ━━━
+Total interactions:       ${totalInteractions.toLocaleString()} (26-month cumulative)
+  Downloads:              ${usage.totalDownloads.toLocaleString()} (${usage.downloadsPct}%)
+  Analyst calls:          ${usage.totalAnalystCalls} (${usage.callsPct}%)
+  Conferences:            ${usage.totalConferences} (${usage.confPct}%)
+Monthly average (all):    ${usage.monthlyAvgAllUsers}
+Cost per interaction:     ~$${usage.costPerInteraction}
+Activity breakdown:
+  Extreme Outlier (>1000): ${actLevels.extremeOutlier} users
+  High (600-999):          ${actLevels.high} users
+  Active (100-599):        ${actLevels.active} users
+  Low (<100):              ${actLevels.low} users (${Math.round(actLevels.low/contract.totalLicensedUsers*100)}% of all seats)
+
+Agency breakdown:
+${agencyLines}
+
+Top 5 users by activity:
+    ${topUsers}
+
+━━━ PRICING (Current → New per user/yr) ━━━
+${pricingLines}
+
+━━━ RENEWAL RECOMMENDATIONS ━━━
+RENEW (${renewUsers.length} users):
+    ${renewList}
+
+REVIEW / RIGHT-SIZE (${reviewUsers.length} users):
+    ${reviewList}
+
+TERMINATE (${terminateUsers.length} users) — est. savings $${terminateUsers.reduce((s,u)=>s+u.newCostYr,0).toLocaleString()}/yr:
+    ${terminateList}
+
+FOLLOW-UP REQUIRED (${followupUsers.length} users — no survey data):
+    High priority (active usage): ${followupHighPriority}
+    Low priority: ${followupUsers.filter(u=>u.activityLevel==='Low').map(u=>u.id).join(', ')}
+
+EXCLUDED (${excludedUsers.length} users):
+    ${excludedUsers.map(u=>`${u.id} — ${u.rationale.substring(0,60)}`).join('\n    ')}
+
+━━━ SURVEY RESULTS (${survey.totalRespondents} respondents) ━━━
+High Usefulness (Q3):     ${survey.highUsefulnessPct}% (Essential + Frequently valuable)
+Substantial Value (VEV):  ${survey.substantialValuePct}% (${survey.substantialValueCount}/${survey.totalRespondents})
+Value exceeds cost (Q14): ${survey.valueExceedsCostPct}% (${survey.valueExceedsCostCount}/${survey.totalRespondents})
+Continue Gartner (Q15):   ${survey.continueGartnerPct}% (${survey.continueGartnerCount}/${survey.totalRespondents})
+Exit intention (Q15):     ${survey.exitIntentionPct}% (${survey.exitIntentionCount}/${survey.totalRespondents})
+
+Q3 Usefulness breakdown:
+${survey.q3Usefulness.map(q=>`  ${q.label}: ${q.count} (${q.pct}%)`).join('\n')}
+
+Q4 Impact areas:
+${survey.q4ImpactAreas.map(q=>`  ${q.label}: ${q.count} (${q.pct}%)`).join('\n')}
+
+━━━ KEY NEGOTIATION POINTS ━━━
+1. EPL-Advisor +${pricing.find(p=>p.accountType==='EPL-Advisor')?.increasePct||53}% is the highest increase — challenge this aggressively
+2. ${actLevels.low} of ${contract.totalLicensedUsers} users (${Math.round(actLevels.low/contract.totalLicensedUsers*100)}%) have LOW activity — use as leverage for seat reduction
+3. ${contract.nonRespondents} users (${Math.round(contract.nonRespondents/contract.totalLicensedUsers*100)}% of seats) have no survey data — negotiate provisional renewal with exit clause
+4. 2 unused EPL extended member slots (structural gap) — use as leverage
+5. Magic Quadrant access friction driving exit intent — request MQ access in GTP-SMB tier
+6. Single-user download restriction flagged by multiple users — request multi-user licensing
+
+━━━ PORTAL NAVIGATION ━━━
+Portal sections: [Executive Summary] | [Usage Analysis] | [User Matrix] | [Budget & Pricing] | [Survey Intelligence] | [Recommendations]
+When relevant, mention section names in square brackets — they become clickable navigation links.
+
+Be concise, analytical, and actionable. Focus on contract negotiation preparation.`;
+}
+
+// ── Main handler ──────────────────────────────────────────────────────────────
 export default async function handler(req, res) {
-  // Only allow POST
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  // CORS headers (adjust origin in production)
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", process.env.ALLOWED_ORIGIN || "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
+  if (req.method === "OPTIONS") return res.status(200).end();
 
   const { messages } = req.body;
-
   if (!messages || !Array.isArray(messages)) {
     return res.status(400).json({ error: "Invalid request: messages array required" });
   }
 
+  // Load data fresh on every request — Vercel caches the module in memory
+  // so this is fast after the first cold start
+  const data = loadData();
+  const systemPrompt = buildSystemPrompt(data);
   const provider = (process.env.AI_PROVIDER || "anthropic").toLowerCase();
 
   try {
     let reply;
 
-    // ─────────────────────────────────────────
-    // ANTHROPIC — Claude
-    // ─────────────────────────────────────────
+    // ─── Anthropic ────────────────────────────────────────────────────────────
     if (provider === "anthropic") {
       const apiKey = process.env.ANTHROPIC_API_KEY;
-      if (!apiKey) throw new Error("ANTHROPIC_API_KEY not configured");
+      if (!apiKey) throw new Error("ANTHROPIC_API_KEY not configured in environment variables");
 
       const model = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6";
 
@@ -124,12 +194,7 @@ export default async function handler(req, res) {
           "x-api-key": apiKey,
           "anthropic-version": "2023-06-01",
         },
-        body: JSON.stringify({
-          model,
-          max_tokens: 1024,
-          system: SYSTEM_PROMPT,
-          messages,
-        }),
+        body: JSON.stringify({ model, max_tokens: 1024, system: systemPrompt, messages }),
       });
 
       if (!response.ok) {
@@ -137,24 +202,16 @@ export default async function handler(req, res) {
         throw new Error(err.error?.message || `Anthropic API error ${response.status}`);
       }
 
-      const data = await response.json();
-      reply = data.content?.[0]?.text || "No response received.";
+      const responseData = await response.json();
+      reply = responseData.content?.[0]?.text || "No response received.";
     }
 
-    // ─────────────────────────────────────────
-    // OPENAI — GPT-4o
-    // ─────────────────────────────────────────
+    // ─── OpenAI ───────────────────────────────────────────────────────────────
     else if (provider === "openai") {
       const apiKey = process.env.OPENAI_API_KEY;
-      if (!apiKey) throw new Error("OPENAI_API_KEY not configured");
+      if (!apiKey) throw new Error("OPENAI_API_KEY not configured in environment variables");
 
       const model = process.env.OPENAI_MODEL || "gpt-4o";
-
-      // Convert Anthropic message format to OpenAI format
-      const openaiMessages = [
-        { role: "system", content: SYSTEM_PROMPT },
-        ...messages.map((m) => ({ role: m.role, content: m.content })),
-      ];
 
       const response = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
@@ -165,7 +222,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           model,
           max_tokens: 1024,
-          messages: openaiMessages,
+          messages: [{ role: "system", content: systemPrompt }, ...messages],
         }),
       });
 
@@ -174,20 +231,22 @@ export default async function handler(req, res) {
         throw new Error(err.error?.message || `OpenAI API error ${response.status}`);
       }
 
-      const data = await response.json();
-      reply = data.choices?.[0]?.message?.content || "No response received.";
+      const responseData = await response.json();
+      reply = responseData.choices?.[0]?.message?.content || "No response received.";
     }
 
     else {
-      throw new Error(`Unknown AI_PROVIDER: "${provider}". Use "anthropic" or "openai".`);
+      throw new Error(`Unknown AI_PROVIDER "${provider}". Use "anthropic" or "openai".`);
     }
 
-    return res.status(200).json({ reply });
+    // Include metadata in response so client can show data freshness
+    return res.status(200).json({
+      reply,
+      _dataMeta: data?._meta || null,
+    });
 
   } catch (err) {
     console.error("[chat.js] Error:", err.message);
-    return res.status(500).json({
-      error: err.message || "Internal server error",
-    });
+    return res.status(500).json({ error: err.message || "Internal server error" });
   }
 }

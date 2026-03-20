@@ -1,15 +1,9 @@
-# Environment — NEVER commit API keys
 .env
 .env.local
 .env.*.local
-
-# Vercel
 .vercel
-
-# Node
 node_modules/
-npm-debug.log*
-
-# OS
+__pycache__/
+*.pyc
 .DS_Store
 Thumbs.db
