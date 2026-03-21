@@ -1,9 +1,25 @@
+# Environment — NEVER commit API keys
 .env
 .env.local
 .env.*.local
+
+# Vercel
 .vercel
+
+# Node
 node_modules/
+npm-debug.log*
+
+# Python
 __pycache__/
 *.pyc
+*.pyo
+.Python
+
+# OS
 .DS_Store
 Thumbs.db
+
+# Excel source files (large, keep local only — commit only the generated JSON)
+excel/*.xlsx
+excel/*.xls

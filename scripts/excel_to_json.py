@@ -34,7 +34,7 @@ DATA_DIR    = PROJECT_DIR / "public" / "data"
 OUTPUT_FILE = DATA_DIR / "gartner_data.json"
 
 # Default Excel file — override with CLI arg
-DEFAULT_EXCEL = PROJECT_DIR / "data" / "Gartner_Contract_Renewal_Analysis.xlsx"
+DEFAULT_EXCEL = PROJECT_DIR / "excel" / "Gartner_Contract_Renewal_Analysis.xlsx"
 
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
@@ -363,22 +363,8 @@ if __name__ == "__main__":
 
     data = convert(excel_path)
 
-    import math
-
-
-    def sanitize(obj):
-        """Recursively replace NaN/Infinity with None so JSON stays valid."""
-        if isinstance(obj, float) and (math.isnan(obj) or math.isinf(obj)):
-            return None
-        if isinstance(obj, dict):
-            return {k: sanitize(v) for k, v in obj.items()}
-        if isinstance(obj, list):
-            return [sanitize(i) for i in obj]
-        return obj
-
-
     with open(OUTPUT_FILE, "w") as f:
-        json.dump(sanitize(data), f, indent=2)
+        json.dump(data, f, indent=2)
 
     print(f"\n{'='*60}")
     print(f"  ✅ Written: {OUTPUT_FILE}")
@@ -388,7 +374,7 @@ if __name__ == "__main__":
     print(f"  Generated at: {data['_meta']['generatedAt']}")
     print(f"{'='*60}")
     print(f"\n  Next steps:")
-    print(f"  1. git add data/gartner_data.json")
+    print(f"  1. git add public/data/gartner_data.json")
     print(f"  2. git commit -m 'Update portal data from new Excel'")
     print(f"  3. git push  →  Vercel auto-deploys in ~30 seconds")
     print(f"\n  Or for local test: vercel dev  →  open http://localhost:3000\n")
