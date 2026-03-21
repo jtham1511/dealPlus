@@ -1,7 +1,7 @@
 {
   "_meta": {
     "generatedFrom": "Gartner_Contract_Renewal_Analysis_v2_8.xlsx",
-    "generatedAt": "2026-03-20T07:34:10Z",
+    "generatedAt": "2026-03-21T11:17:39Z",
     "analysisPeriod": "Aug 2023 \u2013 Oct 2025",
     "analysisPeriodMonths": 26,
     "contractExpiry": "2026-07-31",
@@ -15,8 +15,8 @@
     "totalBudgetApproved": 3920000,
     "projectedFinalSpend": 3810000,
     "budgetUtilisationPct": 96.7,
-    "currentAnnualCost": 1340753,
-    "newAnnualCost": 1689816,
+    "currentAnnualCost": 1335657,
+    "newAnnualCost": 1683698,
     "avgPriceIncreasePct": 26.1,
     "totalIncreaseAmt": 348041
   },
@@ -42,11 +42,11 @@
     "highUsefulnessPct": 47,
     "substantialValuePct": 53,
     "substantialValueCount": 9,
-    "valueExceedsCostPct": 59,
+    "valueExceedsCostPct": 59.0,
     "valueExceedsCostCount": 10,
-    "continueGartnerPct": 59,
+    "continueGartnerPct": 59.0,
     "continueGartnerCount": 10,
-    "exitIntentionPct": 18,
+    "exitIntentionPct": 18.0,
     "exitIntentionCount": 3,
     "q3Usefulness": [
       {
@@ -73,11 +73,6 @@
         "label": "No impact on my work (0%)",
         "count": 1,
         "pct": 6.0
-      },
-      {
-        "label": "Note: 2 Excluded (User2 left org; User23 not using)",
-        "count": 0,
-        "pct": NaN
       }
     ],
     "q4ImpactAreas": [
@@ -126,29 +121,29 @@
       {
         "label": "Value exceeds cost",
         "count": 10,
-        "pct": 59
+        "pct": 59.0
       },
       {
         "label": "Value is less than cost",
         "count": 7,
-        "pct": 41
+        "pct": 41.0
       }
     ],
     "q15FuturePlans": [
       {
         "label": "Continue with current Gartner services",
         "count": 10,
-        "pct": 59
+        "pct": 59.0
       },
       {
         "label": "Change account tier",
         "count": 4,
-        "pct": 24
+        "pct": 24.0
       },
       {
         "label": "Do not need Gartner",
         "count": 3,
-        "pct": 18
+        "pct": 18.0
       }
     ]
   },
