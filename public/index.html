@@ -478,7 +478,7 @@ async function boot() {
   setLoadMsg('Fetching contract data…');
   try {
     // Cache-bust so we always get the freshest version
-    const res = await fetch('/data/gartner_data.json?v=' + Date.now());
+    const res = await fetch('/data/gartner_data.json');
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     D = await res.json();
     setLoadMsg('Rendering portal…');

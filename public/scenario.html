@@ -337,7 +337,7 @@ const STATUS_OPTIONS = [
 // ══════════════════════════════════════════════════════════
 async function boot() {
   try {
-    const res = await fetch('/data/gartner_data.json?v=' + Date.now());
+    const res = await fetch('/data/gartner_data.json');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     ORIG = await res.json();
     renderAll();
