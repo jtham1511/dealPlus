@@ -363,8 +363,22 @@ if __name__ == "__main__":
 
     data = convert(excel_path)
 
+    import math
+
+
+    def sanitize(obj):
+        """Recursively replace NaN/Infinity with None so JSON stays valid."""
+        if isinstance(obj, float) and (math.isnan(obj) or math.isinf(obj)):
+            return None
+        if isinstance(obj, dict):
+            return {k: sanitize(v) for k, v in obj.items()}
+        if isinstance(obj, list):
+            return [sanitize(i) for i in obj]
+        return obj
+
+
     with open(OUTPUT_FILE, "w") as f:
-        json.dump(data, f, indent=2)
+        json.dump(sanitize(data), f, indent=2)
 
     print(f"\n{'='*60}")
     print(f"  ✅ Written: {OUTPUT_FILE}")

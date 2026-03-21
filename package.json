@@ -1,6 +1,6 @@
 {
   "name": "gartner-renewal-portal",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Gartner Contract Renewal Intelligence Portal — Data-Driven Edition Updated : 21st Mar 2026",
   "private": true,
   "type": "module",
