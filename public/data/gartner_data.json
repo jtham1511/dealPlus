@@ -5,7 +5,7 @@
     "analysisPeriod": "Aug 2023 \u2013 Oct 2025",
     "analysisPeriodMonths": 26,
     "contractExpiry": "2026-07-31",
-    "organization": "GovTech / SNG"
+    "organization": "GovTech / SNDG"
   },
   "contract": {
     "totalLicensedUsers": 39,
@@ -13,7 +13,7 @@
     "nonRespondents": 20,
     "excluded": 2,
     "totalBudgetApproved": 3920000,
-    "projectedFinalSpend": 3810000,
+    "projectedFinalSpend": 3819999,
     "budgetUtilisationPct": 96.7,
     "currentAnnualCost": 1335657,
     "newAnnualCost": 1683698,
@@ -974,7 +974,7 @@
       "conferences": 1
     },
     {
-      "id": "User39",
+      "id": "lEE PECK HWEE",
       "agency": "GT",
       "accountType": "GTP-SMB",
       "surveyStatus": "Non-Respondent",
