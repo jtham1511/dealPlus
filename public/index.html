@@ -480,20 +480,65 @@ let isLoading = false;
 async function boot() {
   setLoadMsg('Fetching contract data…');
   try {
-    // Cache-bust so we always get the freshest version
     const res = await fetch('/data/gartner_data.json');
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     D = await res.json();
-    setLoadMsg('Rendering portal…');
-    await new Promise(r => setTimeout(r, 200)); // let browser breathe
-    renderAll();
+
+    // 1. Show page shell IMMEDIATELY — don't wait for render
     document.getElementById('loadScreen').classList.add('done');
     document.getElementById('sidebar').style.display = 'flex';
     document.getElementById('mainContent').style.display = 'block';
     document.getElementById('aiFab').style.display = 'flex';
+
+    // 2. Render critical above-the-fold content first (fast, no charts)
+    const { _meta, contract, usage, survey, pricing, statusCounts, agencies, users } = D;
+    renderMeta(_meta, contract);
+    updateCountdown(_meta.contractExpiry);
+    renderExecSummary(contract, usage, survey);
+
+    // 3. Render remaining sections progressively — each in its own task
+    //    so the browser stays responsive between each step
+    setTimeout(() => renderUserTable(users), 0);
+    setTimeout(() => renderBudget(contract, pricing, statusCounts, users), 50);
+    setTimeout(() => renderSurvey(survey, contract), 100);
+    setTimeout(() => renderRecommendations(users, statusCounts, contract), 150);
+
+    // 4. Render charts lazily — only when section scrolls into view
+    setTimeout(() => setupLazyCharts(usage, agencies, users, contract, pricing, statusCounts, survey), 200);
+
   } catch (e) {
     showLoadErr(e.message);
   }
+}
+
+// Lazy chart rendering via IntersectionObserver
+function setupLazyCharts(usage, agencies, users, contract, pricing, statusCounts, survey) {
+  const chartSections = {
+    's-usage':  () => renderUsageCharts(usage, agencies, users),
+    's-budget': () => renderBudgetCharts(contract, pricing, statusCounts, users),
+    's-survey': () => renderSurveyCharts(survey, contract),
+  };
+  const rendered = new Set();
+
+  // Also render usage immediately if already in view
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.id;
+      if (entry.isIntersecting && !rendered.has(id) && chartSections[id]) {
+        rendered.add(id);
+        chartSections[id]();
+      }
+    });
+  }, { rootMargin: '200px' });
+
+  Object.keys(chartSections).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) obs.observe(el);
+  });
+
+  // Render usage charts immediately (it's the first section visible)
+  rendered.add('s-usage');
+  renderUsageCharts(usage, agencies, users);
 }
 
 function setLoadMsg(m) { document.getElementById('loadMsg').textContent = m; }
@@ -561,16 +606,18 @@ function destroyChart(id) {
 // RENDER ALL
 // ══════════════════════════════════════════════════════════
 function renderAll() {
+  // kept for external calls (e.g. template reload in scenario planner)
   const { _meta, contract, usage, survey, pricing, statusCounts, agencies, users } = D;
-
   renderMeta(_meta, contract);
+  updateCountdown(_meta.contractExpiry);
   renderExecSummary(contract, usage, survey);
-  renderUsage(usage, agencies, users);
   renderUserTable(users);
   renderBudget(contract, pricing, statusCounts, users);
   renderSurvey(survey, contract);
   renderRecommendations(users, statusCounts, contract);
-  updateCountdown(_meta.contractExpiry);
+  renderUsageCharts(usage, agencies, users);
+  renderBudgetCharts(contract, pricing, statusCounts, users);
+  renderSurveyCharts(survey, contract);
 }
 
 // ── META / SIDEBAR ────────────────────────────────────────
@@ -650,9 +697,50 @@ function renderExecSummary(c, u, sv) {
 
 // ── USAGE ─────────────────────────────────────────────────
 function renderUsage(u, agencies, users) {
+  // DOM-only part — fast, no charts
   document.getElementById('usageSub').textContent =
     `Activity patterns across all ${D.contract.totalLicensedUsers} users · ${D._meta.analysisPeriod} (${D._meta.analysisPeriodMonths} months)`;
 
+  const lc_dom = u.activityLevelCounts;
+
+  // Agency cards
+  if (D.agencies) document.getElementById('agencyCards').innerHTML = D.agencies.map(ag =>
+    `<div class="ag-card">
+      <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--${ag.agency==='GT'?'blu2':'teal'})">${ag.agency}</div>
+      <div style="font-size:10px;color:var(--txm)">${ag.users} users · ${ag.agency==='GT'?'GovTech':'Singapore'}</div>
+      <div class="ag-rows">
+        <div class="ag-row">Downloads <span>${fmtN(ag.downloads)}</span></div>
+        <div class="ag-row">Analyst Calls <span>${fmtN(ag.analystCalls)}</span></div>
+        <div class="ag-row">Conferences <span>${fmtN(ag.conferences)}</span></div>
+        <div class="ag-row">Total Activities <span>${fmtN(ag.total)}</span></div>
+        <div class="ag-row">Activity Share <span>${ag.activitySharePct}%</span></div>
+        <div class="ag-row">Monthly Avg <span>${ag.monthlyAvg}</span></div>
+      </div>
+    </div>`
+  ).join('');
+
+  document.getElementById('actLevelBars').innerHTML = [
+    {lbl:'Extreme Outlier', n:lc_dom.extremeOutlier, col:'var(--pur)'},
+    {lbl:'High',            n:lc_dom.high,           col:'var(--blu2)'},
+    {lbl:'Active',          n:lc_dom.active,         col:'var(--teal)'},
+    {lbl:'Low',             n:lc_dom.low,            col:'var(--amb)'},
+  ].map(b =>
+    `<div class="act-row">
+      <div class="act-lbl">${b.lbl}</div>
+      <div class="act-track"><div class="act-fill" style="width:${Math.round(b.n/D.contract.totalLicensedUsers*100)}%;background:${b.col}"></div></div>
+      <div class="act-cnt">${b.n}</div>
+    </div>`
+  ).join('');
+
+  document.getElementById('usageNote').innerHTML =
+    `<strong>Activity Level Definitions:</strong> Extreme Outlier &gt;1,000 acts (38+/month) · ` +
+    `High 600–999 (23–38/month) · Active 100–599 (4–23/month) · Low &lt;100 (&lt;4/month — sporadic engagement, renewal risk). ` +
+    `Monthly average across all users: <strong>${fmtN(u.monthlyAvgAllUsers)} interactions</strong>. ` +
+    `Cost per interaction: <strong>${fmt(u.costPerInteraction)}</strong>.`;
+}
+
+function renderUsageCharts(u, agencies, users) {
+  if (typeof Chart === 'undefined') return;
   Chart.defaults.color = '#8b949e';
   Chart.defaults.borderColor = 'rgba(48,54,61,0.6)';
   Chart.defaults.font.family = "'Manrope', sans-serif";
@@ -708,43 +796,6 @@ function renderUsage(u, agencies, users) {
       plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},color:'#8b949e'}}} }
   });
 
-  // Agency cards
-  document.getElementById('agencyCards').innerHTML = agencies.map(ag =>
-    `<div class="ag-card">
-      <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--${ag.agency==='GT'?'blu2':'teal'})">${ag.agency}</div>
-      <div style="font-size:10px;color:var(--txm)">${ag.users} users · ${ag.agency==='GT'?'GovTech':'Singapore'}</div>
-      <div class="ag-rows">
-        <div class="ag-row">Downloads <span>${fmtN(ag.downloads)}</span></div>
-        <div class="ag-row">Analyst Calls <span>${fmtN(ag.analystCalls)}</span></div>
-        <div class="ag-row">Conferences <span>${fmtN(ag.conferences)}</span></div>
-        <div class="ag-row">Total Activities <span>${fmtN(ag.total)}</span></div>
-        <div class="ag-row">Activity Share <span>${ag.activitySharePct}%</span></div>
-        <div class="ag-row">Monthly Avg <span>${ag.monthlyAvg}</span></div>
-      </div>
-    </div>`
-  ).join('');
-
-  // Activity level bars
-  const max = lc.low; // largest bar
-  const bars = [
-    {lbl:'Extreme Outlier', n:lc.extremeOutlier, col:'var(--pur)'},
-    {lbl:'High',            n:lc.high,           col:'var(--blu2)'},
-    {lbl:'Active',          n:lc.active,         col:'var(--teal)'},
-    {lbl:'Low',             n:lc.low,            col:'var(--amb)'},
-  ];
-  document.getElementById('actLevelBars').innerHTML = bars.map(b =>
-    `<div class="act-row">
-      <div class="act-lbl">${b.lbl}</div>
-      <div class="act-track"><div class="act-fill" style="width:${Math.round(b.n/D.contract.totalLicensedUsers*100)}%;background:${b.col}"></div></div>
-      <div class="act-cnt">${b.n}</div>
-    </div>`
-  ).join('');
-
-  document.getElementById('usageNote').innerHTML =
-    `<strong>Activity Level Definitions:</strong> Extreme Outlier &gt;1,000 acts (38+/month) · ` +
-    `High 600–999 (23–38/month) · Active 100–599 (4–23/month) · Low &lt;100 (&lt;4/month — sporadic engagement, renewal risk). ` +
-    `Monthly average across all users: <strong>${fmtN(u.monthlyAvgAllUsers)} interactions</strong>. ` +
-    `Cost per interaction: <strong>${fmt(u.costPerInteraction)}</strong>.`;
 }
 
 // ── USER TABLE ────────────────────────────────────────────
@@ -836,6 +887,11 @@ function renderBudget(c, pricing, statusCounts, users) {
     </div>`;
   }).join('');
 
+}
+
+function renderBudgetCharts(c, pricing, statusCounts, users) {
+  if (typeof Chart === 'undefined') return;
+  const sortedP = [...pricing].sort((a,b)=>b.increasePct-a.increasePct);
   // Pricing bar chart
   destroyChart('chartPricing');
   chartInstances.chartPricing = new Chart(document.getElementById('chartPricing'), {
@@ -927,6 +983,10 @@ function renderSurvey(sv, c) {
     `<strong>Broad Applications (2+ areas):</strong> ` +
     `${D.users.filter(u=>u.surveyStatus==='Responded').length} of ${sv.totalRespondents} respondents — strong indicator of diverse utility`;
 
+}
+
+function renderSurveyCharts(sv, c) {
+  if (typeof Chart === 'undefined') return;
   // Q14 doughnut
   destroyChart('chartQ14');
   chartInstances.chartQ14 = new Chart(document.getElementById('chartQ14'), {
