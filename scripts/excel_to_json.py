@@ -30,7 +30,7 @@ except ImportError:
 # ── File paths ──────────────────────────────────────────────────────────────
 SCRIPT_DIR  = Path(__file__).parent
 PROJECT_DIR = SCRIPT_DIR.parent
-DATA_DIR    = PROJECT_DIR / "data"
+DATA_DIR    = PROJECT_DIR / "public" / "data"
 OUTPUT_FILE = DATA_DIR / "gartner_data.json"
 
 # Default Excel file — override with CLI arg
