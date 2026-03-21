@@ -16,7 +16,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // ── Load data ─────────────────────────────────────────────────────────────────
 function loadData() {
-  const dataPath = path.join(__dirname, "..", "data", "gartner_data.json");
+  const dataPath = path.join(__dirname, "..", "public", "data", "gartner_data.json");
   try {
     const raw = fs.readFileSync(dataPath, "utf-8");
     return JSON.parse(raw);
