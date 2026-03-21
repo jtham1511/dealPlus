@@ -5,14 +5,14 @@
     "analysisPeriod": "Aug 2023 \u2013 Oct 2025",
     "analysisPeriodMonths": 26,
     "contractExpiry": "2026-07-31",
-    "organization": "GovTech / SINGAPORE"
+    "organization": "GovTech / SNG"
   },
   "contract": {
-    "totalLicensedUsers": 388,
-    "responded": 1700,
-    "nonRespondents": 200,
+    "totalLicensedUsers": 39,
+    "responded": 17,
+    "nonRespondents": 20,
     "excluded": 2,
-    "totalBudgetApproved": 39299999,
+    "totalBudgetApproved": 3920000,
     "projectedFinalSpend": 3810000,
     "budgetUtilisationPct": 96.7,
     "currentAnnualCost": 1335657,
@@ -21,7 +21,7 @@
     "totalIncreaseAmt": 348041
   },
   "usage": {
-    "totalDownloads": 8554,
+    "totalDownloads": 7569,
     "totalAnalystCalls": 396,
     "totalConferences": 63,
     "totalInteractions": 8028,
@@ -93,7 +93,7 @@
       },
       {
         "label": "Technology vendor selection decisions",
-        "count": 100,
+        "count": 5,
         "pct": 29.0
       },
       {
