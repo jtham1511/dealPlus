@@ -1,6 +1,6 @@
 {
   "name": "gartner-renewal-portal",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Gartner Contract Renewal Intelligence Portal Updated : 22 Mar 2026 Performance Fix",
   "private": true,
   "type": "module",
