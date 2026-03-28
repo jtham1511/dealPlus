@@ -1,7 +1,7 @@
 {
   "_meta": {
     "generatedFrom": "Gartner_Contract_Renewal_Analysis.xlsx",
-    "generatedAt": "2026-03-28T15:20:41Z",
+    "generatedAt": "2026-03-28T15:54:56Z",
     "analysisPeriod": "Aug 2023 \u2013 Oct 2025",
     "analysisPeriodMonths": 26,
     "contractExpiry": "2026-07-31",
@@ -15,10 +15,10 @@
     "totalBudgetApproved": 3920000,
     "projectedFinalSpend": 3810000,
     "budgetUtilisationPct": 96.7,
-    "currentAnnualCost": 1335657,
-    "newAnnualCost": 1545666,
+    "currentAnnualCost": 1340753,
+    "newAnnualCost": 1551781,
     "avgPriceIncreasePct": 15.7,
-    "totalIncreaseAmt": 210009
+    "totalIncreaseAmt": 211028
   },
   "usage": {
     "totalDownloads": 7569,
