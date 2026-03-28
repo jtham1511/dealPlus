@@ -1,7 +1,7 @@
 {
   "_meta": {
     "generatedFrom": "Gartner_Contract_Renewal_Analysis.xlsx",
-    "generatedAt": "2026-03-28T16:19:42Z",
+    "generatedAt": "2026-03-28T15:54:56Z",
     "analysisPeriod": "Aug 2023 \u2013 Oct 2025",
     "analysisPeriodMonths": 26,
     "contractExpiry": "2026-07-31",
@@ -235,9 +235,9 @@
       "downloads": 7078,
       "analystCalls": 371,
       "conferences": 61,
-      "total": 7510,
+      "total": 7504,
       "activitySharePct": 93.5,
-      "monthlyAvg": 288.8
+      "monthlyAvg": 288.6
     },
     {
       "agency": "SNG",
