@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "generatedFrom": "Gartner_Contract_Renewal_Analysis.xlsx",
-    "generatedAt": "2026-03-28T15:20:41Z",
+    "generatedFrom": "Gartner_Contract_Renewal_Analysis_v2_8.xlsx",
+    "generatedAt": "2026-03-21T11:17:39Z",
     "analysisPeriod": "Aug 2023 \u2013 Oct 2025",
     "analysisPeriodMonths": 26,
     "contractExpiry": "2026-07-31",
@@ -9,16 +9,16 @@
   },
   "contract": {
     "totalLicensedUsers": 39,
-    "responded": 18,
-    "nonRespondents": 19,
+    "responded": 17,
+    "nonRespondents": 20,
     "excluded": 2,
     "totalBudgetApproved": 3920000,
     "projectedFinalSpend": 3810000,
     "budgetUtilisationPct": 96.7,
     "currentAnnualCost": 1335657,
-    "newAnnualCost": 1545666,
-    "avgPriceIncreasePct": 15.7,
-    "totalIncreaseAmt": 210009
+    "newAnnualCost": 1683698,
+    "avgPriceIncreasePct": 26.1,
+    "totalIncreaseAmt": 348041
   },
   "usage": {
     "totalDownloads": 7569,
@@ -38,36 +38,36 @@
     }
   },
   "survey": {
-    "totalRespondents": 18,
-    "highUsefulnessPct": 50,
-    "substantialValuePct": 56,
-    "substantialValueCount": 10,
-    "valueExceedsCostPct": 61.0,
-    "valueExceedsCostCount": 11,
-    "continueGartnerPct": 61.0,
-    "continueGartnerCount": 11,
-    "exitIntentionPct": 17.0,
+    "totalRespondents": 17,
+    "highUsefulnessPct": 47,
+    "substantialValuePct": 53,
+    "substantialValueCount": 9,
+    "valueExceedsCostPct": 59.0,
+    "valueExceedsCostCount": 10,
+    "continueGartnerPct": 59.0,
+    "continueGartnerCount": 10,
+    "exitIntentionPct": 18.0,
     "exitIntentionCount": 3,
     "q3Usefulness": [
       {
         "label": "Essential for my work (75-100%)",
         "count": 2,
-        "pct": 11.0
+        "pct": 12.0
       },
       {
         "label": "Frequently valuable (51-75%)",
-        "count": 7,
-        "pct": 39.0
+        "count": 6,
+        "pct": 35.0
       },
       {
         "label": "Occasionally helpful (26-50%)",
         "count": 4,
-        "pct": 22.0
+        "pct": 24.0
       },
       {
         "label": "Rarely valuable (1-25%)",
         "count": 4,
-        "pct": 22.0
+        "pct": 24.0
       },
       {
         "label": "No impact on my work (0%)",
@@ -78,93 +78,93 @@
     "q4ImpactAreas": [
       {
         "label": "Strategic planning initiatives",
-        "count": 13,
-        "pct": 72.0
+        "count": 12,
+        "pct": 71.0
       },
       {
         "label": "Risk mitigation strategies",
         "count": 12,
-        "pct": 67.0
+        "pct": 71.0
       },
       {
         "label": "Innovation roadmap development",
         "count": 7,
-        "pct": 39.0
+        "pct": 41.0
       },
       {
         "label": "Technology vendor selection decisions",
         "count": 5,
-        "pct": 28.0
+        "pct": 29.0
       },
       {
         "label": "Compliance / regulatory guidance",
         "count": 2,
-        "pct": 11.0
+        "pct": 12.0
       },
       {
         "label": "Others (specified in Q5)",
         "count": 5,
-        "pct": 28.0
+        "pct": 29.0
       },
       {
         "label": "Competitive intelligence gathering",
         "count": 4,
-        "pct": 22.0
+        "pct": 24.0
       },
       {
         "label": "Budget allocation decisions",
         "count": 3,
-        "pct": 17.0
+        "pct": 18.0
       }
     ],
     "q14ValueVsCost": [
       {
         "label": "Value exceeds cost",
-        "count": 11,
-        "pct": 61.0
+        "count": 10,
+        "pct": 59.0
       },
       {
         "label": "Value is less than cost",
         "count": 7,
-        "pct": 39.0
+        "pct": 41.0
       }
     ],
     "q15FuturePlans": [
       {
         "label": "Continue with current Gartner services",
-        "count": 11,
-        "pct": 61.0
+        "count": 10,
+        "pct": 59.0
       },
       {
         "label": "Change account tier",
         "count": 4,
-        "pct": 22.0
+        "pct": 24.0
       },
       {
         "label": "Do not need Gartner",
         "count": 3,
-        "pct": 17.0
+        "pct": 18.0
       }
     ]
   },
   "pricing": [
     {
       "accountType": "EPL-Leader",
-      "newContractName": "EPL-Leader",
+      "newContractName": "Executive Programs Leader V2",
       "userCount": 2,
       "currentCostPerUser": 175933.0,
-      "newCostPerUser": 205867.0,
-      "increaseAmt": 29934.0,
-      "increasePct": 17.0
+      "newCostPerUser": 229133.0,
+      "increaseAmt": 53200.0,
+      "increasePct": 30.2
     },
     {
       "accountType": "EPL-Advisor",
-      "newContractName": "EPL-Advisor",
+      "newContractName": "Executive Programs Advisor Member V2",
       "userCount": 3,
       "currentCostPerUser": 68700.0,
-      "newCostPerUser": 74600.0,
-      "increaseAmt": 5900.0,
-      "increasePct": 8.6
+      "newCostPerUser": 105100.0,
+      "increaseAmt": 36400.0,
+      "increasePct": 53.0
     },
     {
       "accountType": "CIO",
@@ -222,11 +222,11 @@
     }
   ],
   "statusCounts": {
-    "followup": 19,
+    "followup": 20,
     "excluded": 2,
-    "renew": 11,
-    "review": 4,
-    "terminate": 3
+    "renew": 10,
+    "review": 2,
+    "terminate": 5
   },
   "agencies": [
     {
@@ -261,8 +261,8 @@
       "activityLevel": "Active",
       "totalActivities": 114,
       "monthlyAvg": 4.4,
-      "currentCostYr": 175933.0,
-      "newCostYr": 205867.0,
+      "currentCostYr": 175933.33,
+      "newCostYr": 229133.33,
       "recommendation": "No Survey \u2013 Active Usage: Follow-up Required",
       "rationale": "No survey data. Activity-only basis: Active (114 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
@@ -280,9 +280,9 @@
       "activityLevel": "Active",
       "totalActivities": 101,
       "monthlyAvg": 3.9,
-      "currentCostYr": 175933.0,
-      "newCostYr": 205867.0,
-      "recommendation": "Excluded (1) - Account Reassignment: Vacated \u2192 User3  \u2192 User10 \u2192 New user",
+      "currentCostYr": 175933.33,
+      "newCostYr": 229133.33,
+      "recommendation": "Excluded",
       "rationale": "User excluded from analysis: EXCLUDED \u2013 Left organisation",
       "status": "excluded",
       "downloads": 60,
@@ -300,7 +300,7 @@
       "totalActivities": 89,
       "monthlyAvg": 3.4,
       "currentCostYr": 68700.0,
-      "newCostYr": 74600.0,
+      "newCostYr": 105100.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (89 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
@@ -319,8 +319,8 @@
       "totalActivities": 143,
       "monthlyAvg": 5.5,
       "currentCostYr": 68700.0,
-      "newCostYr": 74600.0,
-      "recommendation": "Renew - Current tier",
+      "newCostYr": 105100.0,
+      "recommendation": "Maintain with engagement coaching",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Active.",
       "status": "renew",
       "downloads": 125,
@@ -338,8 +338,8 @@
       "totalActivities": 697,
       "monthlyAvg": 26.8,
       "currentCostYr": 128750.0,
-      "newCostYr": 149133.0,
-      "recommendation": "Renew - Current tier with training",
+      "newCostYr": 149133.33,
+      "recommendation": "Usage optimisation training",
       "rationale": "Q15=Continue with current Gar. Value=Limited (DC:Substantial, Impact:Substantial, Cost:Below). Activity=High.",
       "status": "renew",
       "downloads": 655,
@@ -357,7 +357,7 @@
       "totalActivities": 262,
       "monthlyAvg": 10.1,
       "currentCostYr": 68700.0,
-      "newCostYr": 74600.0,
+      "newCostYr": 105100.0,
       "recommendation": "No Survey \u2013 Active Usage: Follow-up Required",
       "rationale": "No survey data. Activity-only basis: Active (262 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
@@ -388,17 +388,17 @@
       "id": "User8",
       "agency": "SNG",
       "accountType": "CDAO",
-      "surveyStatus": "Responded",
-      "q15": "Continue with current Gartner services",
-      "valueAssessment": "Substantial",
+      "surveyStatus": "Non-Respondent",
+      "q15": "Not Responded",
+      "valueAssessment": "No Survey",
       "activityLevel": "Active",
       "totalActivities": 256,
       "monthlyAvg": 9.8,
       "currentCostYr": 100500.0,
       "newCostYr": 117000.0,
-      "recommendation": "Renew - Current tier",
-      "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Active.",
-      "status": "renew",
+      "recommendation": "No Survey \u2013 Active Usage: Follow-up Required",
+      "rationale": "No survey data. Activity-only basis: Active (256 activities over 26 months). Follow-up interview recommended.",
+      "status": "followup",
       "downloads": 246,
       "analystCalls": 8,
       "conferences": 2
@@ -415,7 +415,7 @@
       "monthlyAvg": 78.8,
       "currentCostYr": 100500.0,
       "newCostYr": 117000.0,
-      "recommendation": "Renew - Current tier",
+      "recommendation": "Maintain current tier",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Extreme Outlier.",
       "status": "renew",
       "downloads": 1984,
@@ -432,9 +432,9 @@
       "activityLevel": "Active",
       "totalActivities": 136,
       "monthlyAvg": 5.2,
-      "currentCostYr": 61733.0,
-      "newCostYr": 72033.0,
-      "recommendation": "Renew - Substantial Value Right-size tier  (ask for Data Specific)",
+      "currentCostYr": 61733.33,
+      "newCostYr": 72033.33,
+      "recommendation": "Right-size tier",
       "rationale": "Q15=Change account tier. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Active. Q16: I was advised the data specific ones are more useful for me.",
       "status": "review",
       "downloads": 84,
@@ -451,9 +451,9 @@
       "activityLevel": "High",
       "totalActivities": 648,
       "monthlyAvg": 24.9,
-      "currentCostYr": 61733.0,
-      "newCostYr": 72033.0,
-      "recommendation": "Renew - Current tier",
+      "currentCostYr": 61733.33,
+      "newCostYr": 72033.33,
+      "recommendation": "Maintain current tier",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=High.",
       "status": "renew",
       "downloads": 636,
@@ -470,9 +470,9 @@
       "activityLevel": "High",
       "totalActivities": 762,
       "monthlyAvg": 29.3,
-      "currentCostYr": 61733.0,
-      "newCostYr": 72033.0,
-      "recommendation": "Renew - Current tier",
+      "currentCostYr": 61733.33,
+      "newCostYr": 72033.33,
+      "recommendation": "Maintain current tier",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=High.",
       "status": "renew",
       "downloads": 741,
@@ -489,9 +489,9 @@
       "activityLevel": "Active",
       "totalActivities": 193,
       "monthlyAvg": 7.4,
-      "currentCostYr": 34667.0,
+      "currentCostYr": 34666.67,
       "newCostYr": 41000.0,
-      "recommendation": "Terminate",
+      "recommendation": "Contract termination",
       "rationale": "Q15=Do not need Gartner. Value=Limited (DC:Limited, Impact:Limited, Cost:Below). Activity=Active.",
       "status": "terminate",
       "downloads": 193,
@@ -508,9 +508,9 @@
       "activityLevel": "Active",
       "totalActivities": 139,
       "monthlyAvg": 5.3,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Current tier",
+      "recommendation": "Maintain with engagement coaching",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Active.",
       "status": "renew",
       "downloads": 127,
@@ -527,7 +527,7 @@
       "activityLevel": "Low",
       "totalActivities": 50,
       "monthlyAvg": 1.9,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (50 activities over 26 months). Follow-up interview recommended.",
@@ -546,7 +546,7 @@
       "activityLevel": "Low",
       "totalActivities": 8,
       "monthlyAvg": 0.3,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (8 activities over 26 months). Follow-up interview recommended.",
@@ -565,7 +565,7 @@
       "activityLevel": "Low",
       "totalActivities": 28,
       "monthlyAvg": 1.1,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (28 activities over 26 months). Follow-up interview recommended.",
@@ -584,9 +584,9 @@
       "activityLevel": "Low",
       "totalActivities": 59,
       "monthlyAvg": 2.3,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Current tier, investigate barriers",
+      "recommendation": "Investigate barriers",
       "rationale": "Q15=Continue with current Gar. Value=Limited (DC:Limited, Impact:Limited, Cost:Exceeds). Activity=Low.",
       "status": "renew",
       "downloads": 55,
@@ -603,9 +603,9 @@
       "activityLevel": "Low",
       "totalActivities": 36,
       "monthlyAvg": 1.4,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
-      "recommendation": "Terminate",
+      "recommendation": "Contract termination",
       "rationale": "Q15=Do not need Gartner. Value=Limited (DC:Limited, Impact:Limited, Cost:Below). Activity=Low.",
       "status": "terminate",
       "downloads": 36,
@@ -622,7 +622,7 @@
       "activityLevel": "Low",
       "totalActivities": 20,
       "monthlyAvg": 0.8,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (20 activities over 26 months). Follow-up interview recommended.",
@@ -641,7 +641,7 @@
       "activityLevel": "Low",
       "totalActivities": 72,
       "monthlyAvg": 2.8,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (72 activities over 26 months). Follow-up interview recommended.",
@@ -660,7 +660,7 @@
       "activityLevel": "Active",
       "totalActivities": 118,
       "monthlyAvg": 4.5,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Active Usage: Follow-up Required",
       "rationale": "No survey data. Activity-only basis: Active (118 activities over 26 months). Follow-up interview recommended.",
@@ -679,7 +679,7 @@
       "activityLevel": "Low",
       "totalActivities": 52,
       "monthlyAvg": 2.0,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "Excluded",
       "rationale": "User excluded from analysis: EXCLUDED \u2013 Not using Gartner",
@@ -698,7 +698,7 @@
       "activityLevel": "Low",
       "totalActivities": 33,
       "monthlyAvg": 1.3,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (33 activities over 26 months). Follow-up interview recommended.",
@@ -717,7 +717,7 @@
       "activityLevel": "Low",
       "totalActivities": 45,
       "monthlyAvg": 1.7,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (45 activities over 26 months). Follow-up interview recommended.",
@@ -736,9 +736,9 @@
       "activityLevel": "Active",
       "totalActivities": 174,
       "monthlyAvg": 6.7,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Current tier with training",
+      "recommendation": "Investigate barriers",
       "rationale": "Q15=Continue with current Gar. Value=Limited (DC:Limited, Impact:Limited, Cost:Below). Activity=Active.",
       "status": "renew",
       "downloads": 174,
@@ -755,11 +755,11 @@
       "activityLevel": "Low",
       "totalActivities": 81,
       "monthlyAvg": 3.1,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Limited Value Right-size tier (ask for higher tier MQ/Hype)",
+      "recommendation": "Significant downgrade",
       "rationale": "Q15=Change account tier. Value=Limited (DC:Limited, Impact:Limited, Cost:Below). Activity=Low. Q16: Magic Quadrants / Hype Cycles is currently not available as",
-      "status": "review",
+      "status": "terminate",
       "downloads": 77,
       "analystCalls": 1,
       "conferences": 3
@@ -774,7 +774,7 @@
       "activityLevel": "Low",
       "totalActivities": 34,
       "monthlyAvg": 1.3,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (34 activities over 26 months). Follow-up interview recommended.",
@@ -793,9 +793,9 @@
       "activityLevel": "Low",
       "totalActivities": 64,
       "monthlyAvg": 2.5,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Current tier with coaching",
+      "recommendation": "Maintain with engagement coaching",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Low.",
       "status": "renew",
       "downloads": 64,
@@ -812,11 +812,11 @@
       "activityLevel": "Active",
       "totalActivities": 194,
       "monthlyAvg": 7.5,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Limited Value Right-size tier (ask for higher tier CIO/CISO)",
+      "recommendation": "Significant downgrade",
       "rationale": "Q15=Change account tier. Value=Limited (DC:Limited, Impact:Limited, Cost:Below). Activity=Active. Q16: Need to move to a tier relevant to CIOs and CISOs. Often has",
-      "status": "review",
+      "status": "terminate",
       "downloads": 185,
       "analystCalls": 8,
       "conferences": 1
@@ -831,9 +831,9 @@
       "activityLevel": "Active",
       "totalActivities": 214,
       "monthlyAvg": 8.2,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
-      "recommendation": "Terminate",
+      "recommendation": "Contract termination",
       "rationale": "Q15=Do not need Gartner. Value=Limited (DC:Limited, Impact:Limited, Cost:Below). Activity=Active.",
       "status": "terminate",
       "downloads": 212,
@@ -850,9 +850,9 @@
       "activityLevel": "Low",
       "totalActivities": 58,
       "monthlyAvg": 2.2,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Substantial Value Right-size tier (ask for higher tier MQ/Hype)",
+      "recommendation": "Right-size tier",
       "rationale": "Q15=Change account tier. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Low. Q16: My account does not have access into Magic Quadrant. I will",
       "status": "review",
       "downloads": 45,
@@ -869,9 +869,9 @@
       "activityLevel": "Active",
       "totalActivities": 209,
       "monthlyAvg": 8.0,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Current tier",
+      "recommendation": "Maintain with engagement coaching",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Active.",
       "status": "renew",
       "downloads": 196,
@@ -888,7 +888,7 @@
       "activityLevel": "Active",
       "totalActivities": 290,
       "monthlyAvg": 11.2,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Active Usage: Follow-up Required",
       "rationale": "No survey data. Activity-only basis: Active (290 activities over 26 months). Follow-up interview recommended.",
@@ -907,7 +907,7 @@
       "activityLevel": "Low",
       "totalActivities": 92,
       "monthlyAvg": 3.5,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (92 activities over 26 months). Follow-up interview recommended.",
@@ -926,7 +926,7 @@
       "activityLevel": "Low",
       "totalActivities": 45,
       "monthlyAvg": 1.7,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (45 activities over 26 months). Follow-up interview recommended.",
@@ -945,7 +945,7 @@
       "activityLevel": "Low",
       "totalActivities": 7,
       "monthlyAvg": 0.3,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (7 activities over 26 months). Follow-up interview recommended.",
@@ -964,7 +964,7 @@
       "activityLevel": "Low",
       "totalActivities": 16,
       "monthlyAvg": 0.6,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (16 activities over 26 months). Follow-up interview recommended.",
@@ -983,7 +983,7 @@
       "activityLevel": "Low",
       "totalActivities": 20,
       "monthlyAvg": 0.8,
-      "currentCostYr": 5103.0,
+      "currentCostYr": 5102.67,
       "newCostYr": 6116.0,
       "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
       "rationale": "No survey data. Activity-only basis: Low (20 activities over 26 months). Follow-up interview recommended.",
