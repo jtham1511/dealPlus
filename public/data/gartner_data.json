@@ -12,7 +12,12 @@
     "excludedTerminateUsers": [
       "User23"
     ],
-    "excludedNote": "excluded-reassign: seat renews under new occupant (succession). excluded-terminate: seat dropped from renewal. These are distinct \u2014 do not treat them the same."
+    "excludedNote": "excluded-reassign: seat renews under new occupant (succession). excluded-terminate: seat dropped from renewal. These are distinct \u2014 do not treat them the same.",
+    "accountTypeRenames": {
+      "CIO": "CIO Self-directed Leader",
+      "GITL-Advisor": "CIO Advisor Member V2"
+    },
+    "accountTypeRenameNote": "CIO and GITL-Advisor are legacy names from the current contract. The new contract renames them: CIO \u2192 CIO Self-directed Leader, GITL-Advisor \u2192 CIO Advisor Member V2. User records retain legacyAccountType for traceability."
   },
   "contract": {
     "totalLicensedUsers": 39,
@@ -162,7 +167,9 @@
       "currentCostPerUser": 175933.0,
       "newCostPerUser": 205867.0,
       "increaseAmt": 29934.0,
-      "increasePct": 17.0
+      "increasePct": 17.0,
+      "legacyName": "EPL-Leader",
+      "contractName": "EPL-Leader"
     },
     {
       "accountType": "EPL-Advisor",
@@ -171,7 +178,9 @@
       "currentCostPerUser": 68700.0,
       "newCostPerUser": 74600.0,
       "increaseAmt": 5900.0,
-      "increasePct": 8.6
+      "increasePct": 8.6,
+      "legacyName": "EPL-Advisor",
+      "contractName": "EPL-Advisor"
     },
     {
       "accountType": "CIO",
@@ -180,7 +189,9 @@
       "currentCostPerUser": 128750.0,
       "newCostPerUser": 149133.0,
       "increaseAmt": 20383.0,
-      "increasePct": 15.8
+      "increasePct": 15.8,
+      "legacyName": "CIO",
+      "contractName": "CIO Self-directed Leader"
     },
     {
       "accountType": "CDAO",
@@ -189,7 +200,9 @@
       "currentCostPerUser": 100500.0,
       "newCostPerUser": 117000.0,
       "increaseAmt": 16500.0,
-      "increasePct": 16.4
+      "increasePct": 16.4,
+      "legacyName": "CDAO",
+      "contractName": "CDAO"
     },
     {
       "accountType": "CISO",
@@ -198,7 +211,9 @@
       "currentCostPerUser": 100500.0,
       "newCostPerUser": 117000.0,
       "increaseAmt": 16500.0,
-      "increasePct": 16.4
+      "increasePct": 16.4,
+      "legacyName": "CISO",
+      "contractName": "CISO"
     },
     {
       "accountType": "GITL-Advisor",
@@ -207,7 +222,9 @@
       "currentCostPerUser": 61733.0,
       "newCostPerUser": 72033.0,
       "increaseAmt": 10300.0,
-      "increasePct": 16.7
+      "increasePct": 16.7,
+      "legacyName": "GITL-Advisor",
+      "contractName": "CIO Advisor Member V2"
     },
     {
       "accountType": "GITL-Reference",
@@ -216,7 +233,9 @@
       "currentCostPerUser": 34667.0,
       "newCostPerUser": 41000.0,
       "increaseAmt": 6333.0,
-      "increasePct": 18.3
+      "increasePct": 18.3,
+      "legacyName": "GITL-Reference",
+      "contractName": "GITL-Reference"
     },
     {
       "accountType": "GTP-SMB",
@@ -225,7 +244,9 @@
       "currentCostPerUser": 5103.0,
       "newCostPerUser": 6116.0,
       "increaseAmt": 1013.0,
-      "increasePct": 19.9
+      "increasePct": 19.9,
+      "legacyName": "GTP-SMB",
+      "contractName": "GTP-SMB"
     }
   ],
   "statusCounts": {
@@ -277,7 +298,9 @@
       "analystCalls": 16,
       "conferences": 6,
       "decisionRationale": "No Survey \u2013 Active Usage: Follow-up Required",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "EPL-Leader",
+      "contractAccountType": "EPL-Leader"
     },
     {
       "id": "User2",
@@ -305,7 +328,9 @@
       ],
       "reassignmentNote": "Seat licence is renewed but reassigned through succession: User3 (first candidate) \u2192 User10 (fallback) \u2192 New user. Do NOT drop this seat. Brief Gartner AM that this is a reassignment, not a new purchase \u2014 pricing stays at existing EPL-Leader tier.",
       "decisionRationale": "Excluded (1) - Account Reassignment: Vacated \u2192 User3  \u2192 User10 \u2192 New user",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "EPL-Leader",
+      "contractAccountType": "EPL-Leader"
     },
     {
       "id": "User3",
@@ -325,7 +350,9 @@
       "analystCalls": 24,
       "conferences": 0,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "EPL-Advisor",
+      "contractAccountType": "EPL-Advisor"
     },
     {
       "id": "User4",
@@ -345,7 +372,9 @@
       "analystCalls": 16,
       "conferences": 2,
       "decisionRationale": "Renew - Current tier",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "EPL-Advisor",
+      "contractAccountType": "EPL-Advisor"
     },
     {
       "id": "User5",
@@ -365,7 +394,9 @@
       "analystCalls": 40,
       "conferences": 2,
       "decisionRationale": "Renew - Current tier with training",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "CIO",
+      "contractAccountType": "CIO Self-directed Leader"
     },
     {
       "id": "User6",
@@ -385,7 +416,9 @@
       "analystCalls": 17,
       "conferences": 0,
       "decisionRationale": "No Survey \u2013 Active Usage: Follow-up Required",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "EPL-Advisor",
+      "contractAccountType": "EPL-Advisor"
     },
     {
       "id": "User7",
@@ -405,7 +438,9 @@
       "analystCalls": 27,
       "conferences": 7,
       "decisionRationale": "No Survey \u2013 Active Usage: Follow-up Required",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "CDAO",
+      "contractAccountType": "CDAO"
     },
     {
       "id": "User8",
@@ -425,7 +460,9 @@
       "analystCalls": 8,
       "conferences": 2,
       "decisionRationale": "Renew - Current tier",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "CDAO",
+      "contractAccountType": "CDAO"
     },
     {
       "id": "User9",
@@ -445,7 +482,9 @@
       "analystCalls": 52,
       "conferences": 14,
       "decisionRationale": "Renew - Current tier",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "CISO",
+      "contractAccountType": "CISO"
     },
     {
       "id": "User10",
@@ -465,7 +504,9 @@
       "analystCalls": 52,
       "conferences": 0,
       "decisionRationale": "Renew - Substantial Value Right-size tier  (ask for Data Specific)",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "GITL-Advisor",
+      "contractAccountType": "CIO Advisor Member V2"
     },
     {
       "id": "User11",
@@ -485,7 +526,9 @@
       "analystCalls": 11,
       "conferences": 1,
       "decisionRationale": "Renew - Current tier",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "GITL-Advisor",
+      "contractAccountType": "CIO Advisor Member V2"
     },
     {
       "id": "User12",
@@ -505,7 +548,9 @@
       "analystCalls": 19,
       "conferences": 2,
       "decisionRationale": "Renew - Current tier",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "GITL-Advisor",
+      "contractAccountType": "CIO Advisor Member V2"
     },
     {
       "id": "User13",
@@ -525,7 +570,9 @@
       "analystCalls": 0,
       "conferences": 0,
       "decisionRationale": "Terminate",
-      "decisionRecommendation": "Terminate"
+      "decisionRecommendation": "Terminate",
+      "legacyAccountType": "GITL-Reference",
+      "contractAccountType": "GITL-Reference"
     },
     {
       "id": "User14",
@@ -545,7 +592,9 @@
       "analystCalls": 11,
       "conferences": 1,
       "decisionRationale": "Renew - Current tier",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User15",
@@ -565,7 +614,9 @@
       "analystCalls": 0,
       "conferences": 0,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User16",
@@ -585,7 +636,9 @@
       "analystCalls": 3,
       "conferences": 1,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User17",
@@ -605,7 +658,9 @@
       "analystCalls": 6,
       "conferences": 0,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User18",
@@ -625,7 +680,9 @@
       "analystCalls": 4,
       "conferences": 0,
       "decisionRationale": "Renew - Current tier, investigate barriers",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User19",
@@ -645,7 +702,9 @@
       "analystCalls": 0,
       "conferences": 0,
       "decisionRationale": "Terminate",
-      "decisionRecommendation": "Terminate"
+      "decisionRecommendation": "Terminate",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User20",
@@ -665,7 +724,9 @@
       "analystCalls": 3,
       "conferences": 0,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User21",
@@ -685,7 +746,9 @@
       "analystCalls": 4,
       "conferences": 3,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User22",
@@ -705,7 +768,9 @@
       "analystCalls": 0,
       "conferences": 0,
       "decisionRationale": "No Survey \u2013 Active Usage: Follow-up Required",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User23",
@@ -729,7 +794,9 @@
       "reassignmentChain": [],
       "reassignmentNote": "No reassignment. Remove seat from renewal contract.",
       "decisionRationale": "Excluded",
-      "decisionRecommendation": "Terminate"
+      "decisionRecommendation": "Terminate",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User24",
@@ -749,7 +816,9 @@
       "analystCalls": 0,
       "conferences": 0,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User25",
@@ -769,7 +838,9 @@
       "analystCalls": 0,
       "conferences": 0,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User26",
@@ -789,7 +860,9 @@
       "analystCalls": 2,
       "conferences": 2,
       "decisionRationale": "Renew - Current tier with training",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User27",
@@ -809,7 +882,9 @@
       "analystCalls": 1,
       "conferences": 3,
       "decisionRationale": "Renew - Limited Value Right-size tier (ask for higher tier MQ/Hype)",
-      "decisionRecommendation": "Renew (if good justification provided for higher tier)"
+      "decisionRecommendation": "Renew (if good justification provided for higher tier)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User28",
@@ -829,7 +904,9 @@
       "analystCalls": 6,
       "conferences": 0,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User29",
@@ -849,7 +926,9 @@
       "analystCalls": 1,
       "conferences": 0,
       "decisionRationale": "Renew - Current tier with coaching",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User30",
@@ -869,7 +948,9 @@
       "analystCalls": 8,
       "conferences": 1,
       "decisionRationale": "Renew - Limited Value Right-size tier (ask for higher tier CIO/CISO)",
-      "decisionRecommendation": "Renew (if good justification provided for higher tier)"
+      "decisionRecommendation": "Renew (if good justification provided for higher tier)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User31",
@@ -889,7 +970,9 @@
       "analystCalls": 0,
       "conferences": 2,
       "decisionRationale": "Terminate",
-      "decisionRecommendation": "Terminate"
+      "decisionRecommendation": "Terminate",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User32",
@@ -909,7 +992,9 @@
       "analystCalls": 13,
       "conferences": 0,
       "decisionRationale": "Renew - Substantial Value Right-size tier (ask for higher tier MQ/Hype)",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User33",
@@ -929,7 +1014,9 @@
       "analystCalls": 6,
       "conferences": 7,
       "decisionRationale": "Renew - Current tier",
-      "decisionRecommendation": "Renew"
+      "decisionRecommendation": "Renew",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User34",
@@ -949,7 +1036,9 @@
       "analystCalls": 0,
       "conferences": 1,
       "decisionRationale": "No Survey \u2013 Active Usage: Follow-up Required",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User35",
@@ -969,7 +1058,9 @@
       "analystCalls": 7,
       "conferences": 2,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User36",
@@ -989,7 +1080,9 @@
       "analystCalls": 0,
       "conferences": 0,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User37",
@@ -1009,7 +1102,9 @@
       "analystCalls": 0,
       "conferences": 0,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User38",
@@ -1029,7 +1124,9 @@
       "analystCalls": 0,
       "conferences": 1,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     },
     {
       "id": "User39",
@@ -1049,7 +1146,9 @@
       "analystCalls": 0,
       "conferences": 1,
       "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
-      "decisionRecommendation": "Terminate (unless follow-up successful)"
+      "decisionRecommendation": "Terminate (unless follow-up successful)",
+      "legacyAccountType": "GTP-SMB",
+      "contractAccountType": "GTP-SMB"
     }
   ]
 }

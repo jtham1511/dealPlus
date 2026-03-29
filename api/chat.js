@@ -110,6 +110,9 @@ Top 5 users by activity:
     ${topUsers}
 
 ━━━ PRICING (Current → New per user/yr) ━━━
+NOTE — Account type renames in new contract:
+  CIO          →  CIO Self-directed Leader  (same users, new name)
+  GITL-Advisor →  CIO Advisor Member V2     (same users, new name)
 ${pricingLines}
 
 ━━━ RENEWAL RECOMMENDATIONS ━━━

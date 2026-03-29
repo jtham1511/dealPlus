@@ -438,18 +438,72 @@ const STATUS_COLORS = {
 const fmt  = n => n ? '$' + Math.round(n).toLocaleString() : '$0';
 const fmtD = n => (n>0?'+':'') + Math.round(n).toLocaleString();
 
+// Canonical legacy → new contract name mapping
+// Kept in sync with _meta.accountTypeRenames in gartner_data.json
+const LEGACY_MAP = {
+  'CIO':          'CIO Self-directed Leader',
+  'GITL-Advisor': 'CIO Advisor Member V2',
+};
+// Reverse map: new name → legacy name (for pricing table lookup)
+const NEW_TO_LEGACY = Object.fromEntries(
+  Object.entries(LEGACY_MAP).map(([k,v]) => [v, k])
+);
+
+/**
+ * Resolve pricing for any account type — handles both legacy and new names.
+ * Pricing table is keyed by legacy name (e.g. "CIO").
+ * Dropdown shows new names (e.g. "CIO Self-directed Leader").
+ * This function bridges both.
+ */
 function getPricing(accountType) {
   if (!ORIG) return 0;
-  const p = ORIG.pricing.find(p => p.accountType === accountType);
+  // 1. Try exact match first (covers EPL-Leader, GTP-SMB, CDAO, etc.)
+  let p = ORIG.pricing.find(p => p.accountType === accountType);
   if (p) return p.newCostPerUser;
+  // 2. If accountType is a NEW name, convert to legacy and retry
+  const legacyName = NEW_TO_LEGACY[accountType];
+  if (legacyName) {
+    p = ORIG.pricing.find(p => p.accountType === legacyName);
+    if (p) return p.newCostPerUser;
+  }
+  // 3. Also try matching against newContractName / contractName fields
+  p = ORIG.pricing.find(p => p.contractName === accountType || p.newContractName === accountType);
+  if (p) return p.newCostPerUser;
+  // 4. Fall back to NEW_TIER_PRICING (covers CISO-Member NEW, I&Op NEW, etc.)
   return NEW_TIER_PRICING[accountType] || 0;
+}
+
+/**
+ * Return the display name for an account type.
+ * Legacy names show as "Legacy → New Name" so users understand the rename.
+ */
+function displayAccountType(accountType) {
+  const newName = LEGACY_MAP[accountType];
+  if (newName) return `${accountType} → ${newName}`;
+  return accountType;
+}
+
+/**
+ * Given any account type (legacy or new), return the canonical
+ * new contract name for display purposes.
+ */
+function contractName(accountType) {
+  return LEGACY_MAP[accountType] || accountType;
 }
 
 function getScenarioUser(userId) {
   const orig = allUsers().find(u => u.id === userId);
   if (!orig) return { id: userId, status:'followup', accountType: ALL_ACCOUNT_TYPES[0] };
   const override = SCENARIO[userId] || {};
-  return { ...orig, status: override.status ?? orig.status, accountType: override.accountType ?? orig.accountType };
+  // If no manual override exists, auto-resolve legacy account type to new contract name
+  // so pricing is always correct (pricing table keyed by legacy, dropdown uses new names)
+  const rawAccountType = override.accountType ?? orig.accountType;
+  const resolvedAccountType = LEGACY_MAP[rawAccountType] || rawAccountType;
+  return {
+    ...orig,
+    status: override.status ?? orig.status,
+    accountType: resolvedAccountType,
+  };
 }
 
 function allUsers() {
@@ -671,9 +725,12 @@ function renderGrid() {
           <div style="font-size:8px;color:var(--txm);margin-top:2px;line-height:1.3">${rationale.substring(0,35)}${rationale.length>35?'…':''}</div>
         </div>
 
-        <!-- Col 6: Account Type (current — read-only for existing, label only) -->
+        <!-- Col 6: Account Type (Rec) — show legacy + new name for renamed types -->
         <div>
-          <div style="font-size:10px;color:var(--tx2)">${u.accountType}</div>
+          <div style="font-size:10px;color:var(--tx2)">${contractName(u.accountType)}</div>
+          ${LEGACY_MAP[u.accountType]
+            ? `<div style="font-size:8px;color:var(--amb);margin-top:2px">was: ${u.accountType}</div>`
+            : ''}
         </div>
 
         <!-- Col 7: Your Decision ✏ (editable) -->
@@ -686,13 +743,19 @@ function renderGrid() {
           ${decRec ? `<div style="font-size:8px;color:var(--txm);margin-top:2px">${decRec}</div>` : ''}
         </div>
 
-        <!-- Col 8: Account Type ✏ (editable) -->
+        <!-- Col 8: Account Type (New) ✏ (editable) — defaults to new contract name for legacy types -->
         <div>
           <select class="acct-sel ${acctChanged?'changed':''}" onchange="setAccountType('${u.id}',this.value)" ${disabled}>
-            ${ALL_ACCOUNT_TYPES.map(at =>
-              `<option value="${at}" ${sc.accountType===at?'selected':''} >${at}</option>`
-            ).join('')}
+            ${ALL_ACCOUNT_TYPES.map(at => {
+              // A legacy user (e.g. CIO) should default to the new name (CIO Self-directed Leader)
+              const resolvedCurrent = LEGACY_MAP[sc.accountType] || sc.accountType;
+              const isSelected = at === resolvedCurrent || at === sc.accountType;
+              return `<option value="${at}" ${isSelected?'selected':''}>${at}</option>`;
+            }).join('')}
           </select>
+          ${LEGACY_MAP[u.accountType]
+            ? `<div style="font-size:8px;color:var(--amb);margin-top:2px">Mapped from: ${u.accountType}</div>`
+            : ''}
         </div>
 
         <!-- Col 9: Your Rationale — editable for new users, read-only text for existing -->

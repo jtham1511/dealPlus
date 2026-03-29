@@ -835,7 +835,11 @@ function renderUserTable(users) {
     <tr data-sc="${u.status}" data-type="${u.accountType}" data-id="${u.id}">
       <td class="nm">${u.id}</td>
       <td>${u.agency}</td>
-      <td>${u.accountType}</td>
+      <td>
+        ${u.contractAccountType && u.contractAccountType !== u.accountType
+          ? `<span style="font-size:10.5px">${u.contractAccountType}</span><br><span style="font-size:9px;color:var(--amb)">was: ${u.accountType}</span>`
+          : u.accountType}
+      </td>
       <td>${fmtN(u.downloads)}</td>
       <td>${u.analystCalls}</td>
       <td>${fmtN(u.conferences)}</td>
@@ -930,11 +934,21 @@ function renderBudget(c, pricing, statusCounts, users) {
 
   // Pricing cards
   const sortedP = [...pricing].sort((a,b)=>b.increasePct-a.increasePct);
+  // Legacy account type rename mapping for display
+  const ACCT_RENAMES = D._meta?.accountTypeRenames || {
+    'CIO': 'CIO Self-directed Leader',
+    'GITL-Advisor': 'CIO Advisor Member V2',
+  };
   document.getElementById('pricingCards').innerHTML = sortedP.map(p => {
     const cls = p.increasePct > 35 ? 'pd-hot' : p.increasePct > 20 ? 'pd-med' : 'pd-low';
+    const newName = p.contractName || p.newContractName || p.accountType;
+    const isRenamed = ACCT_RENAMES[p.accountType] && ACCT_RENAMES[p.accountType] !== p.accountType;
     return `<div class="pc">
-      <div class="pc-type">${p.accountType}</div>
-      <div class="pc-users">${p.userCount} user${p.userCount!==1?'s':''} · ${p.newContractName}</div>
+      <div class="pc-type">${newName}</div>
+      ${isRenamed
+        ? `<div style="font-size:9px;color:var(--amb);margin-bottom:3px">formerly: ${p.accountType}</div>`
+        : ''}
+      <div class="pc-users">${p.userCount} user${p.userCount!==1?'s':''}</div>
       <div class="pc-old">${fmt(p.currentCostPerUser)}/user/yr</div>
       <div class="pc-new">${fmt(p.newCostPerUser)}</div>
       <div class="pc-delta ${cls}">+${p.increasePct}% · +${fmt(p.increaseAmt)}/user</div>
@@ -951,7 +965,7 @@ function renderBudgetCharts(c, pricing, statusCounts, users) {
   chartInstances.chartPricing = new Chart(document.getElementById('chartPricing'), {
     type: 'bar',
     data: {
-      labels: sortedP.map(p=>p.accountType),
+      labels: sortedP.map(p=>p.contractName||p.newContractName||p.accountType),
       datasets: [{ label:'% Increase', data: sortedP.map(p=>p.increasePct),
         backgroundColor: sortedP.map(p=>p.increasePct>35?'rgba(244,71,71,.75)':p.increasePct>20?'rgba(227,179,65,.75)':'rgba(56,139,253,.75)'),
         borderRadius:4 }]
@@ -1001,6 +1015,8 @@ function renderBudgetCharts(c, pricing, statusCounts, users) {
       'Minimum purchase = 1 lot of 25. Currently at exactly 25 (1 lot) ✓. Cost savings only if headcount drops below 25.', null, null, 'v-amber');
 
   const eplAdv = pricing.find(p=>p.accountType==='EPL-Advisor');
+  const cioPricing = pricing.find(p=>p.accountType==='CIO');
+  const gitlPricing = pricing.find(p=>p.accountType==='GITL-Advisor');
   document.getElementById('budgetNote').innerHTML =
     `<strong>⚠ Critical Negotiation Point:</strong> EPL-Advisor price increase of ` +
     `+${eplAdv?.increasePct||53}% is the most significant. The 2 unused extended member slots (4 of 6 filled) ` +
