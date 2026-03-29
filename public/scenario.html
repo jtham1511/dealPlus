@@ -229,10 +229,12 @@ body{background:var(--bg);color:var(--tx);min-height:100vh}
         <div>User</div>
         <div>Survey</div>
         <div>Q15 / Value</div>
-        <div>Original Decision</div>
-        <div>Your Decision ✏</div>
-        <div>Account Type ✏</div>
         <div>Activity</div>
+        <div>Original Decision</div>
+        <div>Account Type (Rec)</div>
+        <div>Your Decision</div>
+        <div>Account Type (New)</div>
+        <div>Decision Rationale (Your Remark)</div>
         <div style="text-align:right">New Cost/Yr</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:5px" id="userGrid"></div>
@@ -304,7 +306,7 @@ body{background:var(--bg);color:var(--tx);min-height:100vh}
       <div class="form-field">
         <label class="form-label">Agency *</label>
         <select class="form-inp" id="nu_agency">
-          <option value="GT">GT (GovTech)</option>
+          <option value="GT" selected>GT (GovTech)</option>
           <option value="SNG">SNG (Singapore)</option>
         </select>
       </div>
@@ -324,6 +326,7 @@ body{background:var(--bg);color:var(--tx);min-height:100vh}
       <div class="form-field">
         <label class="form-label">Q15 Future Plans</label>
         <select class="form-inp" id="nu_q15">
+          <option value="Not Applicable" selected>Not Applicable</option>
           <option value="Continue with current Gartner services">Continue with current Gartner services</option>
           <option value="Change account tier">Change account tier</option>
           <option value="Do not need Gartner">Do not need Gartner</option>
@@ -334,6 +337,7 @@ body{background:var(--bg);color:var(--tx);min-height:100vh}
       <div class="form-field">
         <label class="form-label">Value Assessment</label>
         <select class="form-inp" id="nu_valueAssessment">
+          <option value="Not Applicable" selected>Not Applicable</option>
           <option value="Substantial">Substantial</option>
           <option value="Limited">Limited</option>
           <option value="No Survey">No Survey</option>
@@ -508,10 +512,11 @@ async function boot() {
 }
 
 function populateModalSelects() {
-  ['nu_accountType'].forEach(id => {
-    const el = document.getElementById(id);
-    el.innerHTML = ALL_ACCOUNT_TYPES.map(at => `<option value="${at}">${at}</option>`).join('');
-  });
+  // Account Type — default EPL-Leader (first in list)
+  const acctEl = document.getElementById('nu_accountType');
+  acctEl.innerHTML = ALL_ACCOUNT_TYPES.map(at =>
+    `<option value="${at}" ${at==='EPL-Leader'?'selected':''}>${at}</option>`
+  ).join('');
   const statusSel = document.getElementById('nu_status');
   statusSel.innerHTML = STATUS_OPTIONS.map(o =>
     `<option value="${o.value}">${o.label}</option>`
@@ -792,6 +797,14 @@ function closeAddUserModal() {
   if (actSel) actSel.value = '';
   const survSel = document.getElementById('nu_surveyStatus');
   if (survSel) survSel.value = 'No Survey';
+  const agencySel = document.getElementById('nu_agency');
+  if (agencySel) agencySel.value = 'GT';
+  const acctSel = document.getElementById('nu_accountType');
+  if (acctSel) acctSel.value = 'EPL-Leader';
+  const q15Sel = document.getElementById('nu_q15');
+  if (q15Sel) q15Sel.value = 'Not Applicable';
+  const valSel = document.getElementById('nu_valueAssessment');
+  if (valSel) valSel.value = 'Not Applicable';
 }
 
 function addNewUser() {
