@@ -357,14 +357,17 @@ td.nm{font-weight:600;color:var(--tx);font-family:var(--font-sans)}
             <th onclick="sortTable(1)">Agency</th>
             <th onclick="sortTable(2)">Account Type ↕</th>
             <th onclick="sortTable(3)">Downloads ↕</th>
-            <th>Calls</th>
+            <th>Calls ↕</th>
+            <th>Conferences</th>
             <th onclick="sortTable(5)">Total ↕</th>
             <th>Avg/Mo</th>
-            <th onclick="sortTable(7)">Activity ↕</th>
             <th>Survey</th>
+            <th style="min-width:140px">Q15 Future Plan</th>
             <th>Value</th>
+            <th onclick="sortTable(9)">Activity ↕</th>
             <th onclick="sortTable(10)">Status ↕</th>
             <th style="min-width:220px">Decision Rationale</th>
+            <th style="min-width:160px">Decision Recommendation</th>
             <th>Curr/Yr</th>
             <th>New/Yr</th>
           </tr></thead>
@@ -835,11 +838,13 @@ function renderUserTable(users) {
       <td>${u.accountType}</td>
       <td>${fmtN(u.downloads)}</td>
       <td>${u.analystCalls}</td>
+      <td>${fmtN(u.conferences)}</td>
       <td style="color:var(--tx);font-weight:600">${fmtN(u.totalActivities)}</td>
       <td>${u.monthlyAvg}</td>
-      <td>${actBadge(u.activityLevel)}</td>
       <td><span style="color:${u.surveyStatus==='Responded'?'var(--grn)':u.surveyStatus==='Excluded'?'var(--txm)':'var(--rose)'}">${u.surveyStatus==='Responded'?'✓':u.surveyStatus==='Excluded'?'—':'✗'}</span> ${u.surveyStatus}</td>
+      <td style="font-size:10.5px;color:var(--tx2);white-space:normal;max-width:140px">${u.q15||'—'}</td>
       <td>${valBadge(u.valueAssessment)}</td>
+      <td>${actBadge(u.activityLevel)}</td>
       <td>
         ${statusBadge(u.status)}
         ${u.status === 'excluded-reassign' && u.reassignmentChain
