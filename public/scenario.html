@@ -64,7 +64,7 @@ body{background:var(--bg);color:var(--tx);min-height:100vh}
 .sec-sub{font-size:11px;color:var(--tx2);margin-top:2px}
 .badge-ro{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;background:rgba(139,148,158,.1);border:1px solid rgba(139,148,158,.2);color:var(--txm);font-size:9px;font-weight:600;white-space:nowrap}
 /* ── USER GRID — 8 columns ── */
-.ug-cols{display:grid;grid-template-columns:72px 90px 90px 110px 145px 130px 90px 80px;gap:7px;align-items:center}
+.ug-cols{display:grid;grid-template-columns:72px 85px 90px 82px 118px 90px 130px 115px 1fr 78px;gap:6px;align-items:start}
 .ug-header{font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--txm);padding:5px 10px}
 .ug-row{background:var(--bg2);border:1px solid var(--brd);border-radius:8px;padding:8px 10px;transition:border-color .15s}
 .ug-row:hover{border-color:rgba(56,139,253,.35)}
@@ -315,6 +315,7 @@ body{background:var(--bg);color:var(--tx);min-height:100vh}
       <div class="form-field">
         <label class="form-label">Survey Status *</label>
         <select class="form-inp" id="nu_surveyStatus">
+          <option value="No Survey" selected>No Survey (default for new users)</option>
           <option value="Responded">Responded</option>
           <option value="Non-Respondent">Non-Respondent</option>
           <option value="Excluded">Excluded</option>
@@ -342,9 +343,10 @@ body{background:var(--bg);color:var(--tx);min-height:100vh}
       <div class="form-field">
         <label class="form-label">Activity Level</label>
         <select class="form-inp" id="nu_activityLevel">
+          <option value="" selected>— Not set yet —</option>
           <option value="Extreme Outlier">Extreme Outlier (&gt;1,000 acts)</option>
           <option value="High">High (600–999 acts)</option>
-          <option value="Active" selected>Active (100–599 acts)</option>
+          <option value="Active">Active (100–599 acts)</option>
           <option value="Low">Low (&lt;100 acts)</option>
         </select>
       </div>
@@ -384,15 +386,27 @@ let gridFilter = 'all';
 let changedOnlyMode = false;
 
 const ALL_ACCOUNT_TYPES = [
-  'EPL-Leader','EPL-Advisor','CIO','CDAO','CISO',
-  'GITL-Advisor','GITL-Reference','GTP-SMB',
-  'CISO-Member (NEW)','I&Op (NEW)','CDAO-Member (NEW)'
+  'EPL-Leader',
+  'EPL-Advisor',
+  'CIO Self-directed Leader',
+  'CDAO',
+  'CISO',
+  'CIO Advisor Member V2',
+  'GITL-Reference',
+  'GTP-SMB',
+  'CISO – Member (NEW)',
+  'Infrastructure & Operations (I&Op) NEW',
+  'CDAO - Member <New>',
+  'Executive Programs Leader V2',
+  'Executive Programs Advisor Member V2',
 ];
 
 const NEW_TIER_PRICING = {
-  'CISO-Member (NEW)': 77233,
-  'I&Op (NEW)': 117000,
-  'CDAO-Member (NEW)': 77233,
+  'CISO – Member (NEW)': 77233,
+  'Infrastructure & Operations (I&Op) NEW': 117000,
+  'CDAO - Member <New>': 77233,
+  'Executive Programs Leader V2': 229133,
+  'Executive Programs Advisor Member V2': 105100,
 };
 
 const STATUS_OPTIONS = [
@@ -453,8 +467,15 @@ function countChanges() {
 }
 
 function origPillHtml(status) {
-  const col = STATUS_COLORS[status] || '#8b949e';
-  const lbl = STATUS_LABELS[status] || status;
+  // excluded-reassign = seat RENEWS (reassigned to new person) → show as RENEW
+  // excluded-terminate = seat DROPPED → show as TERMINATE
+  const displayStatus = status === 'excluded-reassign' ? 'renew'
+    : status === 'excluded-terminate' ? 'terminate'
+    : status;
+  const col = STATUS_COLORS[displayStatus] || '#8b949e';
+  const lbl = status === 'excluded-reassign' ? '✓ Renew (Reassign)'
+    : status === 'excluded-terminate' ? '✗ Terminate'
+    : (STATUS_LABELS[displayStatus] || status);
   return `<span class="orig-pill" style="background:${col}22;color:${col};border:1px solid ${col}44">${lbl}</span>`;
 }
 
@@ -610,37 +631,57 @@ function renderGrid() {
     const excludedCls = isExcluded(u.status) ? 'excluded-row' : '';
     const disabled    = isExcluded(u.status) ? 'disabled' : '';
 
+    // New users can edit their rationale inline; existing users are read-only
+    const savedRationale = SCENARIO[u.id]?.rationale || (isNew ? (u._rationale||'') : '');
+
     rows.push(`
       <div class="ug-cols ug-row ${rowClass} ${excludedCls}" data-id="${u.id}" data-status="${sc.status}">
 
+        <!-- Col 1: User ID + agency -->
         <div>
           <div class="ug-id">${u.id}${isNew?'<span style="font-size:8px;color:var(--teal);margin-left:4px">NEW</span>':''}</div>
           <div class="ug-agency">${u.agency}</div>
         </div>
 
+        <!-- Col 2: Survey status (read-only) -->
         <div>
-          <div>${surveyIcon} <span style="font-size:10px">${u.surveyStatus==='Responded'?'Responded':u.surveyStatus==='Excluded'?'Excluded':'No survey'}</span></div>
+          <div>${surveyIcon} <span style="font-size:9.5px">${u.surveyStatus==='Responded'?'Responded':u.surveyStatus==='Excluded'?'Excluded':'No survey'}</span></div>
         </div>
 
+        <!-- Col 3: Q15 / Value (read-only) -->
         <div>
           <div style="font-size:10px;color:${valColor}">${u.valueAssessment||'—'}</div>
-          <div style="font-size:9px;color:var(--txm);margin-top:2px">${q15Short}</div>
+          <div style="font-size:8.5px;color:var(--txm);margin-top:2px">${q15Short}</div>
         </div>
 
+        <!-- Col 4: Activity (moved here, read-only) -->
+        <div>
+          <span style="font-size:9.5px;color:${actColor}">${u.activityLevel||'—'}</span>
+          <div style="font-size:8px;color:var(--txm);margin-top:1px">${u.totalActivities||0} acts</div>
+        </div>
+
+        <!-- Col 5: Original Decision (read-only) — reassign=RENEW, excl-terminate=TERMINATE -->
         <div>
           ${origPillHtml(u.status)}
-          <div style="font-size:8.5px;color:var(--txm);margin-top:3px;line-height:1.3">${rationale.substring(0,38)}${rationale.length>38?'…':''}</div>
+          <div style="font-size:8px;color:var(--txm);margin-top:2px;line-height:1.3">${rationale.substring(0,35)}${rationale.length>35?'…':''}</div>
         </div>
 
+        <!-- Col 6: Account Type (current — read-only for existing, label only) -->
+        <div>
+          <div style="font-size:10px;color:var(--tx2)">${u.accountType}</div>
+        </div>
+
+        <!-- Col 7: Your Decision ✏ (editable) -->
         <div>
           <select class="sel sel-${sc.status}" onchange="setStatus('${u.id}',this.value)" ${disabled}>
             ${STATUS_OPTIONS.map(o =>
               `<option value="${o.value}" ${sc.status===o.value?'selected':''} >${o.label}</option>`
             ).join('')}
           </select>
-          ${decRec ? `<div style="font-size:8.5px;color:var(--txm);margin-top:2px">${decRec}</div>` : ''}
+          ${decRec ? `<div style="font-size:8px;color:var(--txm);margin-top:2px">${decRec}</div>` : ''}
         </div>
 
+        <!-- Col 8: Account Type ✏ (editable) -->
         <div>
           <select class="acct-sel ${acctChanged?'changed':''}" onchange="setAccountType('${u.id}',this.value)" ${disabled}>
             ${ALL_ACCOUNT_TYPES.map(at =>
@@ -649,17 +690,25 @@ function renderGrid() {
           </select>
         </div>
 
+        <!-- Col 9: Your Rationale — editable for new users, read-only text for existing -->
         <div>
-          <span style="font-size:9.5px;color:${actColor}">${u.activityLevel||'—'}</span>
-          <div style="font-size:8.5px;color:var(--txm);margin-top:2px">${u.totalActivities||0} acts</div>
+          ${isNew
+            ? `<textarea class="acct-sel" rows="2"
+                style="resize:vertical;min-height:40px;font-size:9.5px;line-height:1.4"
+                placeholder="Enter your rationale…"
+                onchange="setRationale('${u.id}',this.value)"
+                >${savedRationale}</textarea>`
+            : `<div style="font-size:9px;color:var(--txm);line-height:1.4">${(u.rationale||rationale||'—').substring(0,80)}${(u.rationale||rationale||'').length>80?'…':''}</div>`
+          }
         </div>
 
+        <!-- Col 10: New Cost/Yr -->
         <div class="cost-cell ${costDelta>0?'cost-up':costDelta<0?'cost-same':'cost-zero'}">
           ${isExcluded(sc.status)||sc.status==='terminate'
             ? '<span style="color:var(--txm)">$0</span>'
             : fmt(scenCost)}
           ${costDelta!==0 && !isExcluded(sc.status) && sc.status!=='terminate'
-            ? `<div style="font-size:8.5px">${fmtD(costDelta)}</div>` : ''}
+            ? `<div style="font-size:8px">${fmtD(costDelta)}</div>` : ''}
         </div>
       </div>`);
   });
@@ -690,6 +739,14 @@ function setAccountType(userId, newAcct) {
   SCENARIO[userId].accountType = newAcct;
   renderGrid();
   renderImpact();
+}
+
+function setRationale(userId, text) {
+  if (!SCENARIO[userId]) SCENARIO[userId] = {};
+  SCENARIO[userId].rationale = text;
+  // Also update the NEW_USERS entry directly so it persists
+  const nu = NEW_USERS.find(u => u.id === userId);
+  if (nu) nu._rationale = text;
 }
 
 function setGridFilter(status, btn) {
@@ -730,6 +787,11 @@ function closeAddUserModal() {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
+  // Reset dropdowns to defaults
+  const actSel = document.getElementById('nu_activityLevel');
+  if (actSel) actSel.value = '';
+  const survSel = document.getElementById('nu_surveyStatus');
+  if (survSel) survSel.value = 'No Survey';
 }
 
 function addNewUser() {
@@ -737,12 +799,12 @@ function addNewUser() {
   if (!id) { alert('User ID is required.'); return; }
   if (allUsers().find(u => u.id === id)) { alert(`User ID "${id}" already exists.`); return; }
 
-  const accountType  = document.getElementById('nu_accountType').value;
-  const status       = document.getElementById('nu_status').value;
-  const surveyStatus = document.getElementById('nu_surveyStatus').value;
-  const q15          = document.getElementById('nu_q15').value;
+  const accountType     = document.getElementById('nu_accountType').value;
+  const status          = document.getElementById('nu_status').value;
+  const surveyStatus    = document.getElementById('nu_surveyStatus').value;
+  const q15             = document.getElementById('nu_q15').value;
   const valueAssessment = document.getElementById('nu_valueAssessment').value;
-  const activityLevel   = document.getElementById('nu_activityLevel').value;
+  const activityLevel   = document.getElementById('nu_activityLevel').value; // may be empty
   const totalActivities = parseInt(document.getElementById('nu_totalActivities').value)||0;
   const monthlyAvg      = parseFloat(document.getElementById('nu_monthlyAvg').value)||0;
   const decisionRationale = document.getElementById('nu_decisionRationale').value.trim();
@@ -750,12 +812,14 @@ function addNewUser() {
   const newCostYr       = getPricing(accountType);
 
   const newUser = {
-    id, agency, accountType, surveyStatus, q15, valueAssessment, activityLevel,
+    id, agency, accountType, surveyStatus, q15, valueAssessment,
+    activityLevel: activityLevel || 'Not set',
     totalActivities, monthlyAvg,
     currentCostYr: 0, newCostYr,
-    decisionRationale: decisionRationale || `New user — ${status}`,
+    decisionRationale: decisionRationale || `New seat — ${STATUS_LABELS[status]||status}`,
     decisionRecommendation: STATUS_LABELS[status] || status,
-    rationale: 'Added via Scenario Planner',
+    rationale: '',   // blank — user fills via inline textarea
+    _rationale: '',  // inline rationale storage
     status,
     downloads: 0, analystCalls: 0, conferences: 0,
     _isNew: true,
