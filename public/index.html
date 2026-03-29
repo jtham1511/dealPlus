@@ -128,6 +128,9 @@ td.nm{font-weight:600;color:var(--tx);font-family:var(--font-sans)}
 .b-terminate{background:rgba(244,71,71,.12);color:#f44747;border:1px solid rgba(244,71,71,.25)}
 .b-followup{background:rgba(139,148,158,.12);color:#8b949e;border:1px solid rgba(139,148,158,.25)}
 .b-excluded{background:rgba(101,109,118,.1);color:#656d76;border:1px solid rgba(101,109,118,.2)}
+.b-excluded-reassign{background:rgba(227,179,65,.1);color:#e3b341;border:1px solid rgba(227,179,65,.3)}
+.b-excluded-terminate{background:rgba(244,71,71,.1);color:#f44747;border:1px solid rgba(244,71,71,.2)}
+.succession-chain{font-size:9.5px;color:var(--teal);margin-top:3px;font-family:'DM Mono',monospace}
 .b-extreme{background:rgba(188,140,255,.12);color:#bc8cff;border:1px solid rgba(188,140,255,.25)}
 .b-high{background:rgba(31,111,235,.12);color:#388bfd;border:1px solid rgba(31,111,235,.25)}
 .b-active{background:rgba(0,194,170,.12);color:#00c2aa;border:1px solid rgba(0,194,170,.25)}
@@ -163,12 +166,19 @@ td.nm{font-weight:600;color:var(--tx);font-family:var(--font-sans)}
 .rec-cols{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .rc{background:var(--bg2);border:1px solid var(--brd);border-radius:10px;overflow:hidden}
 .rc-head{padding:12px 14px;border-bottom:1px solid var(--brd)}
-.rn .rc-head{border-top:3px solid var(--grn)}
-.rv .rc-head{border-top:3px solid var(--amb)}
-.rt .rc-head{border-top:3px solid var(--rose)}
-.rf .rc-head,.rx .rc-head{border-top:3px solid var(--txm)}
+.rn  .rc-head{border-top:3px solid var(--grn)}
+.rv  .rc-head{border-top:3px solid var(--amb)}
+.rt  .rc-head{border-top:3px solid var(--rose)}
+.rf  .rc-head{border-top:3px solid var(--txm)}
+.rra .rc-head{border-top:3px solid var(--amb)}
+.rx  .rc-head{border-top:3px solid var(--txm)}
 .rc-status{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em}
-.rn .rc-status{color:var(--grn)}.rv .rc-status{color:var(--amb)}.rt .rc-status{color:var(--rose)}.rf .rc-status,.rx .rc-status{color:var(--txm)}
+.rn  .rc-status{color:var(--grn)}
+.rv  .rc-status{color:var(--amb)}
+.rt  .rc-status{color:var(--rose)}
+.rf  .rc-status{color:var(--txm)}
+.rra .rc-status{color:var(--amb)}
+.rx  .rc-status{color:var(--txm)}
 .rc-count{font-family:var(--font-mono);font-size:22px;font-weight:500;margin-top:2px}
 .rc-body{padding:10px 14px;display:flex;flex-direction:column;gap:5px;max-height:400px;overflow-y:auto}
 .rc-body::-webkit-scrollbar{width:3px}.rc-body::-webkit-scrollbar-thumb{background:var(--brd)}
@@ -267,7 +277,7 @@ td.nm{font-weight:600;color:var(--tx);font-family:var(--font-sans)}
   <div class="nav-a" onclick="navTo('s-users',this)"><span>👥</span> User Matrix</div>
   <div class="nav-a" onclick="navTo('s-budget',this)"><span>💰</span> Budget &amp; Pricing</div>
   <div class="nav-a" onclick="navTo('s-survey',this)"><span>📝</span> Survey Intelligence</div>
-  <div class="nav-a" onclick="navTo('s-recs',this)"><span>🎯</span> Recommendations</div>
+  <div class="nav-a" onclick="navTo('s-recs',this)"><span>🎯</span> Decision Matrix</div>
   <div class="nav-lbl">Tools</div>
   <a class="nav-a" href="scenario.html" style="text-decoration:none;background:rgba(0,194,170,.06);border-left:2px solid var(--teal)"><span>📋</span> <span style="color:var(--teal)">Scenario Planner</span></a>
   <div class="fresh-pill">
@@ -327,7 +337,7 @@ td.nm{font-weight:600;color:var(--tx);font-family:var(--font-sans)}
   <section class="sec" id="s-users">
     <div class="sec-tag">Section 03</div>
     <div class="sec-title">Individual User Analysis</div>
-    <div class="sec-sub">Full recommendation matrix — all licensed users</div>
+    <div class="sec-sub">Full decision matrix — all licensed users</div>
     <div class="tbl-wrap">
       <div class="tbl-bar">
         <input class="tbl-search" id="userSearch" placeholder="🔍 Search user, account type…" oninput="filterTable()">
@@ -336,7 +346,8 @@ td.nm{font-weight:600;color:var(--tx);font-family:var(--font-sans)}
         <button class="fbtn" onclick="filterStatus('review',this)">~ Review</button>
         <button class="fbtn" onclick="filterStatus('terminate',this)">✗ Terminate</button>
         <button class="fbtn" onclick="filterStatus('followup',this)">? Follow-up</button>
-        <button class="fbtn" onclick="filterStatus('excluded',this)">— Excluded</button>
+        <button class="fbtn" onclick="filterStatus('excluded-reassign',this)">↻ Reassign</button>
+        <button class="fbtn" onclick="filterStatus('excluded-terminate',this)">— Excl.</button>
         <span class="tbl-cnt" id="rowCount">0 users</span>
       </div>
       <div class="tbl-scroll">
@@ -353,7 +364,7 @@ td.nm{font-weight:600;color:var(--tx);font-family:var(--font-sans)}
             <th>Survey</th>
             <th>Value</th>
             <th onclick="sortTable(10)">Status ↕</th>
-            <th style="min-width:180px">Recommendation</th>
+            <th style="min-width:220px">Decision Rationale</th>
             <th>Curr/Yr</th>
             <th>New/Yr</th>
           </tr></thead>
@@ -424,8 +435,8 @@ td.nm{font-weight:600;color:var(--tx);font-family:var(--font-sans)}
   <!-- ═══ RECOMMENDATIONS ═══ -->
   <section class="sec" id="s-recs">
     <div class="sec-tag">Section 06</div>
-    <div class="sec-title">Recommendations Matrix</div>
-    <div class="sec-sub" id="recsSub">Action summary across all users — status as of analysis date</div>
+    <div class="sec-title">Decision Matrix</div>
+    <div class="sec-sub" id="recsSub">Decision Rationale (Context & conditions) and Decision Recommendation (System suggested action) for all users</div>
     <div class="rec-cols" id="recCols"></div>
     <div class="dv-t">Priority Action Items Before Renewal</div>
     <div class="kpi3" id="priorityKpis"></div>
@@ -584,11 +595,20 @@ function valBadge(v) {
   return `<span class="bdg b-nosurvey">No Survey</span>`;
 }
 function statusBadge(s) {
-  const m = {renew:'b-renew ✓ Renew', review:'b-review ~ Review',
-    terminate:'b-terminate ✗ Terminate', followup:'b-followup ? Follow-up',
-    excluded:'b-excluded — Excluded'};
-  const [cls,...lbl] = m[s]?.split(' ') || ['b-followup','?','Unknown'];
-  return `<span class="bdg ${cls}">${lbl.join(' ')}</span>`;
+  const m = {
+    'renew':             'b-renew ✓ Renew',
+    'review':            'b-review ~ Review',
+    'terminate':         'b-terminate ✗ Terminate',
+    'followup':          'b-followup ? Follow-up',
+    'excluded-reassign': 'b-excluded-reassign ↻ Reassignment',
+    'excluded-terminate':'b-excluded-terminate — Excluded',
+    'excluded':          'b-excluded — Excluded',
+  };
+  const val = m[s] || 'b-followup ? Unknown';
+  const parts = val.split(' ');
+  const cls = parts[0];
+  const lbl = parts.slice(1).join(' ');
+  return `<span class="bdg ${cls}">${lbl}</span>`;
 }
 
 function surveyBar(label, count, total, color) {
@@ -693,9 +713,13 @@ function renderExecSummary(c, u, sv) {
       `${sv.continueGartnerCount} of ${sv.totalRespondents} prefer to maintain service`, null, null, 'v-green');
 
   document.getElementById('licenseNote').innerHTML =
-    `<strong>⚠ Licensing Rule Reminder:</strong> EPL-Leader seats require 3 extended member slots (EPL-Advisor or CIO). ` +
-    `Currently only 4 of 6 slots are filled. GTP-SMB is sold in lots of 25 — seat reductions are only cost-effective ` +
-    `if headcount drops below 25. Any EPL-Leader termination must account for all 3 attached seats.`;
+    `<strong>⚠ Licensing Rule Reminder:</strong> EPL-Leader seats require extended member slots. ` +
+    `GTP-SMB is sold in lots of 25 — seat reductions only save money if headcount drops below 25.<br><br>` +
+    `<strong>🔄 Seat Reassignment Note (User2):</strong> User2 (EPL-Leader) has left the organisation but ` +
+    `the seat is being <strong>renewed and reassigned</strong> — not dropped. Succession chain: ` +
+    `<span style="color:var(--teal);font-family:monospace">User3 → User10 → New user</span>. ` +
+    `Brief your Gartner AM that this is a reassignment at existing tier pricing, NOT a new seat purchase.<br><br>` +
+    `<strong>❌ User23 (GTP-SMB)</strong> is confirmed not using Gartner — this seat should be dropped from renewal.`;
 }
 
 // ── USAGE ─────────────────────────────────────────────────
@@ -816,8 +840,26 @@ function renderUserTable(users) {
       <td>${actBadge(u.activityLevel)}</td>
       <td><span style="color:${u.surveyStatus==='Responded'?'var(--grn)':u.surveyStatus==='Excluded'?'var(--txm)':'var(--rose)'}">${u.surveyStatus==='Responded'?'✓':u.surveyStatus==='Excluded'?'—':'✗'}</span> ${u.surveyStatus}</td>
       <td>${valBadge(u.valueAssessment)}</td>
-      <td>${statusBadge(u.status)}</td>
-      <td style="font-size:10.5px;color:var(--tx2);white-space:normal;max-width:200px">${u.recommendation}</td>
+      <td>
+        ${statusBadge(u.status)}
+        ${u.status === 'excluded-reassign' && u.reassignmentChain
+          ? `<div class="succession-chain">↻ ${u.reassignmentChain.join(' → ')}</div>`
+          : ''}
+      </td>
+      <td style="font-size:10.5px;color:var(--tx2);white-space:normal;max-width:200px">
+        ${u.decisionRationale}
+        ${u.status === 'excluded-reassign'
+          ? `<div style="font-size:9px;color:var(--amb);margin-top:3px">⚠ Seat renews — reassignment pending</div>`
+          : ''}
+      </td>
+      <td style="font-size:10.5px;white-space:normal;max-width:160px">
+        <span style="color:${u.status==='renew'?'var(--grn)':u.status==='terminate'||u.status==='excluded-terminate'?'var(--rose)':u.status==='review'?'var(--amb)':u.status==='excluded-reassign'?'var(--teal)':'var(--tx2)'}">
+          ${u.decisionRecommendation||'—'}
+        </span>
+        ${u.reassignmentChain&&u.reassignmentChain.length
+          ? `<div style="font-size:9px;color:var(--teal);margin-top:2px">↻ ${u.reassignmentChain.join(' → ')}</div>`
+          : ''}
+      </td>
       <td>${fmt(u.currentCostYr)}</td>
       <td style="color:var(--amb)">${fmt(u.newCostYr)}</td>
     </tr>`).join('');
@@ -835,7 +877,8 @@ function filterStatus(sc, btn) {
   activeFilter = sc;
   if (activeFilterBtn) activeFilterBtn.classList.remove('fa','fgrn','famb','frose');
   activeFilterBtn = btn;
-  const cls = {renew:'fa fgrn',review:'fa famb',terminate:'fa frose',followup:'fa',excluded:'fa'}[sc] || 'fa';
+  const cls = {renew:'fa fgrn',review:'fa famb',terminate:'fa frose',
+    followup:'fa','excluded-reassign':'fa famb','excluded-terminate':'fa frose',excluded:'fa'}[sc] || 'fa';
   cls.split(' ').forEach(c=>btn.classList.add(c));
   filterTable();
 }
@@ -843,8 +886,11 @@ function filterTable() {
   const q = document.getElementById('userSearch').value.toLowerCase();
   let vis = 0;
   document.querySelectorAll('#userTbody tr').forEach(r => {
-    const ok = (activeFilter==='all' || r.dataset.sc===activeFilter) &&
-               (!q || r.textContent.toLowerCase().includes(q));
+    // 'excluded' filter matches both sub-types for convenience
+    const scMatch = activeFilter === 'all'
+      || r.dataset.sc === activeFilter
+      || (activeFilter === 'excluded' && r.dataset.sc.startsWith('excluded'));
+    const ok = scMatch && (!q || r.textContent.toLowerCase().includes(q));
     r.classList.toggle('hidden', !ok);
     if (ok) vis++;
   });
@@ -1041,11 +1087,12 @@ function renderSurveyCharts(sv, c) {
 // ── RECOMMENDATIONS ───────────────────────────────────────
 function renderRecommendations(users, sc, c) {
   const groups = [
-    {key:'renew',    label:'✓ Renew',    cls:'rn', valColor:'var(--grn)'},
-    {key:'review',   label:'~ Review',   cls:'rv', valColor:'var(--amb)'},
-    {key:'terminate',label:'✗ Terminate',cls:'rt', valColor:'var(--rose)'},
-    {key:'followup', label:'? Follow-up',cls:'rf', valColor:'var(--tx2)'},
-    {key:'excluded', label:'— Excluded', cls:'rx', valColor:'var(--txm)'},
+    {key:'renew',              label:'✓ Renew',          cls:'rn', valColor:'var(--grn)'},
+    {key:'review',             label:'~ Review',          cls:'rv', valColor:'var(--amb)'},
+    {key:'terminate',          label:'✗ Terminate',       cls:'rt', valColor:'var(--rose)'},
+    {key:'followup',           label:'? Follow-up',       cls:'rf', valColor:'var(--tx2)'},
+    {key:'excluded-reassign',  label:'↻ Reassignment',   cls:'rra',valColor:'var(--amb)'},
+    {key:'excluded-terminate', label:'— Excl. Terminate', cls:'rx', valColor:'var(--txm)'},
   ];
 
   document.getElementById('recCols').innerHTML = groups.map(g => {
@@ -1058,7 +1105,11 @@ function renderRecommendations(users, sc, c) {
       <div class="rc-body">
         ${grpUsers.map(u=>`<div class="rcu">
           <div class="rcu-id">${u.id}</div>
-          <div class="rcu-type">${u.accountType} · ${u.recommendation.substring(0,45)}${u.recommendation.length>45?'…':''}</div>
+          <div class="rcu-type">${u.accountType} · ${u.decisionRationale.substring(0,45)}${u.decisionRationale.length>45?'…':''}</div>
+          ${u.status === 'excluded-reassign' && u.reassignmentChain
+            ? `<div style="font-size:9px;color:var(--teal);margin-top:2px">↻ ${u.reassignmentChain.join(' → ')}</div>
+               <div style="font-size:9px;color:var(--amb)">⚠ Seat renews — brief Gartner AM</div>`
+            : ''}
         </div>`).join('')}
       </div>
     </div>`;

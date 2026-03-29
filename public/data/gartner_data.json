@@ -5,7 +5,14 @@
     "analysisPeriod": "Aug 2023 \u2013 Oct 2025",
     "analysisPeriodMonths": 26,
     "contractExpiry": "2026-07-31",
-    "organization": "GovTech / SNG"
+    "organization": "GovTech / SNG",
+    "reassignmentUsers": [
+      "User2"
+    ],
+    "excludedTerminateUsers": [
+      "User23"
+    ],
+    "excludedNote": "excluded-reassign: seat renews under new occupant (succession). excluded-terminate: seat dropped from renewal. These are distinct \u2014 do not treat them the same."
   },
   "contract": {
     "totalLicensedUsers": 39,
@@ -223,9 +230,10 @@
   ],
   "statusCounts": {
     "followup": 19,
-    "excluded": 2,
+    "excluded-reassign": 1,
     "renew": 13,
     "terminate": 3,
+    "excluded-terminate": 1,
     "review": 2
   },
   "agencies": [
@@ -263,13 +271,13 @@
       "monthlyAvg": 4.4,
       "currentCostYr": 175933.0,
       "newCostYr": 205867.0,
-      "recommendation": "No Survey \u2013 Active Usage: Follow-up Required",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Active (114 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 92,
       "analystCalls": 16,
-      "conferences": 6
+      "conferences": 6,
+      "decisionRationale": "No Survey \u2013 Active Usage: Follow-up Required",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User2",
@@ -283,13 +291,21 @@
       "monthlyAvg": 3.9,
       "currentCostYr": 175933.0,
       "newCostYr": 205867.0,
-      "recommendation": "Excluded (1) - Account Reassignment: Vacated \u2192 User3  \u2192 User10 \u2192 New user",
-      "renewalProposal": "Renew",
       "rationale": "User excluded from analysis: EXCLUDED \u2013 Left organisation",
-      "status": "excluded",
+      "status": "excluded-reassign",
       "downloads": 60,
       "analystCalls": 39,
-      "conferences": 2
+      "conferences": 2,
+      "exclusionType": "reassign",
+      "exclusionReason": "Left organisation \u2014 EPL-Leader seat retained for reassignment",
+      "reassignmentChain": [
+        "User3",
+        "User10",
+        "New user"
+      ],
+      "reassignmentNote": "Seat licence is renewed but reassigned through succession: User3 (first candidate) \u2192 User10 (fallback) \u2192 New user. Do NOT drop this seat. Brief Gartner AM that this is a reassignment, not a new purchase \u2014 pricing stays at existing EPL-Leader tier.",
+      "decisionRationale": "Excluded (1) - Account Reassignment: Vacated \u2192 User3  \u2192 User10 \u2192 New user",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User3",
@@ -303,13 +319,13 @@
       "monthlyAvg": 3.4,
       "currentCostYr": 68700.0,
       "newCostYr": 74600.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (89 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 65,
       "analystCalls": 24,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User4",
@@ -323,13 +339,13 @@
       "monthlyAvg": 5.5,
       "currentCostYr": 68700.0,
       "newCostYr": 74600.0,
-      "recommendation": "Renew - Current tier",
-      "renewalProposal": "Renew",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Active.",
       "status": "renew",
       "downloads": 125,
       "analystCalls": 16,
-      "conferences": 2
+      "conferences": 2,
+      "decisionRationale": "Renew - Current tier",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User5",
@@ -343,13 +359,13 @@
       "monthlyAvg": 26.8,
       "currentCostYr": 128750.0,
       "newCostYr": 149133.0,
-      "recommendation": "Renew - Current tier with training",
-      "renewalProposal": "Renew",
       "rationale": "Q15=Continue with current Gar. Value=Limited (DC:Substantial, Impact:Substantial, Cost:Below). Activity=High.",
       "status": "renew",
       "downloads": 655,
       "analystCalls": 40,
-      "conferences": 2
+      "conferences": 2,
+      "decisionRationale": "Renew - Current tier with training",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User6",
@@ -363,13 +379,13 @@
       "monthlyAvg": 10.1,
       "currentCostYr": 68700.0,
       "newCostYr": 74600.0,
-      "recommendation": "No Survey \u2013 Active Usage: Follow-up Required",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Active (262 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 245,
       "analystCalls": 17,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "No Survey \u2013 Active Usage: Follow-up Required",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User7",
@@ -383,13 +399,13 @@
       "monthlyAvg": 15.9,
       "currentCostYr": 100500.0,
       "newCostYr": 117000.0,
-      "recommendation": "No Survey \u2013 Active Usage: Follow-up Required",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Active (413 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 379,
       "analystCalls": 27,
-      "conferences": 7
+      "conferences": 7,
+      "decisionRationale": "No Survey \u2013 Active Usage: Follow-up Required",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User8",
@@ -403,13 +419,13 @@
       "monthlyAvg": 9.8,
       "currentCostYr": 100500.0,
       "newCostYr": 117000.0,
-      "recommendation": "Renew - Current tier",
-      "renewalProposal": "Renew",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Active.",
       "status": "renew",
       "downloads": 246,
       "analystCalls": 8,
-      "conferences": 2
+      "conferences": 2,
+      "decisionRationale": "Renew - Current tier",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User9",
@@ -423,13 +439,13 @@
       "monthlyAvg": 78.8,
       "currentCostYr": 100500.0,
       "newCostYr": 117000.0,
-      "recommendation": "Renew - Current tier",
-      "renewalProposal": "Renew",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Extreme Outlier.",
       "status": "renew",
       "downloads": 1984,
       "analystCalls": 52,
-      "conferences": 14
+      "conferences": 14,
+      "decisionRationale": "Renew - Current tier",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User10",
@@ -443,13 +459,13 @@
       "monthlyAvg": 5.2,
       "currentCostYr": 61733.0,
       "newCostYr": 72033.0,
-      "recommendation": "Renew - Substantial Value Right-size tier  (ask for Data Specific)",
-      "renewalProposal": "Renew",
       "rationale": "Q15=Change account tier. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Active. Q16: I was advised the data specific ones are more useful for me.",
       "status": "renew",
       "downloads": 84,
       "analystCalls": 52,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "Renew - Substantial Value Right-size tier  (ask for Data Specific)",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User11",
@@ -463,13 +479,13 @@
       "monthlyAvg": 24.9,
       "currentCostYr": 61733.0,
       "newCostYr": 72033.0,
-      "recommendation": "Renew - Current tier",
-      "renewalProposal": "Renew",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=High.",
       "status": "renew",
       "downloads": 636,
       "analystCalls": 11,
-      "conferences": 1
+      "conferences": 1,
+      "decisionRationale": "Renew - Current tier",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User12",
@@ -483,13 +499,13 @@
       "monthlyAvg": 29.3,
       "currentCostYr": 61733.0,
       "newCostYr": 72033.0,
-      "recommendation": "Renew - Current tier",
-      "renewalProposal": "Renew",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=High.",
       "status": "renew",
       "downloads": 741,
       "analystCalls": 19,
-      "conferences": 2
+      "conferences": 2,
+      "decisionRationale": "Renew - Current tier",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User13",
@@ -503,13 +519,13 @@
       "monthlyAvg": 7.4,
       "currentCostYr": 34667.0,
       "newCostYr": 41000.0,
-      "recommendation": "Terminate",
-      "renewalProposal": "Terminate",
       "rationale": "Q15=Do not need Gartner. Value=Limited (DC:Limited, Impact:Limited, Cost:Below). Activity=Active.",
       "status": "terminate",
       "downloads": 193,
       "analystCalls": 0,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "Terminate",
+      "decisionRecommendation": "Terminate"
     },
     {
       "id": "User14",
@@ -523,13 +539,13 @@
       "monthlyAvg": 5.3,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Current tier",
-      "renewalProposal": "Renew",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Active.",
       "status": "renew",
       "downloads": 127,
       "analystCalls": 11,
-      "conferences": 1
+      "conferences": 1,
+      "decisionRationale": "Renew - Current tier",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User15",
@@ -543,13 +559,13 @@
       "monthlyAvg": 1.9,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (50 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 50,
       "analystCalls": 0,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User16",
@@ -563,13 +579,13 @@
       "monthlyAvg": 0.3,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (8 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 4,
       "analystCalls": 3,
-      "conferences": 1
+      "conferences": 1,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User17",
@@ -583,13 +599,13 @@
       "monthlyAvg": 1.1,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (28 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 22,
       "analystCalls": 6,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User18",
@@ -603,13 +619,13 @@
       "monthlyAvg": 2.3,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Current tier, investigate barriers",
-      "renewalProposal": "Renew",
       "rationale": "Q15=Continue with current Gar. Value=Limited (DC:Limited, Impact:Limited, Cost:Exceeds). Activity=Low.",
       "status": "renew",
       "downloads": 55,
       "analystCalls": 4,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "Renew - Current tier, investigate barriers",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User19",
@@ -623,13 +639,13 @@
       "monthlyAvg": 1.4,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "Terminate",
-      "renewalProposal": "Terminate",
       "rationale": "Q15=Do not need Gartner. Value=Limited (DC:Limited, Impact:Limited, Cost:Below). Activity=Low.",
       "status": "terminate",
       "downloads": 36,
       "analystCalls": 0,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "Terminate",
+      "decisionRecommendation": "Terminate"
     },
     {
       "id": "User20",
@@ -643,13 +659,13 @@
       "monthlyAvg": 0.8,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (20 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 17,
       "analystCalls": 3,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User21",
@@ -663,13 +679,13 @@
       "monthlyAvg": 2.8,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (72 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 65,
       "analystCalls": 4,
-      "conferences": 3
+      "conferences": 3,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User22",
@@ -683,13 +699,13 @@
       "monthlyAvg": 4.5,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Active Usage: Follow-up Required",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Active (118 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 118,
       "analystCalls": 0,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "No Survey \u2013 Active Usage: Follow-up Required",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User23",
@@ -703,13 +719,17 @@
       "monthlyAvg": 2.0,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "Excluded",
-      "renewalProposal": "Terminate",
       "rationale": "User excluded from analysis: EXCLUDED \u2013 Not using Gartner",
-      "status": "excluded",
+      "status": "excluded-terminate",
       "downloads": 52,
       "analystCalls": 0,
-      "conferences": 0
+      "conferences": 0,
+      "exclusionType": "terminate",
+      "exclusionReason": "Confirmed not using Gartner \u2014 seat to be dropped",
+      "reassignmentChain": [],
+      "reassignmentNote": "No reassignment. Remove seat from renewal contract.",
+      "decisionRationale": "Excluded",
+      "decisionRecommendation": "Terminate"
     },
     {
       "id": "User24",
@@ -723,13 +743,13 @@
       "monthlyAvg": 1.3,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (33 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 33,
       "analystCalls": 0,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User25",
@@ -743,13 +763,13 @@
       "monthlyAvg": 1.7,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (45 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 45,
       "analystCalls": 0,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User26",
@@ -763,13 +783,13 @@
       "monthlyAvg": 6.7,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Current tier with training",
-      "renewalProposal": "Renew",
       "rationale": "Q15=Continue with current Gar. Value=Limited (DC:Limited, Impact:Limited, Cost:Below). Activity=Active.",
       "status": "renew",
       "downloads": 174,
       "analystCalls": 2,
-      "conferences": 2
+      "conferences": 2,
+      "decisionRationale": "Renew - Current tier with training",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User27",
@@ -783,13 +803,13 @@
       "monthlyAvg": 3.1,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Limited Value Right-size tier (ask for higher tier MQ/Hype)",
-      "renewalProposal": "Renew (if good justification provided for higher tier)",
       "rationale": "Q15=Change account tier. Value=Limited (DC:Limited, Impact:Limited, Cost:Below). Activity=Low. Q16: Magic Quadrants / Hype Cycles is currently not available as",
       "status": "review",
       "downloads": 77,
       "analystCalls": 1,
-      "conferences": 3
+      "conferences": 3,
+      "decisionRationale": "Renew - Limited Value Right-size tier (ask for higher tier MQ/Hype)",
+      "decisionRecommendation": "Renew (if good justification provided for higher tier)"
     },
     {
       "id": "User28",
@@ -803,13 +823,13 @@
       "monthlyAvg": 1.3,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (34 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 28,
       "analystCalls": 6,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User29",
@@ -823,13 +843,13 @@
       "monthlyAvg": 2.5,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Current tier with coaching",
-      "renewalProposal": "Renew",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Low.",
       "status": "renew",
       "downloads": 64,
       "analystCalls": 1,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "Renew - Current tier with coaching",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User30",
@@ -843,13 +863,13 @@
       "monthlyAvg": 7.5,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Limited Value Right-size tier (ask for higher tier CIO/CISO)",
-      "renewalProposal": "Renew (if good justification provided for higher tier)",
       "rationale": "Q15=Change account tier. Value=Limited (DC:Limited, Impact:Limited, Cost:Below). Activity=Active. Q16: Need to move to a tier relevant to CIOs and CISOs. Often has",
       "status": "review",
       "downloads": 185,
       "analystCalls": 8,
-      "conferences": 1
+      "conferences": 1,
+      "decisionRationale": "Renew - Limited Value Right-size tier (ask for higher tier CIO/CISO)",
+      "decisionRecommendation": "Renew (if good justification provided for higher tier)"
     },
     {
       "id": "User31",
@@ -863,13 +883,13 @@
       "monthlyAvg": 8.2,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "Terminate",
-      "renewalProposal": "Terminate",
       "rationale": "Q15=Do not need Gartner. Value=Limited (DC:Limited, Impact:Limited, Cost:Below). Activity=Active.",
       "status": "terminate",
       "downloads": 212,
       "analystCalls": 0,
-      "conferences": 2
+      "conferences": 2,
+      "decisionRationale": "Terminate",
+      "decisionRecommendation": "Terminate"
     },
     {
       "id": "User32",
@@ -883,13 +903,13 @@
       "monthlyAvg": 2.2,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Substantial Value Right-size tier (ask for higher tier MQ/Hype)",
-      "renewalProposal": "Renew",
       "rationale": "Q15=Change account tier. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Low. Q16: My account does not have access into Magic Quadrant. I will",
       "status": "renew",
       "downloads": 45,
       "analystCalls": 13,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "Renew - Substantial Value Right-size tier (ask for higher tier MQ/Hype)",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User33",
@@ -903,13 +923,13 @@
       "monthlyAvg": 8.0,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "Renew - Current tier",
-      "renewalProposal": "Renew",
       "rationale": "Q15=Continue with current Gar. Value=Substantial (DC:Substantial, Impact:Substantial, Cost:Exceeds). Activity=Active.",
       "status": "renew",
       "downloads": 196,
       "analystCalls": 6,
-      "conferences": 7
+      "conferences": 7,
+      "decisionRationale": "Renew - Current tier",
+      "decisionRecommendation": "Renew"
     },
     {
       "id": "User34",
@@ -923,13 +943,13 @@
       "monthlyAvg": 11.2,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Active Usage: Follow-up Required",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Active (290 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 289,
       "analystCalls": 0,
-      "conferences": 1
+      "conferences": 1,
+      "decisionRationale": "No Survey \u2013 Active Usage: Follow-up Required",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User35",
@@ -943,13 +963,13 @@
       "monthlyAvg": 3.5,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (92 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 83,
       "analystCalls": 7,
-      "conferences": 2
+      "conferences": 2,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User36",
@@ -963,13 +983,13 @@
       "monthlyAvg": 1.7,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (45 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 45,
       "analystCalls": 0,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User37",
@@ -983,13 +1003,13 @@
       "monthlyAvg": 0.3,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (7 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 7,
       "analystCalls": 0,
-      "conferences": 0
+      "conferences": 0,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User38",
@@ -1003,13 +1023,13 @@
       "monthlyAvg": 0.6,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (16 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 16,
       "analystCalls": 0,
-      "conferences": 1
+      "conferences": 1,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     },
     {
       "id": "User39",
@@ -1023,13 +1043,13 @@
       "monthlyAvg": 0.8,
       "currentCostYr": 5103.0,
       "newCostYr": 6116.0,
-      "recommendation": "No Survey \u2013 Low Usage: Consider Termination",
-      "renewalProposal": "Terminate (unless follow-up successful)",
       "rationale": "No survey data. Activity-only basis: Low (20 activities over 26 months). Follow-up interview recommended.",
       "status": "followup",
       "downloads": 19,
       "analystCalls": 0,
-      "conferences": 1
+      "conferences": 1,
+      "decisionRationale": "No Survey \u2013 Low Usage: Consider Termination",
+      "decisionRecommendation": "Terminate (unless follow-up successful)"
     }
   ]
 }

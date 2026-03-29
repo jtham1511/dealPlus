@@ -112,27 +112,30 @@ def convert(excel_path: Path) -> dict:
         uid = str(r[0]).strip()
         if not uid or uid == "nan":
             continue
-        survey = str(r[3]).strip() if pd.notna(r[3]) else ""
-        rec    = str(r[11]).strip() if pd.notna(r[11]) and str(r[11]) != "nan" else ""
-        status = classify_status(survey, rec)
+        survey              = str(r[3]).strip() if pd.notna(r[3]) else ""
+        decision_rationale  = str(r[11]).strip() if pd.notna(r[11]) and str(r[11]) != "nan" else ""
+        p                   = proposal_map.get(uid, {})
+        decision_rec        = p.get("renewalProposal", "")
+        status              = proposal_to_status(survey, decision_rec)
         users.append({
-            "id":              uid,
-            "agency":          str(r[1]).strip() if pd.notna(r[1]) else "",
-            "accountType":     str(r[2]).strip() if pd.notna(r[2]) else "",
-            "surveyStatus":    survey,
-            "q15":             str(r[4]).strip() if pd.notna(r[4]) else "",
-            "valueAssessment": str(r[5]).strip() if pd.notna(r[5]) else "",
-            "activityLevel":   str(r[6]).strip() if pd.notna(r[6]) else "",
-            "totalActivities": int(r[7]) if pd.notna(r[7]) else 0,
-            "monthlyAvg":      round(float(r[8]), 1) if pd.notna(r[8]) else 0.0,
-            "currentCostYr":   clean_float(r[9]),
-            "newCostYr":       clean_float(r[10]),
-            "recommendation":  rec,
-            "rationale":       str(r[12]).strip() if pd.notna(r[12]) and str(r[12]) != "nan" else "",
-            "status":          status,
-            "downloads":       0,
-            "analystCalls":    0,
-            "conferences":     0,
+            "id":                      uid,
+            "agency":                  str(r[1]).strip() if pd.notna(r[1]) else "",
+            "accountType":             str(r[2]).strip() if pd.notna(r[2]) else "",
+            "surveyStatus":            survey,
+            "q15":                     str(r[4]).strip() if pd.notna(r[4]) else "",
+            "valueAssessment":         str(r[5]).strip() if pd.notna(r[5]) else "",
+            "activityLevel":           str(r[6]).strip() if pd.notna(r[6]) else "",
+            "totalActivities":         int(r[7]) if pd.notna(r[7]) else 0,
+            "monthlyAvg":              round(float(r[8]), 1) if pd.notna(r[8]) else 0.0,
+            "currentCostYr":           clean_float(r[9]),
+            "newCostYr":               clean_float(r[10]),
+            "decisionRationale":       decision_rationale,
+            "decisionRecommendation":  decision_rec,
+            "rationale":               str(r[12]).strip() if pd.notna(r[12]) and str(r[12]) != "nan" else "",
+            "status":                  status,
+            "downloads":               0,
+            "analystCalls":            0,
+            "conferences":             0,
         })
 
     print(f"  Loaded {len(users)} users from '{ind_sheet_name}'")

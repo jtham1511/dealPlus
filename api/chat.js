@@ -42,10 +42,12 @@ converter and redeploy.`;
   const terminateUsers = users.filter(u => u.status === "terminate");
   const reviewUsers  = users.filter(u => u.status === "review");
   const followupUsers = users.filter(u => u.status === "followup");
-  const excludedUsers = users.filter(u => u.status === "excluded");
+  const excludedReassignUsers = users.filter(u => u.status === "excluded-reassign");
+  const excludedTerminateUsers = users.filter(u => u.status === "excluded-terminate");
+  const excludedUsers = [...excludedReassignUsers, ...excludedTerminateUsers];
 
   const topUsers = [...users]
-    .filter(u => u.status !== "excluded")
+    .filter(u => !u.status.startsWith("excluded"))
     .sort((a, b) => b.totalActivities - a.totalActivities)
     .slice(0, 5)
     .map(u => `${u.id} (${u.accountType}): ${u.totalActivities} acts, ${u.monthlyAvg}/mo — ${u.status}`)
@@ -60,8 +62,8 @@ converter and redeploy.`;
     .join("\n");
 
   const renewList     = renewUsers.map(u => `${u.id} ${u.accountType}`).join(", ");
-  const terminateList = terminateUsers.map(u => `${u.id} ${u.accountType} — ${u.recommendation}`).join("\n    ");
-  const reviewList    = reviewUsers.map(u => `${u.id} ${u.accountType} — ${u.recommendation}`).join(", ");
+  const terminateList = terminateUsers.map(u => `${u.id} ${u.accountType} — ${u.decisionRationale}`).join("\n    ");
+  const reviewList    = reviewUsers.map(u => `${u.id} ${u.accountType} — ${u.decisionRationale}`).join(", ");
   const followupHighPriority = followupUsers
     .filter(u => u.activityLevel === "Active" || u.activityLevel === "High" || u.activityLevel === "Extreme Outlier")
     .map(u => `${u.id} (${u.accountType}, ${u.totalActivities} acts)`)
@@ -79,7 +81,8 @@ Analysis period: ${_meta.analysisPeriod} (${_meta.analysisPeriodMonths} months) 
 Total licensed users:     ${contract.totalLicensedUsers}
   Responded to survey:    ${contract.responded}
   Non-respondents:        ${contract.nonRespondents}
-  Excluded from analysis: ${contract.excluded}
+  Excluded (reassign pending): ${excludedReassignUsers.length} — seat renews, person changes
+  Excluded (seat terminated):  ${excludedTerminateUsers.length} — seat dropped from contract
 Budget approved:          $${contract.totalBudgetApproved.toLocaleString()}
 Projected final spend:    $${contract.projectedFinalSpend.toLocaleString()} (${contract.budgetUtilisationPct}% utilisation)
 Current annual cost:      $${contract.currentAnnualCost.toLocaleString()}/yr
@@ -123,8 +126,18 @@ FOLLOW-UP REQUIRED (${followupUsers.length} users — no survey data):
     High priority (active usage): ${followupHighPriority}
     Low priority: ${followupUsers.filter(u=>u.activityLevel==='Low').map(u=>u.id).join(', ')}
 
-EXCLUDED (${excludedUsers.length} users):
-    ${excludedUsers.map(u=>`${u.id} — ${u.rationale.substring(0,60)}`).join('\n    ')}
+EXCLUDED — REASSIGNMENT PENDING (${excludedReassignUsers.length} user):
+${excludedReassignUsers.map(u=>`    ${u.id} (${u.accountType}) — SEAT RENEWS, PERSON CHANGES
+    Succession chain: ${u.reassignmentChain ? u.reassignmentChain.join(' → ') : 'TBD'}
+    Action: ${u.reassignmentNote || ''}
+    ⚠ Do NOT drop this seat — brief Gartner AM it is a reassignment at existing tier pricing`).join('\n')}
+
+EXCLUDED — SEAT TERMINATED (${excludedTerminateUsers.length} user):
+${excludedTerminateUsers.map(u=>`    ${u.id} (${u.accountType}) — ${u.exclusionReason || u.rationale.substring(0,80)}
+    Decision Recommendation: ${u.decisionRecommendation} — Remove from contract`).join('\n')}
+
+⚠ CRITICAL DISTINCTION: excluded-reassign ≠ excluded-terminate.
+  User2 seat RENEWS under new occupant. User23 seat DROPS. Never treat them the same.
 
 ━━━ SURVEY RESULTS (${survey.totalRespondents} respondents) ━━━
 High Usefulness (Q3):     ${survey.highUsefulnessPct}% (Essential + Frequently valuable)
